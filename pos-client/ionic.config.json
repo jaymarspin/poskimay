@@ -1,0 +1,7 @@
+{
+  "name": "pos-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
