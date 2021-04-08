@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://54.251.214.156/ecrimeserver/"
+  apiUrl: "http://localhost/ecrimeserver/"
 };
 
 /* 

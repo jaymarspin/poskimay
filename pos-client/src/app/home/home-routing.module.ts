@@ -6,6 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children: [
+      {
+        path: "sale",
+        loadChildren: () => import('./sale-input/sale-input.module').then( m => m.SaleInputPageModule)
+
+      }
+    ]
+     
   }
 ];
 

@@ -8,17 +8,18 @@ import {HttpService} from '../services/http.service'
 export class HomePage {
 
   constructor(public service: HttpService) {
-    this.service.getData().subscribe(res =>{
-      console.log(res)
-    },error =>{
-      console.log(error)
-    })
+     
+    // this.service.getData().subscribe(res =>{
+    //   console.log(res)
+    // },error =>{
+    //   console.log(error)
+    // })
 
-    this.service.addPerson().subscribe(res =>{
+    // this.service.addPerson().subscribe(res =>{
 
-    },error =>{
+    // },error =>{
       
-    })
+    // })
   }
 
 }

@@ -1,0 +1,93 @@
+@media (min-width: 1025px){
+    .head{
+        height: 80px;
+        width: 100%;
+        position: relative;
+        display: block;
+        clear: both;
+        background-color: #42413f;
+        ion-col{
+            line-height: 50px;
+             ion-item{
+                --background: none;
+                ion-avatar{
+                     
+                    position: relative;
+                     
+                }
+                ion-label{
+                    font-size: 18px;
+                }
+             }
+             ul{
+                 float: right;
+                 position: relative;
+                 clear: both;
+                 list-style-type: none;
+                 display: block;
+                 margin-right: 20px;
+                 li{
+                     display: inline-block;
+                     margin-right: 5px;
+                     ion-label{ 
+                         position: relative;
+                         top: -10px;
+                         font-size: 25px;
+                     }
+                     ion-icon{
+                         font-size: 35px;
+                     }
+                 }
+             }
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1204px) {
+    .head{
+        height: 50px;
+        width: 100%;
+        position: relative;
+        display: block;
+        clear: both;
+        background-color: #42413f;
+        ion-col{
+             
+             ion-item{
+                --background: none;
+                ion-avatar{
+                    height: 100%;
+                    position: relative;
+                    top: -7px;
+                }
+                ion-label{
+                    font-size: 16px;
+                    position: relative;
+                    top: -8px;
+                }
+             }
+             ul{
+                 float: right;
+                 position: relative;
+                 clear: both;
+                 list-style-type: none;
+                 display: block;
+                 margin-right: 20px;
+                 li{
+                     display: inline-block;
+                     margin-right: 5px;
+                     ion-label{ 
+                         position: relative;
+                         top: -17px;
+                         font-size: 16px;
+                     }
+                     ion-icon{
+                        position: relative;
+                        top: -8px;
+                         font-size: 28px;
+                     }
+                 }
+             }
+        }
+    }
+}
