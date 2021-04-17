@@ -29,5 +29,11 @@
 ion-content{
     --background: #edece8
 }
+:root {
+    ion-menu::part(backdrop) {
+        background-color: transparent;
+        display: none;
+    }
+  }
 
  

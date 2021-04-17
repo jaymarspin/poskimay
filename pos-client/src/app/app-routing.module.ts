@@ -12,6 +12,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'owners-panel',
+    loadChildren: () => import('./owners-panel/owners-panel.module').then( m => m.OwnersPanelPageModule)
+  },
   
 ];
 

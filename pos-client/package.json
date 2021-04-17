@@ -26,6 +26,7 @@
     "@ionic-super-tabs/angular": "^7.0.8",
     "@ionic/angular": "^5.5.2",
     "i": "^0.3.6",
+    "ng-sidebar": "^9.4.2",
     "ngx-spinner": "^11.0.1",
     "npm": "^7.8.0",
     "rxjs": "~6.6.0",
