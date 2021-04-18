@@ -5,5 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   loading:any
-  constructor() { }
+  constructor() {
+    this.loading = false
+   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import {Router } from '@angular/router'
 import {EmployeeActionsComponent} from '../employee-actions/employee-actions.component'
 @Component({
   selector: 'app-employees',
@@ -7,8 +8,28 @@ import {EmployeeActionsComponent} from '../employee-actions/employee-actions.com
   styleUrls: ['./employees.component.scss'],
 })
 export class EmployeesComponent implements OnInit {
-
-  constructor(public popoverController: PopoverController) { }
+  employee:any
+  constructor(private router: Router ,public popoverController: PopoverController) {
+    this.employee = new Array()
+    this.employee.push({
+      sample: ""
+    })
+    this.employee.push({
+      sample: ""
+    })
+    this.employee.push({
+      sample: ""
+    })
+    this.employee.push({
+      sample: ""
+    })
+    this.employee.push({
+      sample: ""
+    })
+    this.employee.push({
+      sample: ""
+    })
+   }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
@@ -24,5 +45,13 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  addemployee(){
+      
+  }
+
+  gofurther(link){
+    this.router.navigate([link])
+  }
 
 }

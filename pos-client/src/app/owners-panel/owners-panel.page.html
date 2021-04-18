@@ -17,25 +17,41 @@
     [closeOnClickOutside]="_closeOnClickOutside">
       <div class="menu-wrapper">
         <ion-list class="bg-transparent" >
+          <ion-item lines="full" (click)="gofurther('owners-panel/dashboard')">
+            <ion-icon name="pie-chart-outline" slot="start" color="light"></ion-icon>
+            <ion-label color="light">
+              Dashboard
+            </ion-label>
+          </ion-item>
  
-          <ion-item lines="full" >
-            <ion-icon name="aperture-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/employee')">
+            <ion-icon name="briefcase-outline" slot="start" color="light"></ion-icon> 
             <ion-label color="light">
-              Employee
+              Employees
             </ion-label>
           </ion-item>
 
-          <ion-item lines="full" >
-            <ion-icon name="aperture-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/attendance')">
+       
+            <ion-icon name="calendar-outline" slot="start" color="light"></ion-icon>
             <ion-label color="light">
-              Employee
+              Attendance
             </ion-label>
           </ion-item>
 
-          <ion-item lines="full" >
-            <ion-icon name="aperture-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')"> 
+            <ion-icon name="cash-outline" slot="start" color="light"></ion-icon>
             <ion-label color="light">
-              Employee
+              Payroll
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+             
+          </ion-item>
+          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')"> 
+            <ion-icon name="cash-outline" slot="start" color="light"></ion-icon>
+            <ion-label color="light">
+              Payroll
             </ion-label>
           </ion-item>
         

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'; 
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-owners-panel',
   templateUrl: './owners-panel.page.html',
@@ -14,13 +15,17 @@ export class OwnersPanelPage implements OnInit {
   public _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
   public _menu: boolean;
   public isMenuActive : string;
-  constructor( ) { }
+  constructor( public router: Router) { }
 
   ngOnInit() {
  
    
   }
 
+
+  gofurther(link){
+    this.router.navigate([link])
+  }
   private _toggleSidebar() {
     this._opened = !this._opened;
   }

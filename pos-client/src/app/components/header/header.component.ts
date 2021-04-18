@@ -11,6 +11,8 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.global.loading = false
+  }
 
 }
