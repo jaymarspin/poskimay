@@ -44,14 +44,27 @@ ion-content{
      height: calc(100vh - 140px);
      display: block;
      overflow-y: scroll;
+     padding: 0;
+     ion-card-content{
+         height: auto;
+         overflow: hidden;
+     }
      
      
  }
  
  @media (min-width: 768px) and (max-width: 1204px) {
     ion-card{
-        
+        padding: 0;
         height: calc(100vh - 130px);
+        ion-card-content{
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: block; 
+             
+        }
+        
         
         
     }

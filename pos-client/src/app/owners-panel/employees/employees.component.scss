@@ -17,4 +17,21 @@
     margin: auto;
     display: block;
    
+}ion-grid{ 
+    width: 100%;
+}.badge-wrapper{
+    position: relative;
+    width: 100%; 
+    height: auto;
+    overflow: hidden;
+}
+
+ion-badge{
+    position: relative;
+    width: 26px;
+     float: left;
+    display: block;
+   
+     
+
 }
