@@ -11,8 +11,8 @@ export class HttpService {
   server: string = environment.apiUrl;
   constructor( private http: HttpClient ) { }
 
-  public getData() {
-    return this.http.get<any[]>(this.server+ "get-crimes.php?lat=12&lng=33&id=1")
+  public getData(link) {
+    return this.http.get<any[]>(this.server+ link)
               
   }
 
@@ -32,6 +32,11 @@ export class HttpService {
     };
    return this.http.post(this.server + 'add-crime.php', body,{'headers':headers , observe: 'response'})
       
+}
+postData(link,body):any{
+  
+  const headers = { 'content-type': 'application/json'}  
+  return this.http.post<any>(this.server + link, body,{'headers':headers , observe: 'response'})
 }
  
 }

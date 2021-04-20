@@ -15,6 +15,7 @@ import {AddEmployeeComponent} from './add-employee/add-employee.component'
 import {DashboardComponent} from './dashboard/dashboard.component' 
 import {AttendanceComponent} from './attendance/attendance.component'
 import {PayrollComponent} from './payroll/payroll.component'
+import {AddDepartmentComponent} from './add-department/add-department.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,6 @@ import {PayrollComponent} from './payroll/payroll.component'
     OwnersPanelPageRoutingModule,
     SidebarModule.forRoot(), 
   ],
-  declarations: [OwnersPanelPage,OwnerHeaderComponent,EmployeesComponent,AddEmployeeComponent,DashboardComponent,AttendanceComponent,PayrollComponent]
+  declarations: [OwnersPanelPage,OwnerHeaderComponent,EmployeesComponent,AddEmployeeComponent,DashboardComponent,AttendanceComponent,PayrollComponent,AddDepartmentComponent]
 })
 export class OwnersPanelPageModule {}
