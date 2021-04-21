@@ -1,0 +1,32 @@
+ 
+<ion-progress-bar style="position: fixed;z-index: 99;" type="indeterminate" color="warning"></ion-progress-bar>
+<ion-content>
+  
+  <div class="wrapper">
+  <div class="login-page">
+    <div class="form">
+       
+   
+        
+<ion-item>
+  <ion-label position="floating">Business Name</ion-label>
+  <ion-input [(ngModel)]="business"></ion-input>
+</ion-item>
+
+
+<ion-item>
+  <ion-label>Category</ion-label>
+  <ion-select placeholder="Select Category" [(ngModel)]="businesstype" >
+    <ion-select-option *ngFor="let item of categories" [value]="item.id">{{item.category}}</ion-select-option>
+ 
+  </ion-select>
+</ion-item>
+        
+        <button (click)="done()">Add</button>
+         
+        <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+       
+    </div>
+  </div>
+</div>
+</ion-content>

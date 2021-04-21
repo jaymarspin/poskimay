@@ -1,0 +1,68 @@
+<ion-grid  >
+  <ion-row  >
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Product Name</ion-label>
+        <ion-input [(ngModel)]="fname"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2">
+      
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Stocks count</ion-label>
+        <ion-input [(ngModel)]="stocks"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row  >
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Barcode</ion-label>
+        <ion-input [(ngModel)]="barcode"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2">
+      
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ion-label *ngIf="categories" position="floating">Category</ion-label>
+        <ion-select *ngIf="categories" [(ngModel)]="gender"  placeholder="Select One" >
+          <ion-select-option value="male">Male</ion-select-option>
+          <ion-select-option value="female">Female</ion-select-option>
+        </ion-select>
+
+        <ion-button *ngIf="!categories" (click)="presentPopover($event)">Add Category</ion-button>
+      </ion-item>
+
+      <!-- <ion-col size="5">
+      <ion-item>
+        <ion-label *ngIf="department" position="floating">Department</ion-label>
+        <ion-select *ngIf="department" placeholder="Select One" >
+          <ion-select-option *ngFor="let item of department" [value]="item.id">{{item.department}}</ion-select-option>
+          
+        </ion-select>
+        <ion-button *ngIf="!department" (click)="presentPopover($event)">Add Department</ion-button>
+      </ion-item>
+    </ion-col> -->
+    </ion-col>
+  </ion-row>
+  
+ 
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col size="3">
+
+    </ion-col>
+    <ion-col size="5">
+      <ion-button (click)="next()" style="width: 100%;">Next <ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
+    </ion-col>
+    <ion-col size="3">
+      
+    </ion-col>
+  </ion-row>
+
+ 
+</ion-grid>

@@ -7,6 +7,8 @@ import {AddEmployeeComponent} from './add-employee/add-employee.component'
 import {DashboardComponent} from './dashboard/dashboard.component'
 import {AttendanceComponent} from './attendance/attendance.component'
 import {PayrollComponent} from './payroll/payroll.component'
+import {ProductsComponent} from './products/products.component'
+import {AddProductsComponent} from './add-products/add-products.component'
 const routes: Routes = [
   {
     path: '',
@@ -41,6 +43,12 @@ const routes: Routes = [
         path: "payroll",
         component: PayrollComponent
 
+      },{
+        path: "products",
+        component: ProductsComponent
+      },{
+        path: "add-products",
+        component: AddProductsComponent
       }
     ]
   },

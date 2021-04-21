@@ -9,7 +9,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'signin',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
@@ -24,6 +24,15 @@ const routes: Routes = [
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
+  {
+    path: 'add-business',
+    loadChildren: () => import('./add-business/add-business.module').then( m => m.AddBusinessPageModule)
+  },
+  {
+    path: 'business-panel',
+    loadChildren: () => import('./business-panel/business-panel.module').then( m => m.BusinessPanelPageModule)
+  }
+  
   
 ];
 
