@@ -14,17 +14,18 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit() {}
 
   submit(){ 
+    alert(this.category)
     if(this.category){
       this.global.loading = true
       let data = {
-        id: 1,
+        id: localStorage.getItem("business_id"),
         category: this.category
   
       }
       this.http.postData("add-category.php",data).subscribe({
         
         next: data => {
-          
+          console.log(data)
           this.global.loading = false
             if(data.body.message =="success"){
               this.popoverController.dismiss();
@@ -33,6 +34,7 @@ export class AddCategoryComponent implements OnInit {
             }
         },
         error: error => {
+          console.log(error)
           this.global.loading = false
             console.error('There was an error!', error);
         }

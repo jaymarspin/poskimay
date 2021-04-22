@@ -18,6 +18,7 @@ import {PayrollComponent} from './payroll/payroll.component'
 import {AddDepartmentComponent} from './add-department/add-department.component'
 import {ProductsComponent} from './products/products.component'
 import {AddProductsComponent} from './add-products/add-products.component'
+import {AddCategoryComponent} from './add-category/add-category.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import {AddProductsComponent} from './add-products/add-products.component'
     SidebarModule.forRoot(), 
   ],
   declarations: [OwnersPanelPage,OwnerHeaderComponent,EmployeesComponent,AddEmployeeComponent,DashboardComponent,AttendanceComponent,PayrollComponent,AddDepartmentComponent,ProductsComponent,
-    AddProductsComponent
+    AddProductsComponent,
+    AddCategoryComponent
   
   ]
 })

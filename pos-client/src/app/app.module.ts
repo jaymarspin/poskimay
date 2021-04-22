@@ -12,6 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import {ComponentsModule} from './modules/components/components.module'
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
+import { Camera } from '@ionic-native/camera/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+  
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+ 
+ 
+import { ImagePicker } from '@ionic-native/image-picker/ngx'; 
+import { Crop } from '@ionic-native/crop/ngx';
+import { File } from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,6 +29,12 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
   ],
   providers: [
     HttpClient,
+    Camera,
+    WebView,
+    ImagePicker,
+    Crop,
+    File,
+    Base64,
     
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

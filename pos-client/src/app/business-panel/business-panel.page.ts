@@ -13,6 +13,7 @@ export class BusinessPanelPage implements OnInit {
   constructor(private router: Router,public global: GlobalService,public http: HttpService) { }
 
   ngOnInit() { 
+    localStorage.removeItem("last_path")
     this.global.routingBack()
     this.http.getData("get-businesses.php?id="+localStorage.getItem("id")).subscribe({
       next: data =>{

@@ -18,7 +18,7 @@ export class OwnersPanelPage implements OnInit {
   constructor( public router: Router) { }
 
   ngOnInit() {
- 
+    localStorage.setItem("last_path","owners_panel")
    
   }
 
