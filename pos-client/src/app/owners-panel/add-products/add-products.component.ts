@@ -46,6 +46,7 @@ export class AddProductsComponent implements OnInit {
     private camera: Camera,private base64: Base64
     
     ) {
+      this.imgsrc = "assets/icon/photo.svg"
     this.barcode = ""
    }
 
@@ -167,7 +168,8 @@ export class AddProductsComponent implements OnInit {
         category: this.category,
         barcode: this.barcode,
         price: this.price,
-        business_id: localStorage.getItem("business_id")
+        business_id: localStorage.getItem("business_id"),
+        base64data: this.base64data
         
       }
       console.log(data)
