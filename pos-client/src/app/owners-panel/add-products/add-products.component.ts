@@ -172,7 +172,7 @@ export class AddProductsComponent implements OnInit {
         base64data: this.base64data
         
       }
-      console.log(data)
+       
       this.http.postData("add-product.php",data).subscribe({
         next: data =>{
           this.global.loading = false

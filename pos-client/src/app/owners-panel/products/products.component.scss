@@ -28,10 +28,12 @@
 
 ion-badge{
     position: relative;
-    width: 26px;
+  
      float: left;
     display: block;
    
      
 
+}ion-content{
+    --background: #fff; 
 }
