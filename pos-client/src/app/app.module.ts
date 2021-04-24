@@ -21,6 +21,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx'; 
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -35,6 +36,7 @@ import { File } from '@ionic-native/file/ngx';
     Crop,
     File,
     Base64,
+    PhotoViewer,
     
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

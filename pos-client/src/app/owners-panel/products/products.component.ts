@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import {Router } from '@angular/router'
-import {EmployeeActionsComponent} from '../employee-actions/employee-actions.component'
+import {ProductActionsComponent} from '../product-actions/product-actions.component'
 import {GlobalService} from '../../services/global.service' 
 import {HttpService} from '../../services/http.service'
 @Component({
@@ -12,32 +12,24 @@ import {HttpService} from '../../services/http.service'
 export class ProductsComponent implements OnInit {
   employee:any
   products:any
+  products_count
+
+  page:number
+   limit:number
+   pagebtntmp:any
+   pagebtn:any
   constructor(public global: GlobalService,public http: HttpService,private router: Router ,public popoverController: PopoverController) {
     this.products = new Array()
-    this.employee = new Array()
-    this.employee.push({
-      sample: ""
-    })
-    this.employee.push({
-      sample: ""
-    })
-    this.employee.push({
-      sample: ""
-    })
-    this.employee.push({
-      sample: ""
-    })
-    this.employee.push({
-      sample: ""
-    })
-    this.employee.push({
-      sample: ""
-    })
+   this.pagebtn = new Array()
+
+    this.page = 1
+    this.limit = 10
+    
    }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
-      component: EmployeeActionsComponent,
+      component: ProductActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true
@@ -52,14 +44,28 @@ export class ProductsComponent implements OnInit {
     this.loadData()
   }
   loadData(){
-    this.http.getData("get-products.php?id="+localStorage.getItem("business_id")).subscribe({
+    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
+    this.global.loading = true
+    this.http.getData("get-products.php?id="+localStorage.getItem("business_id")+"&limit="+this.limit+"&page="+this.page).subscribe({
       next: data =>{
-         let length = data.length
-   
+
+        this.products = new Array()
+     
+        let result = JSON.parse(JSON.stringify(data));
+        this.products_count = result.products_count
+         let length = result.products.length
+         
+         this.pagebtntmp =  this.products_count / this.limit
+         this.pagebtn = Array()
+         for(var i = 1;i < this.pagebtntmp + 1;i++){
+           this.pagebtn.push(i)
+         }
             for(var i =0;i < length;i++){
-          this.products.push(data[i])
+          this.products.push(result.products[i])
           console.log(this.products)
       }
+      this.global.loading = false
+      
     }
     })
     
@@ -78,6 +84,12 @@ export class ProductsComponent implements OnInit {
   }
   addemployee(){
       
+  }
+
+  pager(page){
+
+    this.page = page
+    this.loadData()
   }
 
   gofurther(link){
