@@ -31,8 +31,6 @@ export class EmployeeAccountsComponent implements OnInit {
           for(var x = 0;x < result.employeeRoles.length;x++){
             if(result.employeeRoles[x] == this.form[i].val){
               this.form[i].isChecked = true
-            }else{
-              this.form[i].isChecked = false
             }
           }
         }
