@@ -9,6 +9,7 @@ import {AttendanceComponent} from './attendance/attendance.component'
 import {PayrollComponent} from './payroll/payroll.component'
 import {ProductsComponent} from './products/products.component'
 import {AddProductsComponent} from './add-products/add-products.component'
+import {EmployeeAccountsComponent} from './employee-accounts/employee-accounts.component'
 const routes: Routes = [
   {
     path: '',
@@ -49,6 +50,9 @@ const routes: Routes = [
       },{
         path: "add-products",
         component: AddProductsComponent
+      },{
+        path: "employee-accounts/:id",
+        component: EmployeeAccountsComponent
       }
     ]
   },

@@ -4,6 +4,7 @@ import {Router } from '@angular/router'
 import {ProductActionsComponent} from '../product-actions/product-actions.component'
 import {GlobalService} from '../../services/global.service' 
 import {HttpService} from '../../services/http.service'
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -66,21 +67,18 @@ export class ProductsComponent implements OnInit {
       }
       this.global.loading = false
       
+    },error: error =>{
+     
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.message,
+        footer: ' '
+      })
     }
     })
     
-    // this.http.getData("get-products.php?id="+localStorage.getItem("business_id")).subscribe({
-    //   next: data =>{
-    //     console.log(data)
-    //     for(var i =0;i < data.body;i++){
-    //       this.products.push(data.body[i])
-    //       console.log(this.products)
-    //     }
 
-    //   },onerror: error =>{
-    //     console.log(error)
-    //   }
-    // })
   }
   addemployee(){
       

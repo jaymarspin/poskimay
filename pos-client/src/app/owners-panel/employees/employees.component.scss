@@ -37,3 +37,13 @@ ion-badge{
 }ion-content{
     --background: #fff; 
 }
+ul {
+    width: 100%;
+  white-space:nowrap;
+  overflow-x: scroll;
+  padding-left: 0;
+}
+
+li {
+  display:inline;
+}

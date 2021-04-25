@@ -20,6 +20,7 @@ import {ProductsComponent} from './products/products.component'
 import {AddProductsComponent} from './add-products/add-products.component'
 import {AddCategoryComponent} from './add-category/add-category.component'
 import {ProductActionsComponent} from './product-actions/product-actions.component'
+import {EmployeeAccountsComponent} from './employee-accounts/employee-accounts.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +32,8 @@ import {ProductActionsComponent} from './product-actions/product-actions.compone
   declarations: [OwnersPanelPage,OwnerHeaderComponent,EmployeesComponent,AddEmployeeComponent,DashboardComponent,AttendanceComponent,PayrollComponent,AddDepartmentComponent,ProductsComponent,
     AddProductsComponent,
     AddCategoryComponent,
-    ProductActionsComponent
+    ProductActionsComponent,
+    EmployeeAccountsComponent
   
   ]
 })
