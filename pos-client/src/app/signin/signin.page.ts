@@ -12,20 +12,28 @@ import Swal from 'sweetalert2'
 export class SigninPage implements OnInit {
   uname:any
   password:any
-  constructor(private router: Router,public global: GlobalService,public http: HttpService) { }
+
+  accountType:any
+  constructor(private router: Router,public global: GlobalService,public http: HttpService) { 
+    this.accountType = 'employee'
+  }
 
   ngOnInit() {
     this.global.routingGo()
 
   }
   async setter(id){
+     
+    localStorage.setItem("accountType",this.accountType)
     return await localStorage.setItem("id",id)
   }
   login(){
-    if(this.uname && this.password){
+    console.log(this.accountType)
+    if(this.uname && this.password && this.accountType){
       let data = {
         username: this.uname,
-        password: this.password
+        password: this.password,
+        accountType: this.accountType
       }
       console.log(data)
       this.http.postData("signin.php",data).subscribe({
@@ -39,7 +47,13 @@ export class SigninPage implements OnInit {
               'success'
             ).then(() =>{
               this.setter(data.body.id).then(() =>{
-                this.router.navigate(["business-panel"],{replaceUrl: true})
+                if(this.accountType == 'owner'){
+                  this.router.navigate(["business-panel"],{replaceUrl: true})
+                }else{
+                  this.router.navigate(["home"],{replaceUrl: true})
+                }
+                
+                
               })
               
             })
