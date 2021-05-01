@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -7,7 +8,7 @@ import Swal from 'sweetalert2'
 })
 export class SaleInputPage implements OnInit {
   sale:any
-  constructor() { 
+  constructor(private sqlite: SQLite) { 
     this.sale = Array()
     for(var i = 0;i < 20;i++){
       this.sale.push({
@@ -18,6 +19,21 @@ export class SaleInputPage implements OnInit {
   }
 
   ngOnInit() {
+    
+    // this.sqlite.create({
+    //   name: 'data.db',
+    //   location: 'default'
+    // })
+    //   .then((db: SQLiteObject) => {
+    
+    
+    //     db.executeSql('create table danceMoves(name VARCHAR(32))', [])
+    //       .then(() => console.log('Executed SQL'))
+    //       .catch(e => console.log(e));
+    
+    
+    //   })
+    //   .catch(e => console.log(e));
     
   }
   delete(){

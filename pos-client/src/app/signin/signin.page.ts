@@ -46,6 +46,9 @@ export class SigninPage implements OnInit {
               'You clicked the button!',
               'success'
             ).then(() =>{
+              if(data.body.employee_data != 0){
+                localStorage.setItem("business_id",data.body.employee_data)
+              }
               this.setter(data.body.id).then(() =>{
                 if(this.accountType == 'owner'){
                   this.router.navigate(["business-panel"],{replaceUrl: true})
