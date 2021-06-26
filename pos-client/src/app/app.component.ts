@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,6 +6,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor( ) {
-    
+
   }
 }
+
+
+
+// ionic build
+
+// npx cap add electron
+// npx cap open electron
