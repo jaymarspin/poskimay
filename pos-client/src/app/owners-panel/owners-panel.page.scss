@@ -4,14 +4,14 @@ ul{
     list-style-type: none;
     padding: 0;
     padding-left: 20px;
-    height: 30px; 
+    height: 30px;
     overflow: hidden;
     li{
         display: inline-block;
         position: relative;
         margin-right: 10px;
         font-size: 13px;
-        
+        cursor: pointer;
         color: #333;
         font-weight: normal;
     }li.li-active{
@@ -24,21 +24,22 @@ ul{
     height: 100%;
     overflow: hidden;
     background-color: #50545c;
-     
 
-} 
+
+}
 .bg-transparent {
    background: transparent;
    ion-item{
        --background: transparent;
-       
+       cursor: pointer;
+
    }
  }
 
 ion-content{
    display: flex;
    flex-direction: column;
-   
+
  }  ion-card{
      position: relative;
      height: calc(100vh - 140px);
@@ -49,11 +50,11 @@ ion-content{
          height: auto;
          overflow: hidden;
      }
-     
-     
+
+
  }
- 
- @media (min-width: 768px) and (max-width: 1204px) {
+
+ @media (min-width: 768px) {
     ion-card{
         padding: 0;
         height: calc(100vh - 130px);
@@ -61,21 +62,21 @@ ion-content{
             height: 100%;
             width: 100%;
             overflow: hidden;
-            display: block; 
-             
+            display: block;
+
         }
-        
-        
-        
+
+
+
     }
 }
 
 @media (min-width: 1025px){
     ion-card{
-        
+
         height: calc(100vh - 160px);
-        
-        
+
+
     }
 }
 

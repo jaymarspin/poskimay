@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
- 
+
 import {ProductViewComponent} from '../product-view/product-view.component'
-import {GlobalService} from '../../../../services/global.service' 
+import {GlobalService} from '../../../../services/global.service'
 import {HttpService} from '../../../../services/http.service'
 import { PopoverController } from '@ionic/angular';
 import Swal from 'sweetalert2'
@@ -19,13 +19,13 @@ export class ProductsComponent implements OnInit {
    limit:number
    pagebtntmp:any
    pagebtn:any
-  constructor(public global: GlobalService,public http: HttpService,public popoverController: PopoverController) { 
+  constructor(public global: GlobalService,public http: HttpService,public popoverController: PopoverController) {
     this.products = new Array()
     this.pagebtn = new Array()
- 
+
      this.page = 1
      this.limit = 10
-     
+
   }
 
   ngOnInit() {
@@ -47,19 +47,19 @@ export class ProductsComponent implements OnInit {
 
 
   loadData(){
-    
+
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true
     this.http.getData("get-products.php?id="+localStorage.getItem("business_id")+"&limit="+this.limit+"&page="+this.page).subscribe({
       next: data =>{
 
         this.products = new Array()
-     
+
         let result = JSON.parse(JSON.stringify(data));
         console.log(result)
         this.products_count = result.products_count
          let length = result.products.length
-         
+
          this.pagebtntmp =  this.products_count / this.limit
          this.pagebtn = Array()
          for(var i = 1;i < this.pagebtntmp + 1;i++){
@@ -70,9 +70,9 @@ export class ProductsComponent implements OnInit {
           console.log(this.products)
       }
       this.global.loading = false
-      
+
     },error: error =>{
-     
+      console.log(error)
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -81,7 +81,7 @@ export class ProductsComponent implements OnInit {
       })
     }
     })
-    
+
 
   }
 

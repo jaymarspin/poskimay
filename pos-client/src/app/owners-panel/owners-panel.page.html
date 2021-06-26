@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content>
- 
-  
+
+
   <ng-sidebar-container>
- 
+
     <!-- A sidebar -->
     <ng-sidebar [(opened)]="_opened"
     [mode]="_MODES[_modeNum]"
@@ -18,49 +18,49 @@
       <div class="menu-wrapper">
         <ion-list class="bg-transparent" >
           <ion-item lines="full" (click)="gofurther('owners-panel/dashboard')">
-            <ion-icon name="pie-chart-outline" slot="start" color="light"></ion-icon>
+            <ion-icon name="pie-chart" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Dashboard
             </ion-label>
           </ion-item>
-          <ion-item lines="full" (click)="gofurther('owners-panel/products')"> 
-            <ion-icon name="bag-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/products')">
+            <ion-icon name="bag" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Products
             </ion-label>
           </ion-item>
- 
+
           <ion-item lines="full" (click)="gofurther('owners-panel/employee')">
-            <ion-icon name="briefcase-outline" slot="start" color="light"></ion-icon> 
+            <ion-icon name="briefcase" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Employees
             </ion-label>
           </ion-item>
 
           <ion-item lines="full" (click)="gofurther('owners-panel/attendance')">
-       
-            <ion-icon name="calendar-outline" slot="start" color="light"></ion-icon>
+
+            <ion-icon name="calendar" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Attendance
             </ion-label>
           </ion-item>
 
-          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')"> 
-            <ion-icon name="cash-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')">
+            <ion-icon name="cash" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Payroll
             </ion-label>
           </ion-item>
           <ion-item lines="none">
-             
+
           </ion-item>
-          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')"> 
-            <ion-icon name="cash-outline" slot="start" color="light"></ion-icon>
+          <ion-item lines="full" (click)="gofurther('owners-panel/payroll')">
+            <ion-icon name="cash" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Payroll
             </ion-label>
           </ion-item>
-        
+
         </ion-list>
       </div>
     </ng-sidebar>
@@ -74,19 +74,19 @@
       </ul>
       <!-- <button (click)="_toggleSidebar()">Toggle sidebar</button> -->
       <ion-card>
-        
-      
+
+
         <ion-card-content>
           <ion-router-outlet></ion-router-outlet>
-          
-          
+
+
         </ion-card-content>
       </ion-card>
-     
+
     </div>
 
   </ng-sidebar-container>
-  
+
 </ion-content>
 
 <!-- <ion-icon name="bag-outline"></ion-icon> -->
