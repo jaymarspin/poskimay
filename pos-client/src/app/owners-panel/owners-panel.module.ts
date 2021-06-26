@@ -6,13 +6,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { OwnersPanelPageRoutingModule } from './owners-panel-routing.module';
 
-import { OwnersPanelPage } from './owners-panel.page'; 
+import { OwnersPanelPage } from './owners-panel.page';
 import {OwnerHeaderComponent} from './owner-header/owner-header.component'
 import {EmployeesComponent} from './employees/employees.component'
 import { SidebarModule } from 'ng-sidebar';
 
 import {AddEmployeeComponent} from './add-employee/add-employee.component'
-import {DashboardComponent} from './dashboard/dashboard.component' 
+import {DashboardComponent} from './dashboard/dashboard.component'
 import {AttendanceComponent} from './attendance/attendance.component'
 import {PayrollComponent} from './payroll/payroll.component'
 import {AddDepartmentComponent} from './add-department/add-department.component'
@@ -21,20 +21,22 @@ import {AddProductsComponent} from './add-products/add-products.component'
 import {AddCategoryComponent} from './add-category/add-category.component'
 import {ProductActionsComponent} from './product-actions/product-actions.component'
 import {EmployeeAccountsComponent} from './employee-accounts/employee-accounts.component'
+import { NgpImagePickerModule } from 'ngp-image-picker';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     OwnersPanelPageRoutingModule,
-    SidebarModule.forRoot(), 
+    NgpImagePickerModule,
+    SidebarModule.forRoot(),
   ],
   declarations: [OwnersPanelPage,OwnerHeaderComponent,EmployeesComponent,AddEmployeeComponent,DashboardComponent,AttendanceComponent,PayrollComponent,AddDepartmentComponent,ProductsComponent,
     AddProductsComponent,
     AddCategoryComponent,
     ProductActionsComponent,
     EmployeeAccountsComponent
-  
+
   ]
 })
 export class OwnersPanelPageModule {}
