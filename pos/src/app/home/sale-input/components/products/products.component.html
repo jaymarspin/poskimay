@@ -1,0 +1,74 @@
+ 
+ <ion-grid>
+  <ion-row>
+    <ion-col size="12" class="ion-no-padding">
+      <nav class="nav-horizontal">
+        <div class="mask">
+          <ul class="list">
+            <li><a href="#">Alpha</a></li>
+            <li><a href="#">Beta</a></li>
+            <li><a href="#">Gamma</a></li>
+            <li><a href="#">Delta</a></li>
+            <li><a href="#">Epsilon</a></li>
+            <li><a href="#">Zeta</a></li>
+            <li><a href="#">Eta</a></li>
+            <li><a href="#">Theta</a></li>
+            <li><a href="#">Iota</a></li>
+            <li><a href="#">Kappa</a></li>
+            <li><a href="#">Lambda</a></li>
+            <li><a href="#">Mu</a></li>
+            <li><a href="#">Nu</a></li>
+            <li><a href="#">Xi</a></li>
+          </ul>
+        </div>
+      </nav>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" class="ion-no-padding">
+      <ion-input class="search" placeholder="Search Product Here"></ion-input>
+      <ion-icon class="search-icon" name="search-outline"></ion-icon>
+      
+      
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" class="ion-no-padding">
+        <div class="wrapper">
+        <div class="product" (click)="presentPopover($event)" *ngFor="let item of products">
+          <ion-label>{{item.product_name}}</ion-label>
+          <img [src]="http.server + item.image.name20" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+        <div class="product">
+          <ion-label>Nokia 101</ion-label>
+          <img src="https://www.connectpos.com/wp-content/uploads/2020/11/sambapos-edge-960x500.jpg" />
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid> 
