@@ -10,7 +10,6 @@ import { OwnersPanelPage } from './owners-panel.page';
 
 import {SidebarModule} from 'ng-sidebar'
 
-import { NgpImagePickerModule } from 'ngp-image-picker';
 import {OwnersComponentModule} from '../modules/owners-component/owners-component.module'
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import {OwnersComponentModule} from '../modules/owners-component/owners-componen
     FormsModule,
     IonicModule,
     OwnersPanelPageRoutingModule,
-    NgpImagePickerModule,
     OwnersComponentModule,
     SidebarModule.forRoot(),
 

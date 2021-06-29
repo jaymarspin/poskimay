@@ -26,14 +26,12 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { SidebarModule } from 'ng-sidebar';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(),AppRoutingModule,HttpClientModule,BrowserAnimationsModule,ComponentsModule,OwnersComponentModule,
     SuperTabsModule.forRoot(),
 
-    SidebarModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
