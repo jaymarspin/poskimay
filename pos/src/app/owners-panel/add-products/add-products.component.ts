@@ -4,17 +4,8 @@ import {AddCategoryComponent} from '../add-category/add-category.component'
 import {HttpService} from '../../services/http.service'
 import { PopoverController } from '@ionic/angular';
 import Swal from 'sweetalert2'
-
-
-
-
-
-
-
 import { Router } from '@angular/router'
-
-
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-add-products',
   templateUrl: './add-products.component.html',
@@ -35,7 +26,7 @@ export class AddProductsComponent implements OnInit {
   base64data:any
 
 
-  constructor(public http: HttpService,private popoverController: PopoverController,public global: GlobalService,
+  constructor(private location: Location,public http: HttpService,private popoverController: PopoverController,public global: GlobalService,
 
 
     private router: Router,
@@ -91,7 +82,7 @@ export class AddProductsComponent implements OnInit {
 
 
 
-  next(){
+  async next(){
     if(this.productname && this.stocks && this.category && this.price){
       this.global.loading = true
       let data = {
@@ -105,7 +96,7 @@ export class AddProductsComponent implements OnInit {
 
       }
 
-      this.http.postData("add-product.php",data).subscribe({
+      await this.http.postData("add-product.php",data).subscribe({
         next: data =>{
           this.global.loading = false
           if(data.body.message =="success"){
@@ -120,6 +111,7 @@ export class AddProductsComponent implements OnInit {
                delete(this.barcode)
                delete(this.price)
             })
+            this.location.back()
           }else{
             Swal.fire({
               icon: 'error',
