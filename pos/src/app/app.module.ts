@@ -13,17 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ComponentsModule} from './modules/components/components.module'
 import { OwnersComponentModule } from './modules/owners-component/owners-component.module'
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
-import { Camera } from '@ionic-native/camera/ngx';
-import { Base64 } from '@ionic-native/base64/ngx';
 
-import { WebView } from '@ionic-native/ionic-webview/ngx';
-
-
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { Crop } from '@ionic-native/crop/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-import { SQLite } from '@ionic-native/sqlite/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 @NgModule({
@@ -41,14 +31,7 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     HttpClient,
-    Camera,
-    WebView,
-    ImagePicker,
-    Crop,
-    File,
-    Base64,
-    PhotoViewer,
-    SQLite,
+  
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

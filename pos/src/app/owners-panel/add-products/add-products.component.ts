@@ -1,10 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../services/global.service'
-import {AddCategoryComponent} from '../add-category/add-category.component'
-import {HttpService} from '../../services/http.service'
+import {GlobalService} from '../../services/global.service';
+import {AddCategoryComponent} from '../add-category/add-category.component';
+import {HttpService} from '../../services/http.service';
 import { PopoverController } from '@ionic/angular';
-import Swal from 'sweetalert2'
-import { Router } from '@angular/router'
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import {Location} from '@angular/common';
 @Component({
   selector: 'app-add-products',
@@ -12,18 +13,18 @@ import {Location} from '@angular/common';
   styleUrls: ['./add-products.component.scss'],
 })
 export class AddProductsComponent implements OnInit {
-  productname:any
-  stocks:any
-  barcode:any
-  category:any
-  price:any
+  productname: any;
+  stocks: any;
+  barcode: any;
+  category: any;
+  price: any;
 
 
-  categories
+  categories;
 
 
-  imgsrc:any
-  base64data:any
+  imgsrc: any;
+  base64data: any;
 
 
   constructor(private location: Location,public http: HttpService,private popoverController: PopoverController,public global: GlobalService,
@@ -32,35 +33,35 @@ export class AddProductsComponent implements OnInit {
     private router: Router,
 
     ) {
-      this.imgsrc = "assets/icon/photo.svg"
-    this.barcode = ""
+      this.imgsrc = 'assets/icon/photo.svg';
+    this.barcode = '';
    }
 
   ngOnInit() {
-      this.loadCategory()
+      this.loadCategory();
   }
   inputchange(event){
 
 
     this.global.processimg(event).then(data =>{
-      this.base64data = data
+      this.base64data = data;
 
-    })
+    });
   }
   loadCategory(){
-    this.global.loading = true
-    this.http.getData("get-product-category.php?id="+localStorage.getItem("business_id")).subscribe({
+    this.global.loading = true;
+    this.http.getData('get-product-category.php?id='+localStorage.getItem('business_id')).subscribe({
       next: data => {
 
-        this.categories = data
-        this.global.loading = false
+        this.categories = data;
+        this.global.loading = false;
 
       },
       error: error => {
-        this.global.loading = false
+        this.global.loading = false;
           console.error('There was an error!', error);
       }
-    })
+    });
   }
 
 
@@ -75,8 +76,8 @@ export class AddProductsComponent implements OnInit {
 
      await popover.onDidDismiss().then(
       (data: any) => {
-       this.loadCategory()
-      })
+       this.loadCategory();
+      });
   }
 
 
@@ -84,67 +85,67 @@ export class AddProductsComponent implements OnInit {
 
   async next(){
     if(this.productname && this.stocks && this.category && this.price){
-      this.global.loading = true
-      let data = {
+      this.global.loading = true;
+      const data = {
         productname: this.productname,
         stocks: this.stocks,
         category: this.category,
         barcode: this.barcode,
         price: this.price,
-        business_id: localStorage.getItem("business_id"),
+        businessid: localStorage.getItem('business_id'),
         base64data: this.base64data
 
-      }
+      };
 
-      await this.http.postData("add-product.php",data).subscribe({
-        next: data =>{
-          this.global.loading = false
-          if(data.body.message =="success"){
+      await this.http.postData('add-product.php',data).subscribe({
+        next: datas =>{
+          this.global.loading = false;
+          if(datas.body.message === 'success'){
             Swal.fire(
               'Good job!',
               'Successfully Added!',
               'success'
             ).then(() =>{
-               delete(this.productname)
-               delete(this.stocks)
-               delete(this.category)
-               delete(this.barcode)
-               delete(this.price)
-            })
-            this.location.back()
+               delete(this.productname);
+               delete(this.stocks);
+               delete(this.category);
+               delete(this.barcode);
+               delete(this.price);
+            });
+            this.location.back();
           }else{
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!',
               footer: '<a href>Why do I have this issue?</a>'
-            })
+            });
           }
 
         },onerror: error =>{
-          this.global.loading = false
+          this.global.loading = false;
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: error,
             footer: ' '
-          })
+          });
         }
-      })
+      });
     }else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Please complete the fields',
         footer: ' '
-      })
+      });
     }
 
   }
 
 
   open(event){
-    console.log(event)
+    console.log(event);
 
   }
 

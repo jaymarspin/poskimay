@@ -10,9 +10,16 @@
     </ion-col>
     <ion-col size="6">
       <div class="image-wrapper">
-        <input id="input-tag" type="file" (change)="inputchange($event)"/>
-        <img [src]="imgsrc" *ngIf="!base64data" />
-        <img [src]="base64data" *ngIf="base64data" />
+        <div class="wrapper" *ngIf="!base64data" >
+          <div class="file-upload" >
+
+            <input type="file" id="videofile" (change)="inputchange($event)" />
+            <ion-icon name="arrow-up-circle-outline"></ion-icon>
+          </div>
+        </div>
+        
+         <img [src]="base64data" *ngIf="base64data" onerror="this.src='assets/logo.png'" />
+    
       </div>
     </ion-col>
     <ion-col size="3">

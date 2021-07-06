@@ -54,7 +54,7 @@
       </ion-col>
       <ion-col size="2">
         <ion-avatar>
-          <img *ngIf="item.image.name20" [src]="http.server + item.image.name20" (click)="global.viewPhoto(http.server + item.image.name100,item.product_name)">
+          <img *ngIf="item.image.name20" [src]="http.server + item.image.name20" >
         </ion-avatar>
         <ion-label style="top: 5px;position: relative;margin-left: 5px;">{{item.product_name}}</ion-label>
       </ion-col>

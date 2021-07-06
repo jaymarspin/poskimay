@@ -1,84 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../services/global.service'
-import {HttpService} from '../services/http.service'
-import {Router } from '@angular/router'
-
-import Swal from 'sweetalert2'
+import {GlobalService} from '../services/global.service';
+import {HttpService} from '../services/http.service';
+import {Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import {Routing} from '../classes/routing';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.page.html',
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-  uname:any
-  password:any
+  uname: any;
+  password: any;
 
-  accountType:any
-  constructor(private router: Router,public global: GlobalService,public http: HttpService) { 
-    this.accountType = 'employee'
+  accountType: any;
+  constructor(private guard: Routing,private router: Router,public global: GlobalService,public http: HttpService) {
+    this.accountType = 'employee';
   }
 
   ngOnInit() {
-    this.global.routingGo()
+    this.guard.routingGo();
 
   }
   async setter(id){
-     
-    localStorage.setItem("accountType",this.accountType)
-    return await localStorage.setItem("id",id)
+
+    localStorage.setItem('accountType',this.accountType);
+    return await localStorage.setItem('id',id);
   }
   login(){
-    console.log(this.accountType)
+    console.log(this.accountType);
     if(this.uname && this.password && this.accountType){
-      let data = {
+      const data = {
         username: this.uname,
         password: this.password,
         accountType: this.accountType
-      }
-      console.log(data)
-      this.http.postData("signin.php",data).subscribe({
-        next: data =>{
-          console.log(data.body)
-          if(data.body.message == 'success'){
+      };
+      console.log(data);
+      this.http.postData('signin.php',data).subscribe({
+        next: datas =>{
+          console.log(datas.body);
+          if(datas.body.message === 'success'){
 
             Swal.fire(
               'Good job!',
               'You clicked the button!',
               'success'
             ).then(() =>{
-              if(data.body.employee_data != 0){
-                localStorage.setItem("business_id",data.body.employee_data)
+              if(datas.body.employee_data !== 0){
+                localStorage.setItem('business_id',datas.body.employee_data);
               }
-              this.setter(data.body.id).then(() =>{
-                if(this.accountType == 'owner'){
-                  this.router.navigate(["business-panel"],{replaceUrl: true})
+              this.setter(datas.body.id).then(() =>{
+                if(this.accountType === 'owner'){
+                  this.router.navigate(['business-panel'],{replaceUrl: true});
                 }else{
-                  this.router.navigate(["home"],{replaceUrl: true})
+                  this.router.navigate(['home'],{replaceUrl: true});
                 }
-                
-                
-              })
-              
-            })
+
+
+              });
+
+            });
           }else{
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: data.body.message,
+              text: datas.body.message,
               footer: ' '
-            })
+            });
           }
         },onerror: error =>{
 
         }
-      })
+      });
     }else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Complete the fields',
         footer: ' '
-      })
+      });
     }
   }
 
