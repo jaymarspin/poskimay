@@ -36,6 +36,7 @@
     "ng-sidebar": "^9.4.2",
     "ngx-image-compress": "^11.0.3",
     "ngx-lightbox": "^2.4.1",
+    "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.7",
     "sweetalert2": "^11.0.18",

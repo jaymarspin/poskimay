@@ -16,6 +16,7 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {NgxImageCompressService} from 'ngx-image-compress';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,7 +25,6 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     LightboxModule,
     IonicModule.forRoot(),AppRoutingModule,HttpClientModule,BrowserAnimationsModule,ComponentsModule,OwnersComponentModule,
     SuperTabsModule.forRoot(),
-
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

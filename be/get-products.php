@@ -13,7 +13,6 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $myobj = array();
 
-$id = $_GET['id'];
 $limit = $_GET['limit'];
 $page = $_GET['page'];
 $count = 0;
@@ -21,7 +20,7 @@ $count = 0;
 $limitcount = intval($page) * intval($limit);
 $tmp = array();
 $baselimit = $limitcount - intval($limit);
- $q = "SELECT * FROM products WHERE business_id = $id ORDER BY id DESC";
+ $q = "SELECT * FROM products ORDER BY id DESC";
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
  while ($row = mysqli_fetch_array($exe)) {

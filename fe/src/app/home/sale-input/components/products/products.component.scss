@@ -58,16 +58,18 @@
   }
   
   .nav-horizontal {
-    background-color: #fff;
-    overflow: hidden;
+    background-color: #333;
+    
     height: 3em;
-    width: 100%;
+    width: 100%; 
+    overflow-x: scroll;
+    
     
     .mask {
       height: 5em;
       width: 100%;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+     
     }
     
     .list {

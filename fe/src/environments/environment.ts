@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost/pos-server/"
+  apiUrl: 'http://localhost/poskimay/be/'
 };
 
 /*

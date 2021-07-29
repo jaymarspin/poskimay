@@ -57,12 +57,9 @@ export class ProductsComponent implements OnInit {
     this.global.loading = true;
     this.http
       .getData(
-        'get-products.php?id=' +
-          localStorage.getItem('business_id') +
-          '&limit=' +
-          this.limit +
-          '&page=' +
-          this.page
+        `get-products.php?
+          limit=${this.limit}
+          &page=${this.page}`
       )
       .subscribe({
         next: (data) => {
@@ -105,8 +102,8 @@ export class ProductsComponent implements OnInit {
   }
   async viewimg(src){
   const images: any = new Array();
-  await images.push({src: src});
-  console.log(images)
+  await images.push({src});
+  console.log(images);
   this.global.lightBoxOpen(images,0);
 }
 }

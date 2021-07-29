@@ -11,8 +11,14 @@ $methods = new globalMethods();
 $postjson = json_decode(file_get_contents('php://input'), true);
 $username = $postjson['username'];
 $password = $postjson['password'];
+$role = $postjson['accountType'];
+$table = 'credentials';
+if($role == 'employee'){
+	$table = 'employee_acounts';
 
-$q = "SELECT * FROM credentials WHERE username = ? && password = ?";
+}
+
+$q = "SELECT * FROM $table WHERE username = ? && password = ?";
 $stmt = $conn->prepare($q);
 $stmt->bind_param("ss", $username,$password);
 	$stmt->execute();

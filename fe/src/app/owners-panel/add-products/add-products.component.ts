@@ -43,9 +43,9 @@ export class AddProductsComponent implements OnInit {
    promiseCompressedImg = () => new Promise((resolve, reject) => {
       this.imageCompress.uploadFile().then(({image, orientation}) => {
 
-      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+      // console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, orientation, 70, 70).then(
+      this.imageCompress.compressFile(image, orientation, 100, 100).then(
         result => {
           resolve(result);
           console.log(result);
@@ -60,22 +60,9 @@ export class AddProductsComponent implements OnInit {
   ngOnInit() {
       this.loadCategory();
   }
-  // inputchange(event){
-  //   // console.log(event);
-  //   console.log(event.target);
-  //   const tmppath = URL.createObjectURL(event.target.files[0]);
-  //   // this.global.processimg(event).then(data =>{
-  //     this.promiseCompressedImg(tmppath).then(xx =>{
-  //       this.base64data = xx;
-  //       console.log(xx);
-  //     });
-
-
-  //   // });
-  // }
   loadCategory(){
     this.global.loading = true;
-    this.http.getData('get-product-category.php?id='+localStorage.getItem('business_id')).subscribe({
+    this.http.getData(`get-product-category.php`).subscribe({
       next: data => {
 
         this.categories = data;
@@ -117,13 +104,14 @@ export class AddProductsComponent implements OnInit {
         category: this.category,
         barcode: this.barcode,
         price: this.price,
-        businessid: localStorage.getItem('business_id'),
         base64data: this.base64data
 
       };
+      console.log(data);
 
       await this.http.postData('add-product.php',data).subscribe({
         next: datas =>{
+          console.log(datas.body);
           this.global.loading = false;
           if(datas.body.message === 'success'){
             Swal.fire(
@@ -136,6 +124,7 @@ export class AddProductsComponent implements OnInit {
                delete(this.category);
                delete(this.barcode);
                delete(this.price);
+               delete(this.base64data);
             });
             this.location.back();
           }else{

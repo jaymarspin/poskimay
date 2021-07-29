@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
  require_once("include/header.php");
 
 require_once("include/connection.php");
@@ -19,7 +21,6 @@ $postjson = json_decode(file_get_contents('php://input'), true);
 //       }
 $imageinsrt = false;
 $myobj = array();
-$business_id = intval($postjson['business_id']);
 $productname = $postjson['productname'];
 $stocks = $postjson['stocks'];
 $category = $postjson['category'];
@@ -27,9 +28,9 @@ $barcode = $postjson['barcode'];
 $price = doubleval($postjson['price']);
 $base64data = $postjson['base64data'];
 
-$q = "INSERT INTO products(business_id,product_name,category,barcode) VALUES(?,?,?,?)";
+$q = "INSERT INTO products(product_name,category,barcode) VALUES(?,?,?)";
 $stmt = $conn->prepare($q);
-$stmt->bind_param("isss",$business_id,$productname,$category,$barcode);
+$stmt->bind_param("sss",$productname,$category,$barcode);
 $exe = $stmt->execute();
 if ($exe) {
 	
@@ -45,8 +46,6 @@ if ($exe) {
 	$exe = $stmt->execute();
 	
 	if (!empty($base64data)) {
-					
-			 
 						$value = explode(",", $base64data);
 						$img = base64_decode($value[1]);
 						$target_path = "gallery/100/".uniqid("".false).time().".".'jpg'; 
@@ -62,25 +61,17 @@ if ($exe) {
 							$destination20 = $target_path;
 						}
 						$q = "INSERT INTO product_image(product_id,name20,name50,name100) VALUES(?,?,?,?)";
-
 						 	$stmt = $conn->prepare($q);
 						 	$stmt->bind_param("isss",$id,$destination20,$destination50,$target_path);
 						 	$exe = $stmt->execute();
 						 	if ($exe) {
 						 		$imageinsrt = true;
-						 	}
-						
-					 } 
-
-					
-
-
-
-
-				}
+						 	}					
+					 }
+	}
 
 	$myobj = $arrayName = array('message' => "success",
-								'imageinsert' => $imageinsrt
+								'imageinsert' => $base64data
 	 );
 }else{
 	$myobj = $arrayName = array('message' => "error occured!" );

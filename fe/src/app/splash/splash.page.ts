@@ -13,11 +13,7 @@ export class SplashPage implements OnInit {
     // localStorage.clear()
     if(localStorage.getItem('id')){
       if(localStorage.getItem('accountType') === 'owner'){
-        if(localStorage.getItem('last_path')){
           this.router.navigate(['owners-panel'],{replaceUrl: true});
-        }else{
-          this.router.navigate(['business-panel'],{replaceUrl: true});
-        }
       }else{
         this.router.navigate(['home'],{replaceUrl: true});
       }

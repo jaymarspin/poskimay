@@ -3,6 +3,7 @@ import {GlobalService} from '../services/global.service';
 import {HttpService} from '../services/http.service';
 import {Router } from '@angular/router';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.page.html',
@@ -18,6 +19,9 @@ export class SigninPage implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+  trigger(e): any{
 
   }
   async setter(id){
@@ -44,12 +48,9 @@ export class SigninPage implements OnInit {
               'You clicked the button!',
               'success'
             ).then(() =>{
-              if(datas.body.employee_data !== 0){
-                localStorage.setItem('business_id',datas.body.employee_data);
-              }
               this.setter(datas.body.id).then(() =>{
                 if(this.accountType === 'owner'){
-                  this.router.navigate(['business-panel'],{replaceUrl: true});
+                  this.router.navigate(['splash'],{replaceUrl: true});
                 }else{
                   this.router.navigate(['home'],{replaceUrl: true});
                 }
