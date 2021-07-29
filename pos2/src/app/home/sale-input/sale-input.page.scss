@@ -1,0 +1,113 @@
+
+
+ @media (min-width: 1025px){
+    #barcode-input{
+        background-color: #fff;
+        padding: 15px;
+        font-size: 20px;
+        width: 100%;
+        height: 47px;
+        color: #333;
+    }
+    .search-icon{
+        position: absolute;
+        top: 15px;
+        z-index: 99;
+        right: 10px;
+        font-size: 20px;
+        color: #888;
+ 
+    }
+    .table-head-wrapper{
+        position: relative;
+        margin-top: 0px; 
+        .table-head{
+            
+            ion-label{
+                display: block;
+                user-select: none;
+                width: 100%;
+                font-size: 20px; 
+            }
+        }
+    }.sale-wrapper{
+        background-color: #fff;
+        height: calc(60vh - 65px);
+        position: relative;
+        width: 100%;  
+        overflow: scroll;
+        overflow-x: hidden;
+        ion-label{
+
+             
+            text-align: center;
+        }
+         
+        ion-item{
+            --padding-end: 0px;
+            --inner-padding-end: 0px;
+        }
+    }.sale-action-wrapper{
+         
+        height: calc(20vh - 100px);
+        display: flex;
+        position: relative;
+        width: 100%;  
+    }.btn{
+        height: 80px;
+        width: 100%;
+        
+        span{
+            display: block;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            top: 50%;
+            transform: translate(0,-50%);
+            font-size: 20px;
+            user-select: none;
+
+        }
+    }.btn-success{
+        background-color: #2dd36f;
+        color: #fff;
+    }.btn-cancel{
+        
+        background-color: #eb445a;
+        color: #fff;
+    }
+
+
+    ion-tab-button  {
+        --color-selected: rgb(252, 217, 62);
+    }
+    .price, .tax, .total{
+        font-size: 14px;
+        width: 100%; 
+          text-align: right;
+          display: block; 
+    }
+    .total{
+        font-size: 18px;
+    }
+    
+}
+
+@media (min-width: 768px) and (max-width: 1204px) {
+    
+}
+super-tabs-toolbar {
+    &:after {
+      background: transparent;
+    }
+  }
+
+:host {  
+    --super-tabs-toolbar-background: #fff;
+
+    --st-indicator-color: rgb(206, 206, 57);
+  }
+//   :root {
+//     --st-base-color-inactive: rgba(255, 255, 255, 0.6);
+//     --st-base-color-active: rgba(255, 255, 255, 0.99);
+//   }

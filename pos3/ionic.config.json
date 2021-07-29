@@ -1,0 +1,7 @@
+{
+  "name": "pos3",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
