@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 })
 export class SaleInputPage implements OnInit {
   sale: any;
+  barcode: any;
   constructor() {
     this.sale = Array();
     for(let i = 0;i < 20;i++){
@@ -16,7 +17,9 @@ export class SaleInputPage implements OnInit {
     }
 
   }
-
+  barcodeaction(){
+    alert(this.barcode);
+  }
   ngOnInit() {
 
     // this.sqlite.create({

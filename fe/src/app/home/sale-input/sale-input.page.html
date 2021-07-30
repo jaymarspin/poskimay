@@ -34,7 +34,7 @@
       <ion-col size="4">
         <ion-row>
           <ion-col style="margin-top: -5px;" size="12" class="ion-no-padding">
-            <ion-input id="barcode-input" placeholder="Barcode scanner">
+            <ion-input id="barcode-input" [(ngModel)]="barcode" (keyup.enter)="barcodeaction()" placeholder="Barcode scanner">
 
             </ion-input>
             <ion-icon class="search-icon" name="search-outline"></ion-icon>
