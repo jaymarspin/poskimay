@@ -8,17 +8,17 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
-        path: "sale",
+        path: 'sale',
         loadChildren: () => import('./sale-input/sale-input.module').then( m => m.SaleInputPageModule)
 
       },
       {
-        path: "",
-        redirectTo: "sale",
-        pathMatch: "full"
+        path: '',
+        redirectTo: 'sale',
+        pathMatch: 'full'
       }
     ]
-     
+
   }
 ];
 
