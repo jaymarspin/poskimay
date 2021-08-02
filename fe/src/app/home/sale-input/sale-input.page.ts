@@ -13,10 +13,12 @@ export class SaleInputPage implements OnInit {
   sale: any;
   barcode: any;
   total: any;
-
+  buyaction: any;
+  customercash: any;
   constructor(private ngZone: NgZone,public http: HttpService,private ref: ChangeDetectorRef) {
     this.total = 0;
     this.sale = Array();
+    this.buyaction = false;
   }
 codeinputchange(){
   this.codeaction().then(() =>{
@@ -34,7 +36,7 @@ codeinputchange(){
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
-            footer: '<a href>Why do I have this issue?</a>'
+            footer: ''
           });
         }
         delete(this.barcode);
@@ -81,13 +83,43 @@ codeinputchange(){
   totalcalculator(){
     let tmp = 0;
     _.forEach(this.sale,value =>{
-      console.log(value);
       tmp += (value.data.price.price * value.data.quantity);
     });
     return tmp;
   }
   buynow(){
-    alert(this.totalcalculator());
+    if(this.buyaction === false){
+      if(this.customercash >= this.totalcalculator()){
+        this.buyaction = true;
+      const data ={
+        sold: this.sale
+    };
+      this.http.postData(`add-sold.php`,data).subscribe({
+        next: res =>{
+          if(res.body.message === 'success'){
+          }
+          this.sale = new Array();
+          delete(this.customercash);
+          this.buypause();
+        },error: err =>{
+          this.buypause();
+          console.log(err);
+        }
+      });
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Not enough money',
+          footer: ''
+        });
+      }
+    }
+  }
+  buypause(){
+    setTimeout(() =>{
+      this.buyaction = false;
+    },3000);
   }
 
 
