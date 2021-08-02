@@ -20,7 +20,7 @@
     }
     .table-head-wrapper{
         position: relative;
-        margin-top: 0px; 
+        margin-top: 0px;
         .table-head{
             
             ion-label{
@@ -32,7 +32,7 @@
         }
     }.sale-wrapper{
         background-color: #fff;
-        height: calc(60vh - 65px);
+        height: calc(55vh - 65px);
         position: relative;
         width: 100%;  
         overflow: scroll;
@@ -47,6 +47,7 @@
             --padding-end: 0px;
             --inner-padding-end: 0px;
         }
+        
     }.sale-action-wrapper{
          
         height: calc(20vh - 100px);
@@ -101,6 +102,11 @@ super-tabs-toolbar {
       background: transparent;
     }
   }
+
+  .enter-cash{
+    text-align: right;
+    padding-right: 50px;
+}
 
 :host {  
     --super-tabs-toolbar-background: #fff;

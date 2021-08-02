@@ -19,6 +19,8 @@ export class ProductsComponent implements OnInit {
   limit: number;
   pagebtntmp: any;
   pagebtn: any;
+
+  defaultImage = 'https://www.placecage.com/1000/1000';
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -91,4 +93,5 @@ export class ProductsComponent implements OnInit {
         },
       });
   }
+
 }

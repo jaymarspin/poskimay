@@ -9,14 +9,15 @@ import { SaleInputPageRoutingModule } from './sale-input-routing.module';
 import { SaleInputPage } from './sale-input.page';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import {ProductsComponent} from './components/products/products.component';
-
+import { LazyLoadImageModule} from 'ng-lazyload-image';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
     SaleInputPageRoutingModule,
-    SuperTabsModule
+    SuperTabsModule,
+    LazyLoadImageModule
 
   ],
   declarations: [SaleInputPage,

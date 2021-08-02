@@ -51,28 +51,12 @@
         <div class="wrapper">
         <div class="product" (click)="presentPopover($event)" *ngFor="let item of products">
           
-          <ion-img [src]="http.server + item.image.name20" ></ion-img>
+          <ion-img [defaultImage]="defaultImage" [lazyLoad]="http.server + item.image.name20"  [useSrcset]="true" ></ion-img>
+         
           <ion-label class="product_name">{{item.product_name}}</ion-label>
           <ion-label color='danger'>{{item.price.price}}</ion-label>
         </div>
-        <div class="product" (click)="presentPopover($event)" *ngFor="let item of products">
-          
-          <ion-img [src]="http.server + item.image.name20" ></ion-img>
-          <ion-label>{{item.product_name}}</ion-label>
-        </div>
-        <div class="product" (click)="presentPopover($event)" *ngFor="let item of products">
-          
-          <ion-img [src]="http.server + item.image.name20" ></ion-img>
-          <ion-label>{{item.product_name}}</ion-label>
-        </div>
-        <div class="product" (click)="presentPopover($event)" *ngFor="let item of products">
-          
-          <ion-img [src]="http.server + item.image.name20" ></ion-img>
-          <ion-label>{{item.product_name}}</ion-label>
-        </div>
        
-        
-        
       </div>
       
     </ion-col>

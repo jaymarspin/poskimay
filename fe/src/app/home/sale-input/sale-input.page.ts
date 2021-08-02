@@ -22,14 +22,19 @@ codeinputchange(){
   this.codeaction().then(() =>{
   });
 }
-chechinArray(value){
-}
  async codeaction() {
     await this.http.getData(`get-productbycode.php?code=${this.barcode}`).subscribe({
       next: data =>{
         if(data && !Array.isArray(data)){
           this.sale.push({
             data,
+          });
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href>Why do I have this issue?</a>'
           });
         }
         delete(this.barcode);
@@ -81,4 +86,9 @@ chechinArray(value){
     });
     return tmp;
   }
+  buynow(){
+    alert(this.totalcalculator());
+  }
+
+
 }
