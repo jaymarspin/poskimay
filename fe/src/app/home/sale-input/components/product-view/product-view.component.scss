@@ -1,0 +1,16 @@
+.wrapper{
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    img{
+        width: 200px;
+        height: 200px;
+        display: block;
+        float: left;
+        clear: left;
+        margin-right: 10px;
+    }
+    h3{
+        color: red;
+    }
+}

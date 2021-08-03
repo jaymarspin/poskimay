@@ -1,3 +1,8 @@
-<p (click)="sample('https://i.pinimg.com/736x/10/7d/9d/107d9d68c2216d2491089f1d610228cc.jpg')">
-  product-view works!
-</p>
+
+
+<div class="wrapper">
+  <img (click)="viewimg(http.server + item.image.name100)" [src]="http.server + item.image.name50" />
+  <h2>{{item.product_name}}</h2>
+  <h3>&#8369; {{item.price.price}}</h3>
+  <p>{{item.description}}</p>
+</div>

@@ -14,7 +14,7 @@
        float: left;
     .product{
         width: 19%;
-        height: 140px;
+        height: 210px;
         position: relative;
         float: left;
      
@@ -33,9 +33,9 @@
         
             color: #888;
         }
-        ion-img{
+        img{
           width: 100%;
-          height: 70px;
+          height: 140px;
           display: block;
           position: relative;
           margin-bottom: 5px;
@@ -107,8 +107,7 @@
       }
     }
   }
-
-  
+ 
   
   //codepen用 reset
   *{box-sizing: border-box;}body{font-family:sans-serif;padding-top: 100px;width:100vw;background-color:#999;}

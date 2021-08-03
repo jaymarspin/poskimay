@@ -18,6 +18,7 @@ export class AddProductsComponent implements OnInit {
   barcode: any;
   category: any;
   price: any;
+  description: any;
 
 
   categories;
@@ -39,6 +40,7 @@ export class AddProductsComponent implements OnInit {
     ) {
       this.imgsrc = 'assets/icon/photo.svg';
     this.barcode = '';
+    this.description = '';
    }
    promiseCompressedImg = () => new Promise((resolve, reject) => {
       this.imageCompress.uploadFile().then(({image, orientation}) => {
@@ -104,6 +106,7 @@ export class AddProductsComponent implements OnInit {
         category: this.category,
         barcode: this.barcode,
         price: this.price,
+        description: this.description,
         base64data: this.base64data
 
       };

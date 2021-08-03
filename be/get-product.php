@@ -13,25 +13,21 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $myobj = array();
 
-$limit = $_GET['limit'];
-$page = $_GET['page'];
-$count = 0;
+$id = $_GET['id'];
 
-$limitcount = intval($page) * intval($limit);
-$tmp = array();
-$baselimit = $limitcount - intval($limit);
- $q = "SELECT * FROM products ORDER BY id DESC";
+
+ $q = "SELECT * FROM products WHERE id = $id";
 $exe = $conn->query($q);
-$products_count = $exe->num_rows;
+
  while ($row = mysqli_fetch_array($exe)) {
 
- 	if ($count >= $baselimit) {
+
  		 
 
  		$price = $methods->getProductPrice(intval($row['id']),$conn);
 	$stocks = $methods->getProductStock(intval($row['id']),$conn);
 	$image = $methods->getProductImage(intval($row['id']),$conn);
-	$tmp[] = $arrayName = array('product_name' => ucwords($row['product_name']),
+	$myobj = $arrayName = array('product_name' => ucwords($row['product_name']),
 									'id' => $row['id'],
 									'category' => $methods->getProductCategory($row['category'],$conn),
 									'barcode' => $row['barcode'],
@@ -44,19 +40,12 @@ $products_count = $exe->num_rows;
 
 
 	 );
- 	}
+ 	
  	
 
- 	$count += 1;
- 	if ($count > $limitcount - 1) {
- 		break;
- 	}
 
 
  }
- $myobj = $arrayName = array('products_count' => $products_count,
- 								'products' => $tmp,
- 								'limitcount' => $limitcount
-  );
+
  echo json_encode($myobj);
 ?>

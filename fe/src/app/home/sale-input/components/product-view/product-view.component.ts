@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import {GlobalService} from '../../../../services/global.service';
 import {HttpService} from '../../../../services/http.service';
 import { PopoverController } from '@ionic/angular';
@@ -8,7 +8,7 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./product-view.component.scss'],
 })
 export class ProductViewComponent implements OnInit {
-
+  @Input() item;
 
 
   constructor(public global: GlobalService,public http: HttpService,public popoverController: PopoverController) {
@@ -16,9 +16,19 @@ export class ProductViewComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(this.item);
+    // this.http.getData(`get-product.php?id=${this.id}`).subscribe({
+    //   next: data =>{
+    //     console.log(data);
+    //   },
+    //   error: err =>{
+    //     console.log(err);
+    //   }
+    // });
+
 
   }
-  sample(src){
+  viewimg(src){
     const img = Array({
       src
     });

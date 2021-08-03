@@ -12,11 +12,13 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $postjson = json_decode(file_get_contents('php://input'), true);
 $sold = $postjson['sold'];
+$employeeid = $postjson['employeeid'];
 $myobj = array();
-$uniqueId = uniqid('',true);
 $pass = array();
-$q = "INSERT INTO whole_sold(uniqueID) VALUES('$uniqueId')";
-$exe = $conn->query($q); 
+$q = "INSERT INTO whole_sold(employee_id) VALUES(?)";
+$stmt = $conn->prepare($q);
+$stmt->bind_param("i",$employeeid);
+$exe = $stmt->execute();
 if($exe){
     $insert_id = $conn->insert_id;
     foreach($sold as $key => $value){

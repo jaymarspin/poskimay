@@ -4,6 +4,11 @@ import Swal from 'sweetalert2';
 import { HttpService } from '../../services/http.service';
 import * as _ from 'lodash';
 import { ChangeDetectorRef,NgZone } from '@angular/core';
+
+import { ProductViewComponent } from './components/product-view/product-view.component';
+import { GlobalService } from '../../services/global.service';
+
+import { PopoverController } from '@ionic/angular';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -15,7 +20,7 @@ export class SaleInputPage implements OnInit {
   total: any;
   buyaction: any;
   customercash: any;
-  constructor(private ngZone: NgZone,public http: HttpService,private ref: ChangeDetectorRef) {
+  constructor(private popoverController: PopoverController,public http: HttpService,private ref: ChangeDetectorRef) {
     this.total = 0;
     this.sale = Array();
     this.buyaction = false;
@@ -33,9 +38,10 @@ codeinputchange(){
           });
         }else{
           Swal.fire({
+            backdrop: false,
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
+            text: 'Code not found',
             footer: ''
           });
         }
@@ -45,6 +51,19 @@ codeinputchange(){
         console.log(err);
       }
     });
+  }
+  async presentPopover(ev: any,item) {
+    const popover = await this.popoverController.create({
+      component: ProductViewComponent,
+      cssClass: 'popover',
+      componentProps: {item},
+      event: ev,
+      translucent: true,
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
   ngOnInit() {
     // this.sqlite.create({
@@ -62,7 +81,7 @@ codeinputchange(){
     Swal.fire({
       title: 'Are you sure?',
       backdrop: false,
-      text: 'You won\'t be able to revert this!',
+      text: 'You can just add it back',
       icon: 'warning',
 
       showCancelButton: true,
@@ -73,12 +92,8 @@ codeinputchange(){
       if (result.isConfirmed) {
         this.sale.splice(i,1);
         // this.totalcalculation();
-        Swal.fire('Deleted!', 'Successfully removed', 'success');
       }
     });
-  }
-  viewProduct(id){
-    alert(id);
   }
   totalcalculator(){
     let tmp = 0;
@@ -92,7 +107,8 @@ codeinputchange(){
       if(this.customercash >= this.totalcalculator()){
         this.buyaction = true;
       const data ={
-        sold: this.sale
+        sold: this.sale,
+        employeeid: localStorage.getItem(`id`),
     };
       this.http.postData(`add-sold.php`,data).subscribe({
         next: res =>{
@@ -108,6 +124,7 @@ codeinputchange(){
       });
       }else{
         Swal.fire({
+          backdrop: false,
           icon: 'error',
           title: 'Oops...',
           text: 'Not enough money',

@@ -26,11 +26,12 @@ $stocks = $postjson['stocks'];
 $category = $postjson['category'];
 $barcode = $postjson['barcode'];
 $price = doubleval($postjson['price']);
+$description = $postjson['description'];
 $base64data = $postjson['base64data'];
 
-$q = "INSERT INTO products(product_name,category,barcode) VALUES(?,?,?)";
+$q = "INSERT INTO products(product_name,category,description,barcode) VALUES(?,?,?,?)";
 $stmt = $conn->prepare($q);
-$stmt->bind_param("sss",$productname,$category,$barcode);
+$stmt->bind_param("ssss",$productname,$category,$description,$barcode);
 $exe = $stmt->execute();
 if ($exe) {
 	

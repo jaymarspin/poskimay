@@ -82,7 +82,7 @@
                 </ion-item>
                 
                 <ion-item-options side="start">
-                  <ion-item-option color="primary" (click)="viewProduct(item.data.id)">View Product</ion-item-option>
+                  <ion-item-option color="primary" (click)="presentPopover($event,item.data)">View Product</ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="delete(i)">Delete</ion-item-option>
