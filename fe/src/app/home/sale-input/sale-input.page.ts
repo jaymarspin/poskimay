@@ -15,14 +15,15 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./sale-input.page.scss'],
 })
 export class SaleInputPage implements OnInit {
-  sale: any;
   barcode: any;
   total: any;
   buyaction: any;
   customercash: any;
-  constructor(private popoverController: PopoverController,public http: HttpService,private ref: ChangeDetectorRef) {
+  constructor(public global: GlobalService,
+    private popoverController: PopoverController,
+    public http: HttpService,
+    private ref: ChangeDetectorRef) {
     this.total = 0;
-    this.sale = Array();
     this.buyaction = false;
   }
 codeinputchange(){
@@ -33,9 +34,10 @@ codeinputchange(){
     await this.http.getData(`get-productbycode.php?code=${this.barcode}`).subscribe({
       next: data =>{
         if(data && !Array.isArray(data)){
-          this.sale.push({
+          this.global.sales.push({
             data,
           });
+
         }else{
           Swal.fire({
             backdrop: false,
@@ -90,14 +92,14 @@ codeinputchange(){
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.sale.splice(i,1);
+        this.global.sales.splice(i,1);
         // this.totalcalculation();
       }
     });
   }
   totalcalculator(){
     let tmp = 0;
-    _.forEach(this.sale,value =>{
+    _.forEach(this.global.sales,value =>{
       tmp += (value.data.price.price * value.data.quantity);
     });
     return tmp;
@@ -107,14 +109,14 @@ codeinputchange(){
       if(this.customercash >= this.totalcalculator()){
         this.buyaction = true;
       const data ={
-        sold: this.sale,
+        sold: this.global.sales,
         employeeid: localStorage.getItem(`id`),
     };
       this.http.postData(`add-sold.php`,data).subscribe({
         next: res =>{
           if(res.body.message === 'success'){
           }
-          this.sale = new Array();
+          this.global.sales = new Array();
           delete(this.customercash);
           this.buypause();
         },error: err =>{

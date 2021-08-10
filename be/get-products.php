@@ -38,6 +38,7 @@ $products_count = $exe->num_rows;
 									'price' => $price,
 									'stocks' => $stocks,
 									'image' => $image,
+									'quantity' => 1,
 									'description' => nl2br($row['description']),
 									'date_updated' => $row['date_updated'],
 									'date_created' => $row['date_created']

@@ -34,5 +34,11 @@ export class ProductViewComponent implements OnInit {
     });
     this.global.lightBoxOpen(img,0);
   }
+  async addProduct(){
+    await this.global.sales.push({
+      data :this.item,
+    });
+    this.popoverController.dismiss();
+  }
 
 }
