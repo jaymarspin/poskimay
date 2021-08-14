@@ -42,6 +42,36 @@ class globalMethods
 		return $myobj;
 	}
 
+
+	function getProduct($id,$conn){
+		$q = "SELECT * FROM products WHERE id = $id";
+		$exe = $conn->query($q);
+		$myobj = array();
+		while ($row = mysqli_fetch_array($exe)) {
+			 
+			$price = $this->getProductPrice(intval($row['id']),$conn);
+			$stocks = $this->getProductStock(intval($row['id']),$conn);
+			$image = $this->getProductImage(intval($row['id']),$conn);
+			$myobj = $arrayName = array('product_name' => ucwords($row['product_name']),
+									'id' => $row['id'],
+									'category' => $this->getProductCategory($row['category'],$conn),
+									'barcode' => $row['barcode'],
+									'price' => $price,
+									'stocks' => $stocks,
+									'image' => $image,
+									'quantity' => 1,
+									'description' => nl2br($row['description']),
+									'date_updated' => $row['date_updated'],
+									'date_created' => $row['date_created']
+
+
+			 );
+		}
+
+		return $myobj;
+
+	}
+
 	function getEmployeeRoles($id,$conn){
 		$q = "SELECT * FROM accounts_roles WHERE employee_id = $id && active = 1";
 		$exe = $conn->query($q);
