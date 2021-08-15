@@ -74,7 +74,7 @@
                         <ion-input #quantity type="number" [(ngModel)]='item.data.quantity' min='1' onchange="this.value = Math.floor(Math.max(this.value,1))" style="text-align: center;top: -5px;position: relative;"></ion-input>
                       </ion-col>
                       <ion-col size="3" class="ion-no-padding" >
-                        <ion-label color="dark">{{(item.data.price.price * quantity.value)}}</ion-label>
+                        <ion-label color="dark">{{global.round2Fixed(item.data.price.price * quantity.value)}}</ion-label>
                       </ion-col>
                     </ion-row>
                     
@@ -161,7 +161,7 @@
                       </ion-label>
                     </ion-col>
                     <ion-col size="9" class="ion-no-padding">
-                      <ion-input type='number' *ngIf="cash.value" [value]="cash.value - totalcalculator()" disabled class="enter-cash"></ion-input>
+                      <ion-input type='number' *ngIf="cash.value" [value]="global.round2Fixed(cash.value - totalcalculator())" disabled class="enter-cash"></ion-input>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
