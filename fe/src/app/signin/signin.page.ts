@@ -22,6 +22,7 @@ export class SigninPage implements OnInit {
   isCameraExist = true;
 
   errors: WebcamInitError[] = [];
+  loading: any = false;
 
   // webcam snapshot trigger
   public trigger: Subject<void> = new Subject<void>();
@@ -36,7 +37,6 @@ export class SigninPage implements OnInit {
       .then((mediaDevices: MediaDeviceInfo[]) => {
         this.isCameraExist = mediaDevices && mediaDevices.length > 0;
       });
-
   }
 
   async setter(id){
@@ -52,10 +52,11 @@ export class SigninPage implements OnInit {
         password: this.password,
         accountType: this.accountType
       };
-      console.log(data);
+      this.loading = true;
       this.http.postData('signin.php',data).subscribe({
         next: datas =>{
           console.log(datas.body);
+          this.loading = false;
           if(datas.body.message === 'success'){
 
             Swal.fire(
@@ -83,7 +84,7 @@ export class SigninPage implements OnInit {
             });
           }
         },onerror: error =>{
-
+          this.loading = false;
         }
       });
     }else{
