@@ -1,9 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+.webcam{
+  position: relative;
+  float: left;
+  clear: left;
+  margin-left: 30px;
+  top: 50%;
+  transform: translate(0,-50%);
 
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
-  margin: auto;
+  float: right;
+  position: relative;
+  margin-right: 30px;
+  top: 50%;
+  transform: translate(0,-50%);
 }
 .form {
   position: relative;

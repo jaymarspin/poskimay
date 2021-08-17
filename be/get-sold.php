@@ -15,6 +15,8 @@ $myobj = array();
 
 $limit = $_GET['limit'];
 $page = $_GET['page'];
+$start = $_GET['start'];
+$end = $_GET['end'];
 $count = 0;
 
 $limitcount = intval($page) * intval($limit);
@@ -51,7 +53,9 @@ $sold_count = $exe->num_rows;
  }
  $myobj = $arrayName = array('sold_count' => $sold_count,
  								'sold' => $tmp,
- 								'limitcount' => $limitcount
+ 								'limitcount' => $limitcount,
+								 'start' => $start,
+								 'end' => $end
   );
  echo json_encode($myobj);
 ?>

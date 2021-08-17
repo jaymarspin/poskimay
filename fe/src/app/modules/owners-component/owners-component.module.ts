@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 
 import {OwnerHeaderComponent} from '../../owners-panel/owner-header/owner-header.component';
 import {EmployeesComponent} from '../../owners-panel/employees/employees.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {AddEmployeeComponent} from '../../owners-panel/add-employee/add-employee.component';
 import {DashboardComponent} from '../../owners-panel/dashboard/dashboard.component';
 import {AttendanceComponent} from '../../owners-panel/attendance/attendance.component';
@@ -18,6 +18,11 @@ import {EmployeeActionsComponent} from '../../owners-panel/employee-actions/empl
 import {EmployeeAccountsComponent} from '../../owners-panel/employee-accounts/employee-accounts.component';
 import {SoldComponent} from '../../owners-panel/sold/sold.component';
 import { LazyLoadImageModule} from 'ng-lazyload-image';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, } from '@angular/material/core';
+import { SoldActionsComponent } from 'src/app/owners-panel/sold-actions/sold-actions.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [OwnerHeaderComponent,
     EmployeesComponent,
@@ -29,13 +34,18 @@ import { LazyLoadImageModule} from 'ng-lazyload-image';
     ProductActionsComponent,
     EmployeeAccountsComponent,
     EmployeeActionsComponent,
-    SoldComponent
+    SoldComponent,
+    SoldActionsComponent
     ],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     LazyLoadImageModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
 
   ],
   exports: [OwnerHeaderComponent,
@@ -48,7 +58,8 @@ import { LazyLoadImageModule} from 'ng-lazyload-image';
     ProductActionsComponent,
     EmployeeAccountsComponent,
     EmployeeActionsComponent,
-    SoldComponent
+    SoldComponent,
+    SoldActionsComponent
     ]
 })
 export class OwnersComponentModule { }

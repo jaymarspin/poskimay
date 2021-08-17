@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {GlobalService} from '../services/global.service';
 import {HttpService} from '../services/http.service';
 import {Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject } from 'rxjs';
+import { PopoverController } from '@ionic/angular';
+import { ChooseEmployeeComponent } from './choose-employee/choose-employee.component';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.page.html',
@@ -14,16 +17,28 @@ export class SigninPage implements OnInit {
   password: any;
 
   accountType: any;
-  constructor(private router: Router,public global: GlobalService,public http: HttpService) {
+  @Output() getPicture = new EventEmitter<WebcamImage>();
+  showWebcam = true;
+  isCameraExist = true;
+
+  errors: WebcamInitError[] = [];
+
+  // webcam snapshot trigger
+  public trigger: Subject<void> = new Subject<void>();
+  public nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
+  myimage: any;
+  constructor(private router: Router,public global: GlobalService,public http: HttpService,public popoverController: PopoverController) {
     this.accountType = 'employee';
   }
 
   ngOnInit() {
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.isCameraExist = mediaDevices && mediaDevices.length > 0;
+      });
 
   }
-  trigger(e): any{
 
-  }
   async setter(id){
 
     localStorage.setItem('accountType',this.accountType);
@@ -80,5 +95,57 @@ export class SigninPage implements OnInit {
       });
     }
   }
+  public takeSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public onOffWebCame() {
+    this.showWebcam = !this.showWebcam;
+  }
+
+  public handleInitError(error: WebcamInitError) {
+    this.errors.push(error);
+  }
+
+  public changeWebCame(directionOrDeviceId: boolean | string) {
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  public handleImage(webcamImage: WebcamImage) {
+    console.log(webcamImage);
+    this.myimage = webcamImage.imageAsDataUrl;
+    this.getPicture.emit(this.myimage);
+    this.showWebcam = false;
+    this.presentPopover();
+  }
+
+  get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
+  }
+  change(){
+    delete(this.myimage);
+    this.showWebcam = true;
+  }
+  submit(){
+    delete(this.myimage);
+    this.showWebcam = true;
+  }
+
+  async presentPopover() {
+    const popover = await this.popoverController.create({
+      component: ChooseEmployeeComponent,
+      cssClass: 'my-custom-class',
+      translucent: true
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
 
 }

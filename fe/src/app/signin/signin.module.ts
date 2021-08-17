@@ -8,6 +8,7 @@ import { SigninPageRoutingModule } from './signin-routing.module';
 
 import { SigninPage } from './signin.page';
 import {WebcamModule} from 'ngx-webcam';
+import {ChooseEmployeeComponent} from './choose-employee/choose-employee.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,6 @@ import {WebcamModule} from 'ngx-webcam';
     WebcamModule,
     SigninPageRoutingModule
   ],
-  declarations: [SigninPage]
+  declarations: [SigninPage,ChooseEmployeeComponent]
 })
 export class SigninPageModule {}
