@@ -116,7 +116,6 @@ export class SigninPage implements OnInit {
     this.myimage = webcamImage.imageAsDataUrl;
     this.getPicture.emit(this.myimage);
     this.showWebcam = false;
-    this.presentPopover();
   }
 
   get triggerObservable(): Observable<void> {
@@ -131,15 +130,21 @@ export class SigninPage implements OnInit {
     this.showWebcam = true;
   }
   submit(){
-    delete(this.myimage);
-    this.showWebcam = true;
+    this.presentPopover().then(() =>{
+      delete(this.myimage);
+      this.showWebcam = true;
+    });
+
   }
 
   async presentPopover() {
     const popover = await this.popoverController.create({
       component: ChooseEmployeeComponent,
       cssClass: 'my-custom-class',
-      translucent: true
+      translucent: true,
+      componentProps: {
+        myimage: this.myimage
+      }
     });
     await popover.present();
 
