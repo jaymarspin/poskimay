@@ -361,7 +361,18 @@ function validid($id,$conn){
 
 		return $myobj;
 	}
+	function getTimeElapseHours($date_created){
+		require __DIR__ . '../../vendor/autoload.php';
+	   $tmpelaps = 0;
+	   $number = 0;
 
+	   $m = new \Moment\Moment($date_created);
+	   $momentFromVo = $m->fromNow();
+	   if((int)$momentFromVo->getHours() > 0){
+		$tmpelaps = (int)$momentFromVo->getHours();
+	   }
+	   return $tmpelaps;
+   }
 
 	function getTimeElapse($date_created){
 		 require __DIR__ . '../../vendor/autoload.php';

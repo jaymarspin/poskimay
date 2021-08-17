@@ -29,16 +29,43 @@ if($in_out == 'time in'){
     $q = "SELECT * FROM attendance WHERE employee_id = $id";
     $exe = $conn->query($q);
     $attendance_id = 0;
-    while($row = mysqli_fetch_array($exe)){
-        $attendance_id = intval($row['id']);  
-    }
-    $q = "UPDATE attendance SET time_out = NOW() WHERE id = $attendance_id";
-    $exe = $conn->query($q);
-    if($exe){
-        $myobj = $arrayName = array('message' => 'success');
-    }else{
-        $myobj = $arrayName = array('message' => 'Error Occured!');
-    }
+    $suggestlogin = false;
+    $last_date = null;
+    $last_timeout = null;
+ 
+        while($row = mysqli_fetch_array($exe)){
+            $attendance_id = intval($row['id']);
+            $last_date = strtotime($row['time_in']);
+            $last_timeout = $row['time_out'];
+             
+        }
+        if(is_null($last_timeout)){
+            $hours = $methods->getTimeElapseHours($last_date);
+            if(intval($hours) > 9){
+                $suggestlogin = true;
+                if(!empty($postjson['goTimeOut'])){
+                    $suggestlogin = false;
+                }
+            
+        }if($suggestlogin == false ){
+            $q = "UPDATE attendance SET time_out = NOW() WHERE id = $attendance_id";
+            $exe = $conn->query($q);
+            if($exe){
+                $myobj = $arrayName = array('message' => 'success');
+            }else{
+                $myobj = $arrayName = array('message' => 'Error Occured!');
+            }
+        }else{
+            $myobj = $arrayName = array('message' => 'suggesttimein',
+                                        'hours' => $hours
+            );
+        }
+        }else{
+            $myobj = $arrayName = array('message' => 'shouldTimeIn',
+                                        
+            );
+        }
+        
   }
 echo json_encode($myobj)
 ?>
