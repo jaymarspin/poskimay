@@ -36,6 +36,7 @@ export class ChooseEmployeeComponent implements OnInit {
       console.log(data);
       this.http.postData(`add-attendance.php`,data).subscribe({
         next: response =>{
+          console.log(response);
           if(response.body.message === 'success'){
             Swal.fire(
               'Good job!',
@@ -68,9 +69,21 @@ export class ChooseEmployeeComponent implements OnInit {
             );
           }
           else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              backdrop: false,
+              text: response.body.message,
+            });
           }
         },error: err =>{
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            backdrop: false,
+            text: err,
+          });
         }
       });
     }else{
