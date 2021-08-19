@@ -110,6 +110,7 @@ codeinputchange(){
         this.buyaction = true;
       const data ={
         sold: this.global.sales,
+        cash: this.customercash,
         employeeid: localStorage.getItem(`id`),
     };
       this.http.postData(`add-sold.php`,data).subscribe({

@@ -13,11 +13,13 @@ $methods = new globalMethods();
 $postjson = json_decode(file_get_contents('php://input'), true);
 $sold = $postjson['sold'];
 $employeeid = $postjson['employeeid'];
+$cash = doubleval($postjson['cash']);
 $myobj = array();
 $pass = array();
-$q = "INSERT INTO whole_sold(employee_id) VALUES(?)";
+
+$q = "INSERT INTO whole_sold(employee_id,cash) VALUES(?,?)";
 $stmt = $conn->prepare($q);
-$stmt->bind_param("i",$employeeid);
+$stmt->bind_param("id",$employeeid,$cash);
 $exe = $stmt->execute();
 if($exe){
     $insert_id = $conn->insert_id;
@@ -33,6 +35,7 @@ if($exe){
         if($exe){
             array_push($pass,true);
         }else{
+            $conn->rollback();
             array_push($pass,false);
         }
     }

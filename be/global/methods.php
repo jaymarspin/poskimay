@@ -26,6 +26,25 @@ class globalMethods
 
 		return $myobj;
 	}
+
+	function getProductsSold($id,$conn){
+		$q = "SELECT * FROM sold WHERE whole_sold_id = $id";
+		$exe = $conn->query($q);
+		$myobj = array();
+		while($row = mysqli_fetch_array($exe)){
+			$myobj[] = $arrayName = array(
+				'id' => $row['id'],
+				'product' => $this->getProduct($row['product_id'],$conn),
+				'quantity' => $row['quantity'],
+				'date_updated' => $row['date_updated'],
+				'date_created' => $row['date_created']
+
+
+			);
+
+		}
+		return $myobj;
+	}
 	function getProductCategory($id,$conn){
 		$q = "SELECT * FROM categories WHERE id = $id";
 		$exe = $conn->query($q);
