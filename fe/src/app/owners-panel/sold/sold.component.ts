@@ -16,10 +16,18 @@ export class SoldComponent implements OnInit {
   sold: any;
   soldcount: any;
 
+  sold2: any;
+  soldcount2: any;
+
   page: number;
   limit: number;
   pagebtntmp: any;
   pagebtn: any;
+
+  page2: number;
+  limit2: number;
+  pagebtntmp2: any;
+  pagebtn2: any;
 
   defaultImage = 'https://www.placecage.com/1000/1000';
   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
@@ -37,6 +45,11 @@ export class SoldComponent implements OnInit {
 
     this.page = 1;
     this.limit = 10;
+
+    this.pagebtn2 = new Array();
+
+    this.page2 = 1;
+    this.limit2 = 10;
     const today = new Date();
     this.soldval = 'sold';
     const month = today.getMonth();
@@ -109,10 +122,50 @@ export class SoldComponent implements OnInit {
         },
       });
   }
+  loadData2(dates){
+    this.global.loading = true;
+    this.http.getData(
+      `get-bulk-sold.php?
+      limit=${this.limit2}
+      &page=${this.page2}
+      &start=${dates.start},
+      &end=${dates.end}`
+    ).subscribe({
+      next: data =>{
+      this.sold2 = new Array();
+
+      const result = JSON.parse(JSON.stringify(data));
+      console.log(result);
+      this.soldcount2 = result.sold_count;
+      const length = result.sold.length;
+
+      this.pagebtntmp2 = this.soldcount2 / this.limit2;
+      this.pagebtn2 = Array();
+      for (let ii = 1; ii < this.pagebtntmp2 + 1; ii++) {
+        this.pagebtn2.push(ii);
+      }
+      for (let i = 0; i < length; i++) {
+        this.sold2.push(result.sold[i]);
+        console.log(this.sold2);
+      }
+
+      this.global.loading = false;
+      },error: err =>{
+        console.log(err);
+      }
+    });
+
+  }
   pager(page) {
     this.page = page;
     this.getInitialDate().then(data =>{
       this.loadData(data);
+    });
+  }
+  pager2(page) {
+    this.page2 = page;
+    this.getInitialDate().then(data =>{
+      this.loadData2(data);
     });
   }
 
@@ -128,6 +181,23 @@ export class SoldComponent implements OnInit {
   radioGroupChange(e) {
     this.soldval = e.detail.value;
     console.log(this.soldval);
+    if(this.soldval === 'bulk'){
+      this.getInitialDate().then(data =>{
+        this.loadData2(data);
+      });
+    }else{
+      this.getInitialDate().then(data =>{
+        this.loadData(data);
+      });
+    }
+  }
+  getPaid(products){
+    let tmp: any = 0;
+    for (const iterator of products) {
+      console.log(iterator.quantity);
+      tmp = this.global.round2Fixed(iterator.quantity * iterator.product.price.price);
+    }
+    return tmp;
   }
   dateChanged() {
     console.log(this.campaignOne.value);

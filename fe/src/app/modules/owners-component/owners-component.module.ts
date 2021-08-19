@@ -21,7 +21,7 @@ import { LazyLoadImageModule} from 'ng-lazyload-image';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, } from '@angular/material/core';
 import { SoldActionsComponent } from 'src/app/owners-panel/sold-actions/sold-actions.component';
-
+import {ProductsSoldComponent} from '../../owners-panel/sold/products-sold/products-sold.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [OwnerHeaderComponent,
@@ -35,7 +35,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EmployeeAccountsComponent,
     EmployeeActionsComponent,
     SoldComponent,
-    SoldActionsComponent
+    SoldActionsComponent,
+    ProductsSoldComponent
     ],
   imports: [
     CommonModule,
@@ -59,7 +60,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EmployeeAccountsComponent,
     EmployeeActionsComponent,
     SoldComponent,
-    SoldActionsComponent
+    SoldActionsComponent,
+    ProductsSoldComponent
     ]
 })
 export class OwnersComponentModule { }
