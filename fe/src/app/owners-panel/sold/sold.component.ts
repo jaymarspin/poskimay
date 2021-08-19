@@ -61,10 +61,11 @@ export class SoldComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any) {
+  async presentPopover(ev: any,id) {
     const popover = await this.popoverController.create({
       component: SoldActionsComponent,
       cssClass: 'my-custom-class',
+      componentProps: {id},
       event: ev,
       translucent: true,
     });

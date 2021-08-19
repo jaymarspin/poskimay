@@ -31,6 +31,7 @@ $sold_count = $exe->num_rows;
         $tmp[] = $arrayName = array('employee_id' => $row['employee_id'],
                                     'cash' => $row['cash'],
                                     'products' => $products_sold,
+                                    'id' => intval($row['id']),
                                     'date_created' => $row['date_created']
     );
  	}

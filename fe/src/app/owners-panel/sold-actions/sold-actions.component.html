@@ -1,6 +1,6 @@
 <div class="menu-wrapper">
   <ion-list class="bg-transparent" >
-    <ion-item lines="full" (click)="viewProducts()">
+    <ion-item *ngIf="id !== 0" lines="full" (click)="viewProducts()">
       <ion-icon name="aperture-outline" slot="start" color="light"></ion-icon>
       <ion-label color="light">
         View Products

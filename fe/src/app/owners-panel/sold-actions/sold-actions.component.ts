@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import {ProductsSoldComponent} from '../sold/products-sold/products-sold.component';
 @Component({
@@ -7,10 +7,11 @@ import {ProductsSoldComponent} from '../sold/products-sold/products-sold.compone
   styleUrls: ['./sold-actions.component.scss'],
 })
 export class SoldActionsComponent implements OnInit {
-
+  @Input() id: any;
   constructor(public popoverController: PopoverController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   viewProducts(){
     this.popoverController.dismiss().then(() =>{
@@ -22,6 +23,7 @@ export class SoldActionsComponent implements OnInit {
   async presentPopover() {
     const popover = await this.popoverController.create({
       component: ProductsSoldComponent,
+      componentProps: {id: this.id},
       translucent: true,
       cssClass: 'product-sold-popover'
     });

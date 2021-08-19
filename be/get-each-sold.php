@@ -13,7 +13,7 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $id = intval($_GET['id']);
 $myobj = array();
- $q = "SELECT * FROM sold";
+ $q = "SELECT * FROM sold WHERE whole_sold_id = $id";
 $exe = $conn->query($q);
  while ($row = mysqli_fetch_array($exe)) {
 
