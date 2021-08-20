@@ -57,6 +57,6 @@ round2Fixed(value) {
 
   // Shift back
   value = value.toString().split('e');
-  return (+(value[0] + 'e' + (value[1] ? (+value[1] - 2) : -2))).toFixed(2);
+  return parseFloat((+(value[0] + 'e' + (value[1] ? (+value[1] - 2) : -2))).toFixed(2));
 }
 }

@@ -10,6 +10,7 @@ import { SaleInputPage } from './sale-input.page';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import {ProductsComponent} from './components/products/products.component';
 import { LazyLoadImageModule} from 'ng-lazyload-image';
+import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +22,7 @@ import { LazyLoadImageModule} from 'ng-lazyload-image';
 
   ],
   declarations: [SaleInputPage,
-    ProductsComponent]
+    ProductsComponent,TodaysTransactionComponent],
+  exports:[ProductsComponent,TodaysTransactionComponent]
 })
 export class SaleInputPageModule {}

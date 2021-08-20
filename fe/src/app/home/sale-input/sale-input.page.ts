@@ -57,7 +57,7 @@ codeinputchange(){
   async presentPopover(ev: any,item) {
     const popover = await this.popoverController.create({
       component: ProductViewComponent,
-      cssClass: 'popover',
+      cssClass: 'productviewfrominput',
       componentProps: {item},
       event: ev,
       translucent: true,
@@ -122,7 +122,6 @@ codeinputchange(){
           this.buypause();
         },error: err =>{
           this.buypause();
-          console.log(err);
         }
       });
       }else{

@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit {
   async presentPopover(ev: any,item) {
     const popover = await this.popoverController.create({
       component: ProductViewComponent,
-      cssClass: 'popover',
+      cssClass: 'productview',
       componentProps: {item},
       event: ev,
       translucent: true,

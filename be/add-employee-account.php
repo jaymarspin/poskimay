@@ -34,7 +34,6 @@ if ($exe) {
 		}
 	}
 	$myobj = $arrayName = array('message' => "success",
-								'role' => $roles
 	 );
 }else{
 	$myobj = $arrayName = array('message' => "error Occured" );

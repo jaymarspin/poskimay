@@ -53,10 +53,10 @@ export class EmployeesComponent implements OnInit {
 
   addemployee() {}
 
-  loadData() {
+  async loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
-    this.http
+   await this.http
       .getData(
         `get-employees.php?
           limit=${this.limit}
@@ -99,5 +99,10 @@ export class EmployeesComponent implements OnInit {
 
   gofurther(link) {
     this.router.navigate([link]);
+  }
+  ionViewDidEnter(){
+    this.loadData().then(() =>{
+
+    });
   }
 }

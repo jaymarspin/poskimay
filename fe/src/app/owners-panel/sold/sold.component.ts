@@ -195,8 +195,7 @@ export class SoldComponent implements OnInit {
   getPaid(products){
     let tmp: any = 0;
     for (const iterator of products) {
-      console.log(iterator.quantity);
-      tmp = this.global.round2Fixed(iterator.quantity * iterator.product.price.price);
+      tmp += this.global.round2Fixed(iterator.quantity * iterator.product.price.price);
     }
     return tmp;
   }

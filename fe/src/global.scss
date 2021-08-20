@@ -44,12 +44,19 @@ ion-content{
             transform: translate(-50%, -50%) !important;
             }
        
-    }.my-custom-class{
+    }.my-custom-class,.productview{
         .popover-content{
             max-width: 500px;
         }
 
         
+    }.productviewfrominput{
+        .popover-content{
+            max-width: 500px;
+            .btn{
+                display: none;
+            }
+        }
     }
 
    
