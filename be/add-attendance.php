@@ -12,7 +12,6 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $postjson = json_decode(file_get_contents('php://input'), true);
 $id = intval($postjson['id']);
-
 $in_out = $postjson['inout'];
 $myobj = array();
 if ($in_out == 'time in') {

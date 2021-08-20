@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 import { HttpService } from '../../services/http.service';
 import * as _ from 'lodash';
-import { ChangeDetectorRef,NgZone } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { GlobalService } from '../../services/global.service';
