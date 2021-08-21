@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {SoldActionsComponent} from '../sold-actions/sold-actions.component';
+import { SoldActionsComponent } from '../sold-actions/sold-actions.component';
 import { GlobalService } from '../../services/global.service';
 import { HttpService } from '../../services/http.service';
 import Swal from 'sweetalert2';
@@ -61,24 +61,26 @@ export class SoldComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any,id) {
+  async presentPopover(ev: any, id) {
     const popover = await this.popoverController.create({
       component: SoldActionsComponent,
       cssClass: 'my-custom-class',
-      componentProps: {id},
+      componentProps: { id },
       event: ev,
       translucent: true,
     });
     await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
-  async getInitialDate(){
+  async getInitialDate() {
     return this.campaignOne.value;
   }
+
+  formattedDate(d = new Date()) {
+    return [d.getDate(), d.getMonth()+1, d.getFullYear()]
+        .map(n => n < 10 ? `0${n}` : `${n}`).join('-');
+  }
   ngOnInit() {
-    this.getInitialDate().then(data =>{
+    this.getInitialDate().then((data) => {
       this.loadData(data);
     });
   }
@@ -90,18 +92,16 @@ export class SoldComponent implements OnInit {
         `get-sold.php?
           limit=${this.limit}
           &page=${this.page}
-          &start=${dates.start},
-          &end=${dates.end}`
+          &start=${this.formattedDate(dates.start)},
+          &end=${this.formattedDate(dates.end)}`
       )
       .subscribe({
         next: (data) => {
           this.sold = new Array();
 
           const result = JSON.parse(JSON.stringify(data));
-          console.log(result);
           this.soldcount = result.sold_count;
           const length = result.sold.length;
-
           this.pagebtntmp = this.soldcount / this.limit;
           this.pagebtn = Array();
           for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
@@ -123,49 +123,52 @@ export class SoldComponent implements OnInit {
         },
       });
   }
-  loadData2(dates){
-    this.global.loading = true;
-    this.http.getData(
-      `get-bulk-sold.php?
-      limit=${this.limit2}
-      &page=${this.page2}
-      &start=${dates.start},
-      &end=${dates.end}`
-    ).subscribe({
-      next: data =>{
-      this.sold2 = new Array();
-
-      const result = JSON.parse(JSON.stringify(data));
-      console.log(result);
-      this.soldcount2 = result.sold_count;
-      const length = result.sold.length;
-
-      this.pagebtntmp2 = this.soldcount2 / this.limit2;
-      this.pagebtn2 = Array();
-      for (let ii = 1; ii < this.pagebtntmp2 + 1; ii++) {
-        this.pagebtn2.push(ii);
-      }
-      for (let i = 0; i < length; i++) {
-        this.sold2.push(result.sold[i]);
-        console.log(this.sold2);
-      }
-
-      this.global.loading = false;
-      },error: err =>{
-        console.log(err);
-      }
-    });
+  loadData2(dates) {
+    if(dates.start && dates.end){
+      this.global.loading = true;
+      console.log(this.formattedDate(dates.end));
+      this.http
+        .getData(
+          `get-bulk-sold.php?
+        limit=${this.limit2}
+        &page=${this.page2}
+        &start=${this.formattedDate(dates.start)},
+        &end=${this.formattedDate(dates.end)}`
+        )
+        .subscribe({
+          next: (data) => {
+            this.sold2 = new Array();
+            const result = JSON.parse(JSON.stringify(data));
+            this.soldcount2 = result.sold_count;
+            console.log(result);
+            const length = result.sold.length;
+            this.pagebtntmp2 = this.soldcount2 / this.limit2;
+            this.pagebtn2 = Array();
+            for (let ii = 1; ii < this.pagebtntmp2 + 1; ii++) {
+              this.pagebtn2.push(ii);
+            }
+            for (let i = 0; i < length; i++) {
+              this.sold2.push(result.sold[i]);
+              console.log(this.sold2);
+            }
+            this.global.loading = false;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    }
 
   }
   pager(page) {
     this.page = page;
-    this.getInitialDate().then(data =>{
+    this.getInitialDate().then((data) => {
       this.loadData(data);
     });
   }
   pager2(page) {
     this.page2 = page;
-    this.getInitialDate().then(data =>{
+    this.getInitialDate().then((data) => {
       this.loadData2(data);
     });
   }
@@ -176,30 +179,42 @@ export class SoldComponent implements OnInit {
   async viewimg(src) {
     const images: any = new Array();
     await images.push({ src });
-    console.log(images);
     this.global.lightBoxOpen(images, 0);
   }
   radioGroupChange(e) {
     this.soldval = e.detail.value;
-    console.log(this.soldval);
-    if(this.soldval === 'bulk'){
-      this.getInitialDate().then(data =>{
+    if (this.soldval === 'bulk') {
+      this.getInitialDate().then((data) => {
         this.loadData2(data);
       });
-    }else{
-      this.getInitialDate().then(data =>{
+    } else {
+      this.getInitialDate().then((data) => {
         this.loadData(data);
       });
     }
   }
-  getPaid(products){
+  getPaid(products) {
     let tmp: any = 0;
     for (const iterator of products) {
-      tmp += this.global.round2Fixed(iterator.quantity * iterator.product.price.price);
+      tmp += this.global.round2Fixed(
+        iterator.quantity * iterator.product.price.price
+      );
     }
     return tmp;
   }
   dateChanged() {
-    console.log(this.campaignOne.value);
+    if(this.soldval === 'bulk'){
+      this.page2 = 1;
+      this.getInitialDate().then((data) => {
+        if(data.start && data.end){
+          this.loadData2(data);
+        }
+      });
+    }else{
+      this.page = 1;
+      this.getInitialDate().then((data) => {
+        this.loadData(data);
+      });
+    }
   }
 }

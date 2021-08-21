@@ -3,7 +3,7 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
- require_once("include/header.php");
+require_once("include/header.php");
 
 require_once("include/connection.php");
 require_once("include/timezone.php");
@@ -15,47 +15,46 @@ $myobj = array();
 
 $limit = $_GET['limit'];
 $page = $_GET['page'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$start = doubleval($_GET['start']);
+$end = doubleval($_GET['end']);
 $count = 0;
 
 $limitcount = intval($page) * intval($limit);
 $tmp = array();
 $baselimit = $limitcount - intval($limit);
- $q = "SELECT * FROM sold ORDER BY id DESC";
+$q = "SELECT * FROM sold ORDER BY id DESC";
 $exe = $conn->query($q);
 $sold_count = $exe->num_rows;
- while ($row = mysqli_fetch_array($exe)) {
+while ($row = mysqli_fetch_array($exe)) {
 
- 	if ($count >= $baselimit) {
- 		 
-
- 		
-        $product = $methods->getProduct($row['product_id'],$conn);
-	$tmp[] = $arrayName = array(
-									'id' => $row['id'],
-									'product' => $product,
-                                    'quantity' => $row['quantity'],
-									'date_updated' => $row['date_updated'],
-									'date_created' => $row['date_created']
+	if ($count >= $baselimit) {
+		if (strtotime(strval($row['date_created'])) >= $start && strtotime(strval($row['date_created'])) <= $end) {
+			$product = $methods->getProduct($row['product_id'], $conn);
+			$tmp[] = $arrayName = array(
+				'id' => $row['id'],
+				'product' => $product,
+				'quantity' => $row['quantity'],
+				'date_updated' => $row['date_updated'],
+				'date_created' => $row['date_created']
 
 
-	 );
- 	}
- 	
-
- 	$count += 1;
- 	if ($count > $limitcount - 1) {
- 		break;
- 	}
+			);
+			$count += 1;
+		}
+	}
 
 
- }
- $myobj = $arrayName = array('sold_count' => $sold_count,
- 								'sold' => $tmp,
- 								'limitcount' => $limitcount,
-								 'start' => $start,
-								 'end' => $end
-  );
- echo json_encode($myobj);
+
+	if ($count > $limitcount - 1) {
+		break;
+	}
+}
+$myobj = $arrayName = array(
+	'sold_count' => $sold_count,
+	'sold' => $tmp,
+	'limitcount' => $limitcount,
+	'start' => $start,
+	'end' => $end
+);
+echo json_encode($myobj);
 ?>
