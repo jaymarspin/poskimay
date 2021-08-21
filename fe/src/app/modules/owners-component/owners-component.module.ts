@@ -23,6 +23,8 @@ import { MatNativeDateModule, } from '@angular/material/core';
 import { SoldActionsComponent } from 'src/app/owners-panel/sold-actions/sold-actions.component';
 import {ProductsSoldComponent} from '../../owners-panel/sold/products-sold/products-sold.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AttendanceActionsComponent } from 'src/app/owners-panel/attendance/attendance-actions/attendance-actions.component';
+import { CalendarComponent } from 'src/app/owners-panel/attendance/calendar/calendar.component';
 @NgModule({
   declarations: [OwnerHeaderComponent,
     EmployeesComponent,
@@ -36,7 +38,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EmployeeActionsComponent,
     SoldComponent,
     SoldActionsComponent,
-    ProductsSoldComponent
+    ProductsSoldComponent,
+    AttendanceActionsComponent,
+    CalendarComponent
     ],
   imports: [
     CommonModule,
@@ -61,7 +65,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EmployeeActionsComponent,
     SoldComponent,
     SoldActionsComponent,
-    ProductsSoldComponent
+    ProductsSoldComponent,
+    AttendanceActionsComponent,
+    CalendarComponent
     ]
 })
 export class OwnersComponentModule { }
