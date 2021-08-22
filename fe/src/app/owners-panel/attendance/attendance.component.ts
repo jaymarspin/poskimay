@@ -92,6 +92,7 @@ export class AttendanceComponent implements OnInit {
           this.global.loading = false;
         },
         error: (error) => {
+          console.log(error);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',

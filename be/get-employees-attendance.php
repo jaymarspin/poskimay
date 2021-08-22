@@ -27,13 +27,13 @@ $employees_count = $exe->num_rows;
  	if ($count >= $baselimit) {
  		 
 
- 		
+ 		$rendered = $methods->getRenderedHours(intval($row['id']),$conn);
 	$tmp[] = $arrayName = array(
 									'id' => $row['id'],
 									'fname' => $row['fname'],
 									'lname' => $row['lname'],
 									'address' => $row['address'],
-								 
+                                    'rendered' => $rendered,
 									'gender' => ucwords($row['gender']),
 								 
 
