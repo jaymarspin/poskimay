@@ -46,18 +46,19 @@
       <ion-col size="3">
         <ion-label>Name</ion-label>
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="1">
         <ion-label>Gender</ion-label>
       </ion-col>
+      
+      <ion-col size="1">
+        <ion-label>Rendered</ion-label>
+      </ion-col>
+      
       <ion-col size="3">
-        <ion-label>Contact</ion-label>
+        <ion-label>Remarks</ion-label>
       </ion-col>
-      <!-- <ion-col size="2">
-        <ion-label>Request</ion-label>
-      </ion-col> -->
-      <ion-col size="2">
-        <ion-label>Date Added</ion-label>
-      </ion-col>
+      
+     
       <ion-col size="1">
         <ion-label>Actions</ion-label>
       </ion-col>
@@ -78,14 +79,7 @@
       <ion-col size="3">
         <ion-label>{{item.contact}}</ion-label>
       </ion-col>
-      <!-- <ion-col size="2" >
-        <div class="badge-wrapper">
-        <ion-badge class="td-label-center" color="primary">11</ion-badge>
-      </div>
-      </ion-col> -->
-      <ion-col size="2">
-        <ion-label class="td-label-center">{{item.date_created}}</ion-label>
-      </ion-col>
+      
       <ion-col size="1">
         <ion-icon (click)="presentPopover($event,item.id)" class="td-label-center" name="ellipsis-vertical-outline"></ion-icon>
       </ion-col>

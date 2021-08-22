@@ -6,6 +6,7 @@ import { HttpService } from '../../services/http.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AttendanceActionsComponent } from './attendance-actions/attendance-actions.component';
+
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -67,7 +68,7 @@ export class AttendanceComponent implements OnInit {
     this.global.loading = true;
    await this.http
       .getData(
-        `get-employees.php?
+        `get-employees-attendance.php?
           limit=${this.limit}
           &page=${this.page}`
       )

@@ -25,6 +25,14 @@ import {ProductsSoldComponent} from '../../owners-panel/sold/products-sold/produ
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AttendanceActionsComponent } from 'src/app/owners-panel/attendance/attendance-actions/attendance-actions.component';
 import { CalendarComponent } from 'src/app/owners-panel/attendance/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin
+]);
 @NgModule({
   declarations: [OwnerHeaderComponent,
     EmployeesComponent,
@@ -50,7 +58,8 @@ import { CalendarComponent } from 'src/app/owners-panel/attendance/calendar/cale
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
 
   ],
   exports: [OwnerHeaderComponent,

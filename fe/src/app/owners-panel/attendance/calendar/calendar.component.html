@@ -1,3 +1,15 @@
-<p>
-  calendar works!
-</p>
+<ion-grid>
+  <ion-row >
+    <ion-col size="12">
+      <div class="calendar-wrapper" style="display: block;position: relative;overflow: hidden;height:  500px;">
+        <full-calendar [options]="calendarOptions"
+       
+[deepChangeDetection]="true"
+contentHeight="auto"
+
+        ></full-calendar>
+      </div>
+      
+    </ion-col>
+  </ion-row>
+</ion-grid>

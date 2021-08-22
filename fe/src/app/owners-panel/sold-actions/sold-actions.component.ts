@@ -25,12 +25,9 @@ export class SoldActionsComponent implements OnInit {
       component: ProductsSoldComponent,
       componentProps: {id: this.id},
       translucent: true,
-      cssClass: 'product-sold-popover'
+      cssClass: 'attendance-popover'
     });
     await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
 }

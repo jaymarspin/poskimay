@@ -11,6 +11,7 @@ import { OwnersPanelPage } from './owners-panel.page';
 import {SidebarModule} from 'ng-sidebar';
 import { LightboxModule } from 'ngx-lightbox';
 import {OwnersComponentModule} from '../modules/owners-component/owners-component.module';
+
 @NgModule({
   imports: [
     CommonModule,

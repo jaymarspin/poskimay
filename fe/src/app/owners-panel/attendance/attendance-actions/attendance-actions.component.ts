@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { CalendarComponent } from '../calendar/calendar.component';
 @Component({
   selector: 'app-attendance-actions',
   templateUrl: './attendance-actions.component.html',
@@ -11,19 +12,16 @@ export class AttendanceActionsComponent implements OnInit {
 
   ngOnInit() {}
 
-  async viewCalendar(ev: any) {
+  async viewCalendar() {
+    this.popoverController.dismiss();
     const popover = await this.popoverController.create({
-      component: AttendanceActionsComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
+      component: CalendarComponent,
+      cssClass: 'attendance-popover',
       translucent: true,
       componentProps: {
         id: this.id,
       },
     });
     await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 }
