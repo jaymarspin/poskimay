@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { PopoverController } from '@ionic/angular';
+import { TimeLogViewComponent } from '../time-log-view/time-log-view.component';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -7,30 +9,55 @@ import { CalendarOptions } from '@fullcalendar/angular';
 })
 export class CalendarComponent implements OnInit {
   @Input() id: any;
-  calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this),
-    events: [
-      { title: 'event 1', date: '2021-08-01'},
-      { title: 'event 2', date: '2021-08-01' },
-      { title: 'event 2', date: '2021-08-02' }
-    ],
-    eventClick: (event) =>{
-      this.sample();
-    },
-  };
-  constructor() { }
+  @Input() rendered: any;
+  @Input() notimeout: any;
+  calendarOptions: CalendarOptions;
+  events: any;
+  constructor(private popoverController: PopoverController) {
+    this.events = Array();
+   }
 
   ngOnInit() {
     setTimeout( () => {
       window.dispatchEvent(new Event('resize'));
   }, 1);
+  console.log(this.notimeout);
+  for (const iterator of this.rendered) {
+    this.events.push({ title: 'in', date: iterator.time_in,id: iterator.id });
+    this.events.push({ title: 'out', date: iterator.time_out,id: iterator.id });
   }
-  sample(){
-    alert('awagaw');
+  for (const iterator of this.notimeout) {
+    this.events.push({ title: 'in', date: iterator.time_in, id: iterator.id });
+  }
+
+  this.calendarOptions = {
+    initialView: 'dayGridMonth',
+    dateClick: this.handleDateClick.bind(this),
+    events: this.events,
+    eventClick: (info) =>{
+      // console.log(info.event);
+      // alert(info.event.id);
+      this.presentPopover(info.event.id);
+    },
+  };
   }
   handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr);
+    this.presentPopover(arg.dateStr);
+    // alert('date click! ' + arg.dateStr);
+  }
+
+  async presentPopover(id) {
+
+    const popover = await this.popoverController.create({
+      component: TimeLogViewComponent,
+      cssClass: 'my-custom-class',
+      translucent: true,
+      componentProps: {
+        id: this.id,
+        timeID: id
+      },
+    });
+    await popover.present();
   }
   // https://fullcalendar.io/docs/angular
 

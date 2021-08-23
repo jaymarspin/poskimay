@@ -8,9 +8,13 @@ import { CalendarComponent } from '../calendar/calendar.component';
 })
 export class AttendanceActionsComponent implements OnInit {
   @Input() id: any;
+  @Input() rendered: any;
+  @Input() notimeout: any;
   constructor(public popoverController: PopoverController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.notimeout);
+  }
 
   async viewCalendar() {
     this.popoverController.dismiss();
@@ -20,6 +24,8 @@ export class AttendanceActionsComponent implements OnInit {
       translucent: true,
       componentProps: {
         id: this.id,
+        rendered: this.rendered,
+        notimeout: this.notimeout
       },
     });
     await popover.present();

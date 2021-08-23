@@ -39,19 +39,20 @@ export class AttendanceComponent implements OnInit {
     const year = today.getFullYear();
     const day = today.getUTCDate();
     this.campaignOne = new FormGroup({
-      start: new FormControl(new Date(year, month, day)),
+      start: new FormControl(new Date(year, month, 1)),
       end: new FormControl(new Date(year, month, day)),
     });
   }
 
-  async presentPopover(ev: any, id) {
+  async presentPopover(ev: any, id,rendered,notimeout) {
+    console.log(notimeout);
     const popover = await this.popoverController.create({
       component: AttendanceActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true,
       componentProps: {
-        id,
+        id,rendered,notimeout
       },
     });
     await popover.present();
@@ -64,7 +65,6 @@ export class AttendanceComponent implements OnInit {
   addemployee() {}
 
   async loadData() {
-    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
    await this.http
       .getData(
@@ -106,6 +106,14 @@ export class AttendanceComponent implements OnInit {
   pager(page) {
     this.page = page;
     this.loadData();
+  }
+
+   calculateRendered(rendered){
+     let tmp = 0;
+    for (const iterator of rendered) {
+      tmp += parseInt(iterator.torender, 10);
+    }
+    return tmp;
   }
 
   gofurther(link) {

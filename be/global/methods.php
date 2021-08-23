@@ -127,21 +127,53 @@ class globalMethods
 		return $myobj;
 	}
 
+
+	function getAttendacePic($id, $conn)
+	{
+		$q = "SELECT * FROM attendance_pic WHERE attendance_id = $id";
+		$exe = $conn->query($q);
+		$myobj = array();
+		while ($row = mysqli_fetch_array($exe)) {
+
+			$myobj = $arrayName = array(
+				'imagePath' => $row['imagePath'],
+
+			);
+		}
+
+		return $myobj;
+	}
+
 	function getRenderedHours($id, $conn)
 	{
 		$q = "SELECT * FROM attendance WHERE employee_id = $id";
 		$exe = $conn->query($q);
 		$myobj = array();
+		$rendered = array();
+		$notimeout = array();
 		while ($row = mysqli_fetch_array($exe)) {
 			if (!empty($row['time_in']) && !empty($row['time_out'])) {
-				$rendered = $this->getTimeElapseHoursTwoDates(strval($row['time_in']),strval($row['time_out']));
-				$myobj[] = $arrayName = array(
-					'rendered' => $rendered,
-	
-	
+				$torender = $this->getTimeElapseHoursTwoDates(strval($row['time_in']),strval($row['time_out']));
+				$tmp = $arrayName = array(
+					'torender' => $torender,
+					'time_in' => $row['time_in'],
+					'time_out' => $row['time_out'],
+					'id' => intval($row['id'])
 				);
+				array_push($rendered, $tmp);
+			}else if($row['time_in'] && empty($row['time_out'])){
+				$tmp = $arrayName = array(
+					'time_in' => $row['time_in'],
+				 
+					'id' => intval($row['id'])
+				);
+				array_push($notimeout, $tmp);
 			}
 		}
+		$myobj = $arrayName = array(
+			'rendered' => $rendered,
+			'timeout' => $notimeout
+		);
 		return $myobj;
 	}
 	function getProductStock($id, $conn)
