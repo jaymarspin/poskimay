@@ -23,11 +23,11 @@ export class CalendarComponent implements OnInit {
   }, 1);
   console.log(this.notimeout);
   for (const iterator of this.rendered) {
-    this.events.push({ title: 'in', date: iterator.time_in,id: iterator.id });
-    this.events.push({ title: 'out', date: iterator.time_out,id: iterator.id });
+    this.events.push({ title: 'in', start: iterator.time_in,id: iterator.id });
+    this.events.push({ title: 'out', end: iterator.time_out,id: iterator.id,eventBackgroundColor:  '#000'});
   }
   for (const iterator of this.notimeout) {
-    this.events.push({ title: 'in', date: iterator.time_in, id: iterator.id });
+    this.events.push({ title: 'in', start: iterator.time_in, id: iterator.id });
   }
 
   this.calendarOptions = {
