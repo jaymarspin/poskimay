@@ -30,7 +30,7 @@ while ($row = $result->fetch_assoc()) {
      $stocks = $methods->getProductStock(intval($row['id']),$conn);
      $image = $methods->getProductImage(intval($row['id']),$conn);
      $myobj = $arrayName = array('product_name' => ucwords($row['product_name']),
-                                     'id' => $row['id'],
+                                     'id' => intval($row['id']),
                                      'category' => $methods->getProductCategory($row['category'],$conn),
                                      'barcode' => $row['barcode'],
                                      'price' => $price,

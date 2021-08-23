@@ -3,10 +3,9 @@ import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../services/global.service';
 import { HttpService } from '../../services/http.service';
-import Swal from 'sweetalert2';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AttendanceActionsComponent } from './attendance-actions/attendance-actions.component';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -44,7 +43,7 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any, id,rendered,notimeout,name) {
+  async presentPopover(ev: any, id, rendered, notimeout, name) {
     console.log(notimeout);
     const popover = await this.popoverController.create({
       component: AttendanceActionsComponent,
@@ -52,64 +51,72 @@ export class AttendanceComponent implements OnInit {
       event: ev,
       translucent: true,
       componentProps: {
-        id,rendered,notimeout,name
+        id,
+        rendered,
+        notimeout,
+        name,
       },
     });
     await popover.present();
   }
 
-  ngOnInit() {
-    this.loadData();
-  }
+  ngOnInit() {}
 
   addemployee() {}
 
-  async loadData() {
-    this.global.loading = true;
-   await this.http
-      .getData(
-        `get-employees-attendance.php?
+  async loadData(dates) {
+    if (dates.start && dates.end) {
+      this.global.loading = true;
+      await this.http
+        .getData(
+          `get-employees-attendance.php?
           limit=${this.limit}
-          &page=${this.page}`
-      )
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.employee = new Array();
+          &page=${this.page}
+          &start=${this.global.formattedDate(dates.start)}
+          &end=${this.global.formattedDate(dates.end)}
+          `
+        )
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.employee = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          this.employeescount = result.employees_count;
-          const length = result.employees.length;
+            const result = JSON.parse(JSON.stringify(data));
+            this.employeescount = result.employees_count;
+            const length = result.employees.length;
 
-          this.pagebtntmp = this.employeescount / this.limit;
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let iii = 0; iii < length; iii++) {
-            this.employee.push(result.employees[iii]);
-          }
-          this.global.loading = false;
-        },
-        error: (error) => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+            this.pagebtntmp = this.employeescount / this.limit;
+            this.pagebtn = Array();
+            for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+              this.pagebtn.push(ii);
+            }
+            for (let iii = 0; iii < length; iii++) {
+              this.employee.push(result.employees[iii]);
+            }
+            this.global.loading = false;
+          },
+          error: (error) => {
+            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.message,
+              footer: ' ',
+            });
+          },
+        });
+    }
   }
 
   pager(page) {
     this.page = page;
-    this.loadData();
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
   }
 
-   calculateRendered(rendered){
-     let tmp = 0;
+  calculateRendered(rendered) {
+    let tmp = 0;
     for (const iterator of rendered) {
       tmp += parseInt(iterator.torender, 10);
     }
@@ -119,12 +126,18 @@ export class AttendanceComponent implements OnInit {
   gofurther(link) {
     this.router.navigate([link]);
   }
-  ionViewDidEnter(){
-    this.loadData().then(() =>{
-
+  ionViewDidEnter() {
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
     });
   }
 
   dateChanged() {
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
+  }
+  async getInitialDate() {
+    return this.campaignOne.value;
   }
 }

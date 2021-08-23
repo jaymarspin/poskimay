@@ -74,11 +74,6 @@ export class SoldComponent implements OnInit {
   async getInitialDate() {
     return this.campaignOne.value;
   }
-
-  formattedDate(d = new Date()) {
-    return [d.getDate(), d.getMonth()+1, d.getFullYear()]
-        .map(n => n < 10 ? `0${n}` : `${n}`).join('-');
-  }
   ngOnInit() {
     this.getInitialDate().then((data) => {
       this.loadData(data);
@@ -92,8 +87,8 @@ export class SoldComponent implements OnInit {
         `get-sold.php?
           limit=${this.limit}
           &page=${this.page}
-          &start=${this.formattedDate(dates.start)},
-          &end=${this.formattedDate(dates.end)}`
+          &start=${this.global.formattedDate(dates.start)},
+          &end=${this.global.formattedDate(dates.end)}`
       )
       .subscribe({
         next: (data) => {
@@ -126,14 +121,13 @@ export class SoldComponent implements OnInit {
   loadData2(dates) {
     if(dates.start && dates.end){
       this.global.loading = true;
-      console.log(this.formattedDate(dates.end));
       this.http
         .getData(
           `get-bulk-sold.php?
         limit=${this.limit2}
         &page=${this.page2}
-        &start=${this.formattedDate(dates.start)},
-        &end=${this.formattedDate(dates.end)}`
+        &start=${this.global.formattedDate(dates.start)},
+        &end=${this.global.formattedDate(dates.end)}`
         )
         .subscribe({
           next: (data) => {

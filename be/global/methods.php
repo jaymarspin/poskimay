@@ -145,7 +145,7 @@ class globalMethods
 		return $myobj;
 	}
 
-	function getRenderedHours($id, $conn)
+	function getRenderedHours($id, $start, $end, $conn)
 	{
 		$q = "SELECT * FROM attendance WHERE employee_id = $id";
 		$exe = $conn->query($q);
@@ -153,22 +153,29 @@ class globalMethods
 		$rendered = array();
 		$notimeout = array();
 		while ($row = mysqli_fetch_array($exe)) {
-			if (!empty($row['time_in']) && !empty($row['time_out'])) {
-				$torender = $this->getTimeElapseHoursTwoDates(strval($row['time_in']),strval($row['time_out']));
-				$tmp = $arrayName = array(
-					'torender' => $torender,
-					'time_in' => $row['time_in'],
-					'time_out' => $row['time_out'],
-					'id' => intval($row['id'])
-				);
-				array_push($rendered, $tmp);
-			}else if($row['time_in'] && empty($row['time_out'])){
-				$tmp = $arrayName = array(
-					'time_in' => $row['time_in'],
-				 
-					'id' => intval($row['id'])
-				);
-				array_push($notimeout, $tmp);
+			$time_in = date("Y-M-d", strtotime(strval($row['time_in'])));
+			$time_in = strtotime($time_in);
+			$time_out = date("Y-M-d", strtotime(strval($row['time_out'])));
+			$time_out = strtotime($time_out);
+
+			if ($time_in >= $start && $time_out <= $end) {
+				if (!empty($row['time_in']) && !empty($row['time_out'])) {
+					$torender = $this->getTimeElapseHoursTwoDates(strval($row['time_in']), strval($row['time_out']));
+					$tmp = $arrayName = array(
+						'torender' => $torender,
+						'time_in' => $row['time_in'],
+						'time_out' => $row['time_out'],
+						'id' => intval($row['id'])
+					);
+					array_push($rendered, $tmp);
+				} else if ($row['time_in'] && empty($row['time_out'])) {
+					$tmp = $arrayName = array(
+						'time_in' => $row['time_in'],
+
+						'id' => intval($row['id'])
+					);
+					array_push($notimeout, $tmp);
+				}
 			}
 		}
 		$myobj = $arrayName = array(
@@ -474,12 +481,12 @@ class globalMethods
 	}
 	function getTimeElapseHoursTwoDates($date1, $date2)
 	{
-// 		$f = 'Y-m-d H:i:s';
-// $d1 = \DateTime::createFromFormat($date1, $f);
-// $d2 = \DateTime::createFromFormat($date2, $f);
+		// 		$f = 'Y-m-d H:i:s';
+		// $d1 = \DateTime::createFromFormat($date1, $f);
+		// $d2 = \DateTime::createFromFormat($date2, $f);
 
-// $diff = $d2->diff($d1);
-// $hours = $diff->h + ($diff->days * 24);
+		// $diff = $d2->diff($d1);
+		// $hours = $diff->h + ($diff->days * 24);
 
 		// $day1 = strval($date1);
 		// $day1 = strtotime($day1);

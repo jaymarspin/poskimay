@@ -31,14 +31,12 @@ export class TimeLogViewComponent implements OnInit {
         this.logData = JSON.parse(JSON.stringify(data));
         console.log(this.logData);
         _.forEach(this.logData.attendancePic, value =>{
-          console.log(value);
           if (value.in_out === 'time in') {
             this.inpic = value.imagePath;
-          } else {
+          } else if(value.in_out === 'time out'){
             this.outpic = value.imagePath;
           }
         });
-        console.log(this.http.server + this.inpic);
       }, error: err => {
         console.log(err);
       }

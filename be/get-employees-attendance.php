@@ -14,6 +14,11 @@ $myobj = array();
 
 $limit = $_GET['limit'];
 $page = $_GET['page'];
+$start = date("d-M-Y", strtotime($_GET['start']));
+$start = strtotime($start);
+
+$end = date("d-M-Y", strtotime($_GET['end']));
+$end = strtotime($end);
 $count = 0;
 
 $limitcount = intval($page) * intval($limit);
@@ -27,7 +32,7 @@ $employees_count = $exe->num_rows;
  	if ($count >= $baselimit) {
  		 
 
- 		$rendered = $methods->getRenderedHours(intval($row['id']),$conn);
+ 		$rendered = $methods->getRenderedHours(intval($row['id']),$start,$end,$conn);
 	$tmp[] = $arrayName = array(
 									'id' => $row['id'],
 									'fname' => $row['fname'],

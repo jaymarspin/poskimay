@@ -34,16 +34,37 @@ export class SaleInputPage implements OnInit {
       .getData(`get-productbycode.php?code=${this.barcode}`)
       .subscribe({
         next: (data) => {
-          if (data && !Array.isArray(data)) {
-            this.global.sales.push({
-              data,
-            });
-          } else {
+         const result =  JSON.parse(JSON.stringify(data));
+         const duplicateCheck = new Array();
+          _.forEach(this.global.sales, value => {
+            console.log('from saleinput');
+            console.log(value);
+            if(result.id === value.data.id){
+              duplicateCheck.push(true);
+            }else{
+              duplicateCheck.push(false);
+            }
+          });
+          if(!duplicateCheck.includes(true)){
+            if (data && !Array.isArray(data)) {
+              this.global.sales.push({
+                data,
+              });
+            } else {
+              Swal.fire({
+                backdrop: false,
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Code not found',
+                footer: '',
+              });
+            }
+          }else{
             Swal.fire({
               backdrop: false,
               icon: 'error',
               title: 'Oops...',
-              text: 'Code not found',
+              text: 'Product already added',
               footer: '',
             });
           }
