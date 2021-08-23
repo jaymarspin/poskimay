@@ -22,7 +22,7 @@ while($row = mysqli_fetch_array($exe)){
         $myobj = $arrayName = array(
             'time_in' => $row['time_in'],
             'time_out' => $row['time_out'],
-            'attendacePic' => $getAttendacePic,
+            'attendancePic' => $getAttendacePic,
             'date_created' => $row['date_created']
         );
     

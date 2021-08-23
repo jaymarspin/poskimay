@@ -27,10 +27,12 @@ import { AttendanceActionsComponent } from 'src/app/owners-panel/attendance/atte
 import { CalendarComponent } from 'src/app/owners-panel/attendance/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-
+import {TimeLogViewComponent} from '../../owners-panel/attendance/time-log-view/time-log-view.component';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
+  timeGridPlugin,
   interactionPlugin
 ]);
 @NgModule({
@@ -48,7 +50,8 @@ FullCalendarModule.registerPlugins([
     SoldActionsComponent,
     ProductsSoldComponent,
     AttendanceActionsComponent,
-    CalendarComponent
+    CalendarComponent,
+    TimeLogViewComponent
     ],
   imports: [
     CommonModule,
@@ -76,7 +79,8 @@ FullCalendarModule.registerPlugins([
     SoldActionsComponent,
     ProductsSoldComponent,
     AttendanceActionsComponent,
-    CalendarComponent
+    CalendarComponent,
+    TimeLogViewComponent
     ]
 })
 export class OwnersComponentModule { }

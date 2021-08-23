@@ -44,7 +44,7 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any, id,rendered,notimeout) {
+  async presentPopover(ev: any, id,rendered,notimeout,name) {
     console.log(notimeout);
     const popover = await this.popoverController.create({
       component: AttendanceActionsComponent,
@@ -52,7 +52,7 @@ export class AttendanceComponent implements OnInit {
       event: ev,
       translucent: true,
       componentProps: {
-        id,rendered,notimeout
+        id,rendered,notimeout,name
       },
     });
     await popover.present();

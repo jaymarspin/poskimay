@@ -11,6 +11,7 @@ export class CalendarComponent implements OnInit {
   @Input() id: any;
   @Input() rendered: any;
   @Input() notimeout: any;
+  @Input() name: any;
   calendarOptions: CalendarOptions;
   events: any;
   constructor(private popoverController: PopoverController) {
@@ -23,20 +24,18 @@ export class CalendarComponent implements OnInit {
   }, 1);
   console.log(this.notimeout);
   for (const iterator of this.rendered) {
-    this.events.push({ title: 'in', start: iterator.time_in,id: iterator.id });
-    this.events.push({ title: 'out', end: iterator.time_out,id: iterator.id,eventBackgroundColor:  '#000'});
+    this.events.push({ title: 'in', date: iterator.time_in,id: iterator.id });
+    this.events.push({ title: 'out', date: iterator.time_out,id: iterator.id});
   }
   for (const iterator of this.notimeout) {
-    this.events.push({ title: 'in', start: iterator.time_in, id: iterator.id });
+    this.events.push({ title: 'in', date: iterator.time_in, id: iterator.id });
   }
 
   this.calendarOptions = {
     initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this),
+    // dateClick: null,
     events: this.events,
     eventClick: (info) =>{
-      // console.log(info.event);
-      // alert(info.event.id);
       this.presentPopover(info.event.id);
     },
   };
@@ -54,7 +53,8 @@ export class CalendarComponent implements OnInit {
       translucent: true,
       componentProps: {
         id: this.id,
-        timeID: id
+        timeID: id,
+        name: this.name
       },
     });
     await popover.present();

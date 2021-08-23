@@ -135,8 +135,9 @@ class globalMethods
 		$myobj = array();
 		while ($row = mysqli_fetch_array($exe)) {
 
-			$myobj = $arrayName = array(
+			$myobj[] = $arrayName = array(
 				'imagePath' => $row['imagePath'],
+				'in_out' => $row['in_out']
 
 			);
 		}

@@ -10,6 +10,7 @@ export class AttendanceActionsComponent implements OnInit {
   @Input() id: any;
   @Input() rendered: any;
   @Input() notimeout: any;
+  @Input() name: any;
   constructor(public popoverController: PopoverController) {}
 
   ngOnInit() {
@@ -25,7 +26,8 @@ export class AttendanceActionsComponent implements OnInit {
       componentProps: {
         id: this.id,
         rendered: this.rendered,
-        notimeout: this.notimeout
+        notimeout: this.notimeout,
+        name: this.name
       },
     });
     await popover.present();

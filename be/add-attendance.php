@@ -21,7 +21,7 @@ if ($in_out == 'time in') {
     $exe = $stmt->execute();
     if ($exe) {
 
-        if (addSelfie($postjson['myimage'], $conn) == true) {
+        if (addSelfie($postjson['myimage'], $conn,$in_out,$conn->insert_id) == true) {
             $myobj = $arrayName = array('message' => 'success');
         } else {
             $myobj = $arrayName = array('message' => 'Error Occured!1');
@@ -52,10 +52,18 @@ if ($in_out == 'time in') {
             }
         }
         if ($suggestlogin == false) {
-            $q = "UPDATE attendance SET time_out = NOW() WHERE id = $attendance_id";
-            $exe = $conn->query($q);
+            $q = "UPDATE attendance SET time_out = NOW() WHERE id = ?";
+            $stmt = $conn->prepare($q);
+            $stmt->bind_param("i",$attendance_id);
+
+            $exe = $stmt->execute();
             if ($exe) {
-                if (addSelfie($postjson['myimage'], $conn) == true) {
+                $q = "SELECT id,employee_id FROM attendance WHERE employee_id = $id ORDER BY id DESC LIMIT 1";
+                $exe = $conn->query($q);
+                while($row = mysqli_fetch_array($exe)){
+                    $attendance_id = intval($row['id']);
+                }
+                if (addSelfie($postjson['myimage'], $conn, $in_out,$attendance_id) == true) {
                     $myobj = $arrayName = array('message' => 'success');
                 } else {
                     $myobj = $arrayName = array('message' => 'Error Occured!');
@@ -80,7 +88,7 @@ if ($in_out == 'time in') {
 
 
 
-function addSelfie($myimage, $connection)
+function addSelfie($myimage, $connection,$in_out,$id)
 {
     $tmp = false;
     $value = explode(",", $myimage);
@@ -88,12 +96,10 @@ function addSelfie($myimage, $connection)
     $target_path = "attendance/" . uniqid("" . false) . time() . "." . 'jpg';
     $done = file_put_contents($target_path, $img);
     if ($done) {
-        $q = "INSERT INTO attendance_pic(attendance_id,imagePath) VALUES(?,?)";
+        $q = "INSERT INTO attendance_pic(attendance_id,imagePath,in_out) VALUES(?,?,?)";
         $stmt = $connection->prepare($q);
-        $id = $connection->insert_id;
-        $stmt->bind_param("is", $id, $target_path);
+        $stmt->bind_param("iss", $id, $target_path,$in_out);
         $exe = $stmt->execute();
-        $q = "INSERT INTO attendance_pic(attendance_id,imagePath) VALUES($connection->insert_id,'$target_path')";
         if ($exe) {
             $tmp = true;
         } else {

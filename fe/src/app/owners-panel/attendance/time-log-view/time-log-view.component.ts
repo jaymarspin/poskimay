@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import { PopoverController } from '@ionic/angular';
+import { GlobalService } from 'src/app/services/global.service';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-time-log-view',
   templateUrl: './time-log-view.component.html',
@@ -9,21 +10,45 @@ import { PopoverController } from '@ionic/angular';
 export class TimeLogViewComponent implements OnInit {
   @Input() id: any;
   @Input() timeID: any;
-  constructor(public http: HttpService) { }
+  @Input() name: any;
+  logData: any;
+  inpic: any;
+  outpic: any;
+
+  defaultImage: any;
+  constructor(public http: HttpService,public global: GlobalService) {
+    this.defaultImage = 'assets/no_image.png';
+   }
 
   ngOnInit() {
-    alert(this.timeID);
+
     this.loadData().then(() =>{
     });
   }
   async loadData(){
-    await this.http.getData(`get-time-log.php?id=${this.id}&timeid=${this.timeID}`).subscribe({
-      next: data =>{
-        console.log(data);
-        },error: err =>{
-          console.log(err);
+   await this.http.getData(`get-time-log.php?id=${this.id}&timeid=${this.timeID}`).subscribe({
+      next: data => {
+        this.logData = JSON.parse(JSON.stringify(data));
+        console.log(this.logData);
+        _.forEach(this.logData.attendancePic, value =>{
+          console.log(value);
+          if (value.in_out === 'time in') {
+            this.inpic = value.imagePath;
+          } else {
+            this.outpic = value.imagePath;
+          }
+        });
+        console.log(this.http.server + this.inpic);
+      }, error: err => {
+        console.log(err);
       }
     });
+  }
+  async viewImg(src){
+    const images: any = new Array();
+  await images.push({src});
+  console.log(images);
+  this.global.lightBoxOpen(images,0);
   }
 
 }
