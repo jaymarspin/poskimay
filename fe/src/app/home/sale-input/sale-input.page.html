@@ -181,7 +181,8 @@
             </div>
           </ion-col>
           <ion-col  size="6" class="ion-no-padding">
-            <div class="ion-activatable btn btn-success" *ngIf="buyaction === false" (click)="buynow()">
+            <div class='back-drop' *ngIf="buyaction === true"></div>
+            <div class="ion-activatable btn btn-success" (click)="buynow()">
               <span>Pay</span>
               <ion-ripple-effect></ion-ripple-effect>
             </div>

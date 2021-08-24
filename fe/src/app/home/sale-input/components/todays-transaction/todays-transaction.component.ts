@@ -18,6 +18,7 @@ export class TodaysTransactionComponent implements OnInit {
   pagebtn: any;
   sold: any;
   soldcount: any;
+  campaignOne: FormGroup;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -29,20 +30,27 @@ export class TodaysTransactionComponent implements OnInit {
 
     this.page = 1;
     this.limit = 10;
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const day = today.getUTCDate();
+    this.campaignOne = new FormGroup({
+      start: new FormControl(new Date(year, month, day)),
+      end: new FormControl(new Date(year, month, day)),
+    });
    }
 
   ngOnInit() {
-    this.loadData();
   }
 
-  async loadData(){
+  async loadData(dates){
     this.global.loading = true;
    await this.http.getData(
       `get-bulk-sold.php?
       limit=${this.limit}
       &page=${this.page}
-      &start=adwad,
-      &end=awdad`
+      &start=${this.global.formattedDate(dates.start)},
+          &end=${this.global.formattedDate(dates.end)}`
     ).subscribe({
       next: data =>{
       this.sold = new Array();
@@ -69,9 +77,14 @@ export class TodaysTransactionComponent implements OnInit {
     });
 
   }
+  async getInitialDate() {
+    return this.campaignOne.value;
+  }
   pager(page) {
     this.page = page;
-    this.loadData();
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
   }
   getPaid(products){
     let tmp: any = 0;
@@ -90,9 +103,12 @@ export class TodaysTransactionComponent implements OnInit {
       translucent: true,
     });
     await popover.present();
+  }
 
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+  ionViewDidEnter(){
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
   }
 
 

@@ -11,6 +11,7 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import {ProductsComponent} from './components/products/products.component';
 import { LazyLoadImageModule} from 'ng-lazyload-image';
 import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
+import {DiscountsComponent} from './components/discounts/discounts.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,8 @@ import { TodaysTransactionComponent } from './components/todays-transaction/toda
 
   ],
   declarations: [SaleInputPage,
-    ProductsComponent,TodaysTransactionComponent],
-  exports:[ProductsComponent,TodaysTransactionComponent]
+    ProductsComponent,TodaysTransactionComponent,
+    DiscountsComponent],
+  exports:[ProductsComponent,TodaysTransactionComponent,DiscountsComponent]
 })
 export class SaleInputPageModule {}

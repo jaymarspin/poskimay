@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SaleInputPage } from './sale-input.page';
 import {ProductsComponent} from './components/products/products.component';
 import {TodaysTransactionComponent} from './components/todays-transaction/todays-transaction.component';
+import {DiscountsComponent} from './components/discounts/discounts.component';
 const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'discounts',
-        component: TodaysTransactionComponent
+        component: DiscountsComponent
       },
       {
         path: 'transactions',

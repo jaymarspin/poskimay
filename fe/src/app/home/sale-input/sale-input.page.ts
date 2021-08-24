@@ -113,7 +113,7 @@ export class SaleInputPage implements OnInit {
     _.forEach(this.global.sales, (value) => {
       tmp += value.data.price.price * value.data.quantity;
     });
-    return tmp;
+    return this.global.round2Fixed(tmp);
   }
   buynow() {
     if (this.buyaction === false) {
@@ -127,6 +127,13 @@ export class SaleInputPage implements OnInit {
         this.http.postData(`add-sold.php`, data).subscribe({
           next: (res) => {
             if (res.body.message === 'success') {
+              Swal.fire({
+                title: 'Good Job',
+                icon: 'success',
+                text: 'Transaction Recorded!',
+                backdrop: false
+              }
+              );
             }
             this.global.sales = new Array();
             delete this.customercash;
@@ -150,7 +157,7 @@ export class SaleInputPage implements OnInit {
   buypause() {
     setTimeout(() => {
       this.buyaction = false;
-    }, 3000);
+    }, 1500);
   }
 
   checkInput(value){
