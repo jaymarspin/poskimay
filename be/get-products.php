@@ -20,7 +20,7 @@ $count = 0;
 $limitcount = intval($page) * intval($limit);
 $tmp = array();
 $baselimit = $limitcount - intval($limit);
- $q = "SELECT * FROM products ORDER BY id DESC";
+ $q = "SELECT * FROM products WHERE deleted = 0 ORDER BY id DESC";
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
  while ($row = mysqli_fetch_array($exe)) {
@@ -39,6 +39,7 @@ $products_count = $exe->num_rows;
 									'stocks' => $stocks,
 									'image' => $image,
 									'quantity' => 1,
+									'availability' => intval($row['availability']),
 									'description' => nl2br($row['description']),
 									'date_updated' => $row['date_updated'],
 									'date_created' => $row['date_created']

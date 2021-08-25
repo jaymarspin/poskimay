@@ -16,7 +16,7 @@ $myobj = array();
 $id = $_GET['id'];
 
 
- $q = "SELECT * FROM products WHERE id = $id";
+ $q = "SELECT * FROM products WHERE id = $id ";
 $exe = $conn->query($q);
 
  while ($row = mysqli_fetch_array($exe)) {
@@ -34,6 +34,7 @@ $exe = $conn->query($q);
 									'price' => $price,
 									'stocks' => $stocks,
 									'image' => $image,
+									'availability' => intval($row['availability']),
 									'description' => nl2br($row['description']),
 									'date_updated' => $row['date_updated'],
 									'date_created' => $row['date_created']

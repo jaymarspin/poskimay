@@ -53,6 +53,10 @@ const routes: Routes = [
         path: 'add-products',
         component: AddProductsComponent
       },{
+        path: 'add-products/:id',
+        component: AddProductsComponent
+      }
+      ,{
         path: 'employee-accounts/:id',
         component: EmployeeAccountsComponent
       },{

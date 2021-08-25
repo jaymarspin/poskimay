@@ -72,7 +72,6 @@ export class SaleInputPage implements OnInit {
         },
         error: (err) => {
           delete this.barcode;
-          console.log(err);
         },
       });
   }

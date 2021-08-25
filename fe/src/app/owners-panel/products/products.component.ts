@@ -36,20 +36,24 @@ export class ProductsComponent implements OnInit {
     this.limit = 10;
   }
 
-  async presentPopover(ev: any) {
+  async presentPopover(ev: any,id: any,availability: any) {
     const popover = await this.popoverController.create({
       component: ProductActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
+      componentProps: {
+        id,availability
+      },
       translucent: true,
     });
     await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    await popover.onDidDismiss();
+    this.loadData();
   }
 
   ngOnInit() {
+  }
+  ionViewDidEnter(){
     this.loadData();
   }
   loadData() {

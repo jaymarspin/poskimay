@@ -1,9 +1,10 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {Router } from '@angular/router'
+import {Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
-import {GlobalService} from '../../services/global.service' 
-import {HttpService} from '../../services/http.service' 
-import Swal from 'sweetalert2'
+import {GlobalService} from '../../services/global.service';
+import {HttpService} from '../../services/http.service';
+import Swal from 'sweetalert2';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-employee-actions',
   templateUrl: './employee-actions.component.html',
@@ -14,12 +15,12 @@ export class EmployeeActionsComponent implements OnInit {
   constructor(public http: HttpService,public global: GlobalService,private popover: PopoverController,private router: Router) { }
 
   ngOnInit() {
-    console.log(this.id)
+    console.log(this.id);
   }
 
   gofurther(link){
-    this.popover.dismiss()
-    this.router.navigate([link,this.id])
+    this.popover.dismiss();
+    this.router.navigate([link,this.id]);
   }
 
 }

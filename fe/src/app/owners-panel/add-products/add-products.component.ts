@@ -7,6 +7,7 @@ import { PopoverController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import {Location} from '@angular/common';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-add-products',
   templateUrl: './add-products.component.html',
@@ -29,12 +30,13 @@ export class AddProductsComponent implements OnInit {
 
   imgResultBeforeCompress: string;
   imgResultAfterCompress: string;
+  id: any;
   constructor(private imageCompress: NgxImageCompressService,
     private location: Location,
     public http: HttpService,
     private popoverController: PopoverController,
     public global: GlobalService,
-
+    private snapshot: ActivatedRoute,
 
 
     ) {
@@ -60,6 +62,9 @@ export class AddProductsComponent implements OnInit {
    });
 
   ngOnInit() {
+      if(this.snapshot.snapshot.paramMap.get('id')){
+        this.id = parseInt(this.snapshot.snapshot.paramMap.get('id'), 10);
+      }
       this.loadCategory();
   }
   loadCategory(){

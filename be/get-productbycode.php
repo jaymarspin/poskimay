@@ -14,7 +14,7 @@ $myobj = array();
 
 $code = $_GET['code'];
 
-$q = "SELECT * FROM products WHERE barcode = ?";
+$q = "SELECT * FROM products WHERE barcode = ? && deleted = 0";
 $stmt = $conn->prepare($q);
 $stmt->bind_param("s",$code);
 $stmt->execute();
@@ -37,6 +37,7 @@ while ($row = $result->fetch_assoc()) {
                                      'stocks' => $stocks,
                                      'image' => $image,
                                      'quantity' => 1,
+                                     'availability' => intval($row['availability']),
                                      'date_updated' => $row['date_updated'],
                                      'date_created' => $row['date_created']
  
