@@ -25,15 +25,37 @@ $stmt->bind_param("ss", $username,$password);
 
 	$result = $stmt->get_result();
 	$id = 0;
+	$active = 1;
+	$disabled = 0;
 	while ($row = $result->fetch_assoc()) {
      $id = intval($row['id']);
-      
+	 $empid = intval($row['employee_id']);
+	 if($role == 'employee'){
+		 $q = "SELECT * FROM employees WHERE id = $empid";
+		 $exe2 = $conn->query($q);
+		 while($row2 = mysqli_fetch_array($exe2)){
+			$active = intval($row2['active']);
+			$disabled = intval($row2['disabled']);
+		 }
+	 }
 	}
 	if($result->num_rows > 0){
-		$myobj = $arrayName = array('message' => 'success',
+		if($role == 'employee'){
+			if($active == 1 && $disabled == 0){
+				$myobj = $arrayName = array('message' => 'success',
 									'id' => $id
 									
-		 );
+		 	);	
+			}else{
+				$myobj = $arrayName = array('message' => "Account Not Found" );
+			}
+		}else{
+			$myobj = $arrayName = array('message' => 'success',
+									'id' => $id
+									
+		 	);
+		}
+		
 	}else{
 		$myobj = $arrayName = array('message' => "Account Not Found" );
 	}

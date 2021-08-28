@@ -42,6 +42,7 @@ export class EmployeesComponent implements OnInit {
       },
     });
     await popover.present();
+    await popover.onDidDismiss();
     this.loadData().then(() =>{
 
     });
@@ -54,7 +55,6 @@ export class EmployeesComponent implements OnInit {
   addemployee() {}
 
   async loadData() {
-    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
    await this.http
       .getData(

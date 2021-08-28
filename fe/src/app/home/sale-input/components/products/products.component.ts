@@ -21,6 +21,8 @@ export class ProductsComponent implements OnInit {
   pagebtn: any;
 
   defaultImage = 'https://www.placecage.com/1000/1000';
+  categories: any;
+  category: any;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -28,13 +30,35 @@ export class ProductsComponent implements OnInit {
   ) {
     this.products = new Array();
     this.pagebtn = new Array();
+    this.categories = new Array();
 
     this.page = 1;
     this.limit = 10;
+    this.category = 0;
   }
 
-  ngOnInit() {
-    this.loadData();
+  async ngOnInit() {
+    await this.loadData();
+    await this.getCategory();
+
+  }
+  getCategory(){
+    this.http.getData(
+      'get-categories.php'
+    ).subscribe({
+      next: data =>{
+        console.log(data);
+        const result = JSON.parse(JSON.stringify(data));
+        this.categories = result;
+      },error: err =>{
+        console.log(err);
+      }
+    });
+  }
+
+  choosenCategory(id){
+    alert(id);
+    this.category = id;
   }
 
   async presentPopover(ev: any,item) {
@@ -52,16 +76,13 @@ export class ProductsComponent implements OnInit {
   }
 
   loadData() {
-    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
     this.http
       .getData(
-        'get-products.php?id=' +
-          localStorage.getItem('business_id') +
-          '&limit=' +
-          this.limit +
-          '&page=' +
-          this.page
+        `get-products.php?id=${localStorage.getItem('business_id')}
+          &limit=${this.limit}
+          &page=${this.page}
+          &category=${this.category}`
       )
       .subscribe({
         next: (data) => {

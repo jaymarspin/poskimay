@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-require_once("include/header.php");
+ require_once("include/header.php");
 
 require_once("include/connection.php");
 require_once("include/timezone.php");
@@ -11,8 +11,7 @@ $conn = new connection();
 $conn = $conn->connectionString();
 $methods = new globalMethods();
 $postjson = json_decode(file_get_contents('php://input'), true);
-
-$imageinsrt = false;
+$id = intval($postjson['id']);
 $myobj = array();
 $productname = $postjson['productname'];
 $stocks = $postjson['stocks'];
@@ -20,18 +19,14 @@ $category = $postjson['category'];
 $barcode = $postjson['barcode'];
 $price = doubleval($postjson['price']);
 $description = $postjson['description'];
-
-
-
-$q = "INSERT INTO products(product_name,category,description,barcode) VALUES(?,?,?,?)";
+$q = "UPDATE products SET product_name = ?,category = ?, description = ?, barcode = ? WHERE id = $id";
 $stmt = $conn->prepare($q);
 $stmt->bind_param("ssss", $productname, $category, $description, $barcode);
 
 $exe = $stmt->execute();
 if ($exe) {
-
-	$id = $conn->insert_id;
-	$q = "INSERT INTO products_stocks(product_id,stocks_count) VALUES(?,?)";
+    
+    $q = "INSERT INTO products_stocks(product_id,stocks_count) VALUES(?,?)";
 	$stmt = $conn->prepare($q);
 	$stmt->bind_param("ii", $id, $stocks);
 	$exe = $stmt->execute();
@@ -40,7 +35,7 @@ if ($exe) {
 	$stmt = $conn->prepare($q);
 	$stmt->bind_param("id", $id, $price);
 	$exe = $stmt->execute();
-	if ($exe) {
+    if ($exe) {
 		if (boolval($postjson['newbase64']) == true) {
 			if (!empty($postjson['base64data'])) {
 				$base64data = $postjson['base64data'];
@@ -78,8 +73,7 @@ if ($exe) {
 	else{
 		$myobj = $arrayName = array('message' => 'success');
 	}
-} else {
-	$myobj = $arrayName = array('message' => "error occured!");
 }
-
 echo json_encode($myobj);
+
+?>

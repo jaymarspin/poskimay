@@ -24,10 +24,9 @@ $baselimit = $limitcount - intval($limit);
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
  while ($row = mysqli_fetch_array($exe)) {
-
  	if ($count >= $baselimit) {
  		 
-
+		
  		$price = $methods->getProductPrice(intval($row['id']),$conn);
 	$stocks = $methods->getProductStock(intval($row['id']),$conn);
 	$image = $methods->getProductImage(intval($row['id']),$conn);

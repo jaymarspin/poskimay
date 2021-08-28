@@ -51,7 +51,7 @@ export class AddProductsComponent implements OnInit {
           .compressFile(image, orientation, 100, 100)
           .then((result) => {
             resolve(result);
-            this.base64data = true;
+            this.newbase64 = true;
             this.base64data = result;
             console.warn(
               'Size in bytes is now:',
@@ -120,6 +120,10 @@ export class AddProductsComponent implements OnInit {
   async next() {
     if (this.productname && this.stocks && this.category && this.price) {
       this.global.loading = true;
+      let link = `add-product.php`;
+      if(this.id !== 0){
+        link = `edit-product.php`;
+      }
       const data = {
         productname: this.productname,
         stocks: this.stocks,
@@ -131,11 +135,10 @@ export class AddProductsComponent implements OnInit {
         newbase64: this.newbase64,
         id: this.id
       };
-      console.log(data);
 
-      await this.http.postData('add-product.php', data).subscribe({
+      await this.http.postData(link, data).subscribe({
         next: (datas) => {
-          console.log(datas.body);
+          console.log(datas);
           this.global.loading = false;
           if (datas.body.message === 'success') {
             Swal.fire('Good job!', 'Successfully Added!', 'success').then(
@@ -154,11 +157,11 @@ export class AddProductsComponent implements OnInit {
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!',
-              footer: '<a href>Why do I have this issue?</a>',
             });
           }
         },
         onerror: (error) => {
+          console.log(error);
           this.global.loading = false;
           Swal.fire({
             icon: 'error',
