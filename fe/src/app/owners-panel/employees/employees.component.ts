@@ -31,20 +31,20 @@ export class EmployeesComponent implements OnInit {
     this.limit = 10;
   }
 
-  async presentPopover(ev: any, id) {
+  async presentPopover(ev: any, id,disabled) {
     const popover = await this.popoverController.create({
       component: EmployeeActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true,
       componentProps: {
-        id,
+        id,disabled
       },
     });
     await popover.present();
+    this.loadData().then(() =>{
 
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    });
   }
 
   ngOnInit() {

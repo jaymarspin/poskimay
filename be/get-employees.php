@@ -35,6 +35,7 @@ $employees_count = $exe->num_rows;
 									'address' => $row['address'],
 									'contact' => $row['contact'],
 									'gender' => ucwords($row['gender']),
+									'disabled' => intval($row['disabled']),
 									'date_updated' => $row['date_updated'],
 									'date_created' => $row['date_created']
 

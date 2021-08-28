@@ -12,6 +12,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class EmployeeActionsComponent implements OnInit {
   @Input() id;
+  @Input() disabled;
   constructor(public http: HttpService,public global: GlobalService,private popover: PopoverController,private router: Router) { }
 
   ngOnInit() {
@@ -21,6 +22,54 @@ export class EmployeeActionsComponent implements OnInit {
   gofurther(link){
     this.popover.dismiss();
     this.router.navigate([link,this.id]);
+  }
+  disabler(){
+
+    Swal.fire({
+      title: 'Are you sure?',
+      backdrop: false,
+      text: 'you can just enable it back whenever you want',
+      icon: 'warning',
+
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, mark it!',
+    }).then((result) => {
+      console.log(this.disabled);
+      this.http.postData('employee-disabler.php',{id: this.id,disabled: this.disabled}).subscribe({
+        next: data =>{
+          const response = JSON.parse(JSON.stringify(data));
+
+          if(response.body.message === 'success'){
+            Swal.fire({
+              icon: 'success',
+              title: 'success',
+              text: 'Updated successfully',
+            }).then(() =>{
+              this.popover.dismiss();
+            });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: response.message,
+              footer: ' ',
+            });
+          }
+        },error: err =>{
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+            footer: ' ',
+          });
+        }
+      });
+    });
+
+
   }
 
 }
