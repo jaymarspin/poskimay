@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   defaultImage = 'https://www.placecage.com/1000/1000';
   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
   categories: any;
+  category: any;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -62,10 +63,15 @@ export class ProductsComponent implements OnInit {
         console.log(data);
         const result = JSON.parse(JSON.stringify(data));
         this.categories = result;
+        console.log(this.categories);
       },error: err =>{
         console.log(err);
       }
     });
+  }
+  choosenCategory(){
+    this.page = 1;
+   this.loadData();
   }
   ionViewDidEnter(){
     this.loadData();
@@ -74,32 +80,39 @@ export class ProductsComponent implements OnInit {
   loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
+    let link = `get-products.php?
+    limit=${this.limit}
+    &page=${this.page}`;
+    if(this.category){
+      link = `get-products.php?
+      limit=${this.limit}
+      &page=${this.page}
+      &category=${this.category}`;
+    }
     this.http
-      .getData(
-        `get-products.php?
-          limit=${this.limit}
-          &page=${this.page}`
-      )
+      .getData(link)
       .subscribe({
         next: (data) => {
           this.products = new Array();
 
           const result = JSON.parse(JSON.stringify(data));
+          console.log(result);
           this.productscount = result.products_count;
           const length = result.products.length;
 
           this.pagebtntmp = this.productscount / this.limit;
+          console.log(this.productscount);
           this.pagebtn = Array();
           for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
             this.pagebtn.push(ii);
           }
           for (let i = 0; i < length; i++) {
             this.products.push(result.products[i]);
-            console.log(this.products);
           }
           this.global.loading = false;
         },
         error: (error) => {
+          console.log(error);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',

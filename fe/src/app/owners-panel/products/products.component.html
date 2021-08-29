@@ -10,8 +10,17 @@
       <ion-col size="4">
         <ion-searchbar></ion-searchbar>
       </ion-col>
-       <ion-col size="6"></ion-col>
-      <ion-col size="2">
+       <ion-col size="4">
+         
+          <ion-item>
+            <ion-label>Select a category</ion-label>
+            <ion-select [(ngModel)]="category" value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="choosenCategory()" placeholder="All">
+              <ion-select-option *ngFor="let item of this.categories;index as i" [value]="item.id">{{item.category}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+         
+       </ion-col>
+      <ion-col size="4">
         <ion-label (click)="gofurther('owners-panel/add-products')" class="employee-right" style="margin-top: 25px;cursor: pointer;" color="medium">Add Product</ion-label>
       </ion-col>
        

@@ -23,6 +23,17 @@ $baselimit = $limitcount - intval($limit);
 $q = "SELECT * FROM products WHERE deleted = 0 ORDER BY id DESC";
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
+if (!empty($_GET['category'])) {
+	$exe2 = $conn->query($q);
+	$products_count = 1;
+	while ($row = mysqli_fetch_array($exe2)) {
+		$category = $methods->getProductCategory($row['category'], $conn);
+		if (intval($category['id']) == intval($_GET['category'])) {
+			$products_count += 1;
+		}
+	}
+}
+
 while ($row = mysqli_fetch_array($exe)) {
 	if ($count >= $baselimit) {
 		$category = $methods->getProductCategory($row['category'], $conn);
@@ -65,7 +76,7 @@ while ($row = mysqli_fetch_array($exe)) {
 $myobj = $arrayName = array(
 	'products_count' => $products_count,
 	'products' => $tmp,
-	'limitcount' => $limitcount
+	'limitcount' => $limitcount,
 );
 echo json_encode($myobj);
 ?>
