@@ -56,7 +56,7 @@ class globalMethods
 
 			$myobj = $arrayName = array(
 				'category' => ucwords($row['category']),
-				'id' => $row['id']
+				'id' => intval($row['id'])
 
 
 			);
