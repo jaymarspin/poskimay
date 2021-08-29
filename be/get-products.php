@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_array($exe)) {
 	if ($count >= $baselimit) {
 		$category = $methods->getProductCategory($row['category'], $conn);
 		$tmp2 = true;
-		if ($_GET['category']) {
+		if (!empty($_GET['category'])) {
 
 			if (intval($category['id']) != intval($_GET['category'])) {
 				$tmp2 = false;

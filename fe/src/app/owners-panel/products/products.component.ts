@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
 
   defaultImage = 'https://www.placecage.com/1000/1000';
   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
-
+  categories: any;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
   ) {
     this.products = new Array();
     this.pagebtn = new Array();
-
+    this.categories = new Array();
     this.page = 1;
     this.limit = 10;
   }
@@ -53,8 +53,23 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  getCategory(){
+    this.http.getData(
+      'get-categories.php'
+    ).subscribe({
+      next: data =>{
+        console.log(data);
+        const result = JSON.parse(JSON.stringify(data));
+        this.categories = result;
+      },error: err =>{
+        console.log(err);
+      }
+    });
+  }
   ionViewDidEnter(){
     this.loadData();
+    this.getCategory();
   }
   loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter

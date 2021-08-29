@@ -57,7 +57,6 @@ export class ProductsComponent implements OnInit {
   }
 
   choosenCategory(id){
-    alert(id);
     this.category = id;
     this.loadData();
   }
