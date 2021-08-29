@@ -24,6 +24,7 @@ export class ProductsComponent implements OnInit {
   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
   categories: any;
   category: any;
+  searchVal: string;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -35,6 +36,7 @@ export class ProductsComponent implements OnInit {
     this.categories = new Array();
     this.page = 1;
     this.limit = 10;
+    this.searchVal = '';
   }
 
   async presentPopover(ev: any,id: any,availability: any) {
@@ -73,9 +75,13 @@ export class ProductsComponent implements OnInit {
     this.page = 1;
    this.loadData();
   }
-  ionViewDidEnter(){
-    this.loadData();
-    this.getCategory();
+  async search(){
+    alert(this.searchVal);
+   await this.loadData();
+  }
+  async ionViewDidEnter(){
+   await this.loadData();
+   await this.getCategory();
   }
   loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
@@ -87,7 +93,15 @@ export class ProductsComponent implements OnInit {
       link = `get-products.php?
       limit=${this.limit}
       &page=${this.page}
-      &category=${this.category}`;
+      &category=${this.category}
+      &search=${this.searchVal}
+      `;
+    }if(this.searchVal){
+      link = `search-products.php?
+      limit=${this.limit}
+      &page=${this.page}
+      &search=${this.searchVal}
+      `;
     }
     this.http
       .getData(link)
