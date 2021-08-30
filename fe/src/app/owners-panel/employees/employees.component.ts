@@ -18,6 +18,7 @@ export class EmployeesComponent implements OnInit {
   limit: number;
   pagebtntmp: any;
   pagebtn: any;
+  searchVal: string;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -56,6 +57,15 @@ export class EmployeesComponent implements OnInit {
 
   async loadData() {
     this.global.loading = true;
+    let link = `get-employees.php?
+    limit=${this.limit}
+    &page=${this.page}`;
+    if(this.searchVal){
+      link = `get-employees.php?
+    limit=${this.limit}
+    &page=${this.page}
+    &search=${this.searchVal}`;
+    }
    await this.http
       .getData(
         `get-employees.php?
@@ -105,4 +115,8 @@ export class EmployeesComponent implements OnInit {
 
     });
   }
+
+  async search(){
+    await this.loadData();
+   }
 }

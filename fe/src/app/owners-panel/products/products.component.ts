@@ -76,7 +76,6 @@ export class ProductsComponent implements OnInit {
    this.loadData();
   }
   async search(){
-    alert(this.searchVal);
    await this.loadData();
   }
   async ionViewDidEnter(){
