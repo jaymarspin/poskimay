@@ -30,6 +30,7 @@ export class EmployeesComponent implements OnInit {
 
     this.page = 1;
     this.limit = 10;
+    this.searchVal = '';
   }
 
   async presentPopover(ev: any, id,disabled) {
@@ -67,11 +68,7 @@ export class EmployeesComponent implements OnInit {
     &search=${this.searchVal}`;
     }
    await this.http
-      .getData(
-        `get-employees.php?
-          limit=${this.limit}
-          &page=${this.page}`
-      )
+      .getData(link)
       .subscribe({
         next: (data) => {
           console.log(data);
