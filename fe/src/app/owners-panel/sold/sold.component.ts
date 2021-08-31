@@ -80,46 +80,48 @@ export class SoldComponent implements OnInit {
     });
   }
   loadData(dates) {
-    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
-    this.global.loading = true;
-    this.http
-      .getData(
-        `get-sold.php?
+    // ?limit="+this.limit+"&page="+pager+"&filter="+this.filte
+    if (dates.end && dates.start) {
+      this.global.loading = true;
+      this.http
+        .getData(
+          `get-sold.php?
           limit=${this.limit}
           &page=${this.page}
           &start=${this.global.formattedDate(dates.start)},
           &end=${this.global.formattedDate(dates.end)}`
-      )
-      .subscribe({
-        next: (data) => {
-          this.sold = new Array();
+        )
+        .subscribe({
+          next: (data) => {
+            this.sold = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          this.soldcount = result.sold_count;
-          const length = result.sold.length;
-          this.pagebtntmp = this.soldcount / this.limit;
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let i = 0; i < length; i++) {
-            this.sold.push(result.sold[i]);
-            console.log(this.sold);
-          }
-          this.global.loading = false;
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+            const result = JSON.parse(JSON.stringify(data));
+            this.soldcount = result.sold_count;
+            const length = result.sold.length;
+            this.pagebtntmp = this.soldcount / this.limit;
+            this.pagebtn = Array();
+            for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+              this.pagebtn.push(ii);
+            }
+            for (let i = 0; i < length; i++) {
+              this.sold.push(result.sold[i]);
+              console.log(this.sold);
+            }
+            this.global.loading = false;
+          },
+          error: (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.message,
+              footer: ' ',
+            });
+          },
+        });
+    }
   }
   loadData2(dates) {
-    if(dates.start && dates.end){
+    if (dates.start && dates.end) {
       this.global.loading = true;
       this.http
         .getData(
@@ -152,7 +154,6 @@ export class SoldComponent implements OnInit {
           },
         });
     }
-
   }
   pager(page) {
     this.page = page;
@@ -197,14 +198,14 @@ export class SoldComponent implements OnInit {
     return tmp;
   }
   dateChanged() {
-    if(this.soldval === 'bulk'){
+    if (this.soldval === 'bulk') {
       this.page2 = 1;
       this.getInitialDate().then((data) => {
-        if(data.start && data.end){
+        if (data.start && data.end) {
           this.loadData2(data);
         }
       });
-    }else{
+    } else {
       this.page = 1;
       this.getInitialDate().then((data) => {
         this.loadData(data);

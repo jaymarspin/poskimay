@@ -15,13 +15,13 @@ $myobj = array();
 
 $limit = $_GET['limit'];
 $page = $_GET['page'];
-$search = $_GET['search'];
+$search = strval($_GET['search']);
 $count = 0;
 
 $limitcount = intval($page) * intval($limit);
 $tmp = array();
 $baselimit = $limitcount - intval($limit);
-$q = "SELECT * FROM products WHERE deleted = 0 && (product_name LIKE '%$search' || barcode LIKE '%$search') ORDER BY id DESC";
+$q = "SELECT * FROM products WHERE deleted = 0 && product_name = '$search' ORDER BY id DESC";
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
 while ($row = mysqli_fetch_array($exe)) {
@@ -60,6 +60,7 @@ $myobj = $arrayName = array(
 	'products_count' => $products_count,
 	'products' => $tmp,
 	'limitcount' => $limitcount,
+	'q' => $q
 );
 echo json_encode($myobj);
 ?>

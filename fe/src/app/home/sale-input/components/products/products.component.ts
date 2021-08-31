@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   defaultImage = 'https://www.placecage.com/1000/1000';
   categories: any;
   category: any;
+  searchVal: any;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -35,6 +36,7 @@ export class ProductsComponent implements OnInit {
     this.page = 1;
     this.limit = 10;
     this.category = 0;
+    this.searchVal = '';
   }
 
   async ngOnInit() {
@@ -58,6 +60,7 @@ export class ProductsComponent implements OnInit {
 
   choosenCategory(id){
     this.category = id;
+    this.searchVal = '';
     this.loadData();
   }
 
@@ -77,13 +80,18 @@ export class ProductsComponent implements OnInit {
 
   loadData() {
     this.global.loading = true;
+    let link = `get-products.php?}
+    &limit=${this.limit}
+    &page=${this.page}
+    &category=${this.category}`;
+    if(this.searchVal !== ''){
+      link = `search-products.php?}
+      &limit=${this.limit}
+      &page=${this.page}
+      &search=${this.searchVal}`;
+    }
     this.http
-      .getData(
-        `get-products.php?id=${localStorage.getItem('business_id')}
-          &limit=${this.limit}
-          &page=${this.page}
-          &category=${this.category}`
-      )
+      .getData(link)
       .subscribe({
         next: (data) => {
           this.products = new Array();
@@ -114,6 +122,18 @@ export class ProductsComponent implements OnInit {
           });
         },
       });
+  }
+  refresh(){
+    this.searchVal = '';
+    this.page = 1;
+    this.category = 0;
+    this.loadData();
+  }
+  search(){
+    this.page = 1;
+    this.category = 0;
+    this.loadData();
+
   }
 
 }

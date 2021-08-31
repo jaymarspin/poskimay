@@ -12,6 +12,7 @@ import {ProductsComponent} from './components/products/products.component';
 import { LazyLoadImageModule} from 'ng-lazyload-image';
 import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
 import {DiscountsComponent} from './components/discounts/discounts.component';
+import { SaleNoteComponent } from './sale-note/sale-note.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,12 +20,13 @@ import {DiscountsComponent} from './components/discounts/discounts.component';
     IonicModule.forRoot(),
     SaleInputPageRoutingModule,
     SuperTabsModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
 
   ],
   declarations: [SaleInputPage,
     ProductsComponent,TodaysTransactionComponent,
-    DiscountsComponent],
-  exports:[ProductsComponent,TodaysTransactionComponent,DiscountsComponent]
+    DiscountsComponent,SaleNoteComponent],
+  exports:[ProductsComponent,TodaysTransactionComponent,DiscountsComponent
+  ,SaleNoteComponent]
 })
 export class SaleInputPageModule {}

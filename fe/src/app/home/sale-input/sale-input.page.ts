@@ -7,6 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { GlobalService } from '../../services/global.service';
 import { PopoverController } from '@ionic/angular';
+import { SaleNoteComponent } from './sale-note/sale-note.component';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -17,6 +18,7 @@ export class SaleInputPage implements OnInit {
   total: any;
   buyaction: any;
   customercash: any;
+  notes: any;
   constructor(
     public global: GlobalService,
     private popoverController: PopoverController,
@@ -25,6 +27,7 @@ export class SaleInputPage implements OnInit {
   ) {
     this.total = 0;
     this.buyaction = false;
+    this.notes = '';
   }
   codeinputchange() {
     this.codeaction().then(() => {});
@@ -85,8 +88,24 @@ export class SaleInputPage implements OnInit {
     });
     await popover.present();
 
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    await popover.onDidDismiss();
+  }
+
+  async addNote(ev: any) {
+    if(this.global.sales.length > 0){
+      const popover = await this.popoverController.create({
+        component: SaleNoteComponent,
+        cssClass: 'productviewfrominput',
+        componentProps: {
+          notes: this.notes
+        },
+        translucent: true,
+      });
+      await popover.present();
+      await popover.onDidDismiss().then(data =>{
+        this.notes = data.data.note;
+      });
+    }
   }
   ngOnInit() {}
   delete(i) {
@@ -122,7 +141,9 @@ export class SaleInputPage implements OnInit {
           sold: this.global.sales,
           cash: this.customercash,
           employeeid: localStorage.getItem(`id`),
+          notes: this.notes
         };
+        console.log(data);
         this.http.postData(`add-sold.php`, data).subscribe({
           next: (res) => {
             if (res.body.message === 'success') {
@@ -136,6 +157,7 @@ export class SaleInputPage implements OnInit {
             }
             this.global.sales = new Array();
             delete this.customercash;
+            this.notes = '';
             this.buypause();
           },
           error: (err) => {
@@ -172,5 +194,9 @@ export class SaleInputPage implements OnInit {
       tmp = 1;
     }
     return tmp;
+  }
+
+  clearNote(){
+    this.notes = '';
   }
 }

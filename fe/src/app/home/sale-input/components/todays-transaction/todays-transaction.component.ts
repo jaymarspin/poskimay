@@ -104,6 +104,12 @@ export class TodaysTransactionComponent implements OnInit {
     });
     await popover.present();
   }
+  refresh(){
+    this.page = 1;
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
+  }
 
   ionViewDidEnter(){
     this.getInitialDate().then((data) => {

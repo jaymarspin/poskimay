@@ -18,8 +18,16 @@ $myobj = array();
 $pass = array();
 
 $q = "INSERT INTO whole_sold(employee_id,cash) VALUES(?,?)";
-$stmt = $conn->prepare($q);
-$stmt->bind_param("id",$employeeid,$cash);
+if(!empty($postjson['notes'])){
+    $notes = strval($postjson['notes']);
+    $q = "INSERT INTO whole_sold(employee_id,cash,notes) VALUES(?,?,?)";
+    $stmt = $conn->prepare($q);
+    $stmt->bind_param("ids",$employeeid,$cash,$notes);
+}else{
+    $stmt = $conn->prepare($q);
+    $stmt->bind_param("id",$employeeid,$cash);
+}
+
 $exe = $stmt->execute();
 if($exe){
     $insert_id = $conn->insert_id;
