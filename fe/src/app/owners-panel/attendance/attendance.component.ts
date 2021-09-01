@@ -21,6 +21,7 @@ export class AttendanceComponent implements OnInit {
   pagebtn: any;
 
   campaignOne: FormGroup;
+  searchVal: any;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -41,6 +42,7 @@ export class AttendanceComponent implements OnInit {
       start: new FormControl(new Date(year, month, 1)),
       end: new FormControl(new Date(year, month, day)),
     });
+    this.searchVal = '';
   }
 
   async presentPopover(ev: any, id, rendered, notimeout, name) {
@@ -74,7 +76,7 @@ export class AttendanceComponent implements OnInit {
           &page=${this.page}
           &start=${this.global.formattedDate(dates.start)}
           &end=${this.global.formattedDate(dates.end)}
-          `
+          &search=${this.searchVal}          `
         )
         .subscribe({
           next: (data) => {
@@ -139,5 +141,12 @@ export class AttendanceComponent implements OnInit {
   }
   async getInitialDate() {
     return this.campaignOne.value;
+  }
+
+  search(){
+    this.page = 1;
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
   }
 }

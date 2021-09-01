@@ -22,6 +22,7 @@ $baselimit = $limitcount - intval($limit);
  $q = "SELECT * FROM employees WHERE active = 1 ORDER BY id DESC";
  if(!empty($_GET['search'])){
 	 $search = $_GET['search'];
+	 $search = trim($search);
 	$q = "SELECT * FROM employees WHERE active = 1 && (fname LIkE '%$search' || lname LIkE '%$search' || address LIkE '%$search') ORDER BY id DESC";
  }
 $exe = $conn->query($q);

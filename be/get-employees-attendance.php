@@ -25,6 +25,11 @@ $limitcount = intval($page) * intval($limit);
 $tmp = array();
 $baselimit = $limitcount - intval($limit);
  $q = "SELECT * FROM employees WHERE active = 1 ORDER BY id DESC";
+ if(!empty($_GET['search'])){
+	$search = $_GET['search'];
+	$search = trim($search);
+   $q = "SELECT * FROM employees WHERE active = 1 && (fname = '$search' || lname = '$search' || address = '$search') ORDER BY id DESC";
+}
 $exe = $conn->query($q);
 $employees_count = $exe->num_rows;
  while ($row = mysqli_fetch_array($exe)) {

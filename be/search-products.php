@@ -16,6 +16,7 @@ $myobj = array();
 $limit = $_GET['limit'];
 $page = $_GET['page'];
 $search = strval($_GET['search']);
+$search = trim($search);
 $count = 0;
 
 $limitcount = intval($page) * intval($limit);
