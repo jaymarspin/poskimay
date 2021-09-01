@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'business-panel',
     loadChildren: () => import('./business-panel/business-panel.module').then( m => m.BusinessPanelPageModule)
+  },
+  {
+    path: 'wall',
+    loadChildren: () => import('./wall/wall.module').then( m => m.WallPageModule)
   }
 
 

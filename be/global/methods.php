@@ -189,15 +189,24 @@ class globalMethods
 		$q = "SELECT * FROM products_stocks WHERE product_id = $id";
 		$exe = $conn->query($q);
 		$myobj = array();
+		$stock_id = 0;
+		$stocks_count = 0;
 		while ($row = mysqli_fetch_array($exe)) {
-
-			$myobj = $arrayName = array(
-				'stocks_count' => intval($row['stocks_count']),
-				'id' => $row['id']
-
-
-			);
+			$stock_id = intval($row['id']);
+			$stocks_count = intval($row['stocks_count']);
+			
 		}
+		$q = "SELECT * FROM sold WHERE stock_id = $stock_id";
+		$exe = $conn->query($q);
+		$toMinus = 0;
+		while($row = mysqli_fetch_array($exe)){
+			$toMinus = $toMinus + intval($row['quantity']);
+		}
+		$stocks_count = intval($stocks_count - $toMinus);
+		$myobj = $arrayName = array(
+			'stocks_count' => $stocks_count,
+			'id' => $stock_id,
+		);
 
 		return $myobj;
 	}

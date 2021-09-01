@@ -16,10 +16,10 @@
               <ion-badge color="warning">6</ion-badge>
             </ion-tab-button>
         
-            <ion-tab-button tab="discounts">
+            <!-- <ion-tab-button tab="discounts">
               <ion-icon name="person-circle"></ion-icon>
               <ion-label>Discounts</ion-label>
-            </ion-tab-button>
+            </ion-tab-button> -->
         
             <ion-tab-button tab="transactions">
               <ion-icon name="map"></ion-icon>
@@ -33,7 +33,7 @@
   
       <ion-col size="4">
         <ion-row>
-          <ion-col style="margin-top: -5px;" size="12" class="ion-no-padding">
+          <ion-col size="12" class="ion-no-padding" style="display: block;z-index: 99;position: relative;" >
             <ion-input id="barcode-input" [(ngModel)]="barcode" (keyup.enter)="codeinputchange()" placeholder="Barcode scanner">
 
             </ion-input>
@@ -198,7 +198,7 @@
         </ion-row>
         
         <ion-row>
-          <ion-col  size="6" class="ion-no-padding">
+          <ion-col  size="6" class="ion-no-padding" (click)="cancel()">
             <div class="ion-activatable btn btn-cancel">
               <span>Cancel</span>
               <ion-ripple-effect></ion-ripple-effect>

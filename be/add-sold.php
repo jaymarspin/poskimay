@@ -36,10 +36,13 @@ if($exe){
         $myobj[] = $arrayName = array('value' => $value['data']);
         $quantity = $value['data']['quantity'];
         $price_id = $value['data']['price']['id'];
+        $stocks_id  = $value['data']['stocks']['id'];
         $id = $value['data']['id'];
         
-        $q = "INSERT INTO sold(whole_sold_id,product_id,quantity,price_id) VALUES($insert_id,$id,$quantity,$price_id)";
-        $exe = $conn->query($q);
+        $q = "INSERT INTO sold(whole_sold_id,product_id,quantity,price_id,stock_id) VALUES(?,?,?,?,?)";
+        $stmt = $conn->prepare($q);
+        $stmt->bind_param("iiiii",$insert_id,$id,$quantity,$price_id,$stocks_id);
+        $exe =  $stmt->execute();
         if($exe){
             array_push($pass,true);
         }else{

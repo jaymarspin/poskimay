@@ -146,6 +146,7 @@ export class SaleInputPage implements OnInit {
         console.log(data);
         this.http.postData(`add-sold.php`, data).subscribe({
           next: (res) => {
+            console.log(res);
             if (res.body.message === 'success') {
               Swal.fire({
                 title: 'Good Job',
@@ -161,6 +162,7 @@ export class SaleInputPage implements OnInit {
             this.buypause();
           },
           error: (err) => {
+            console.log(err);
             this.buypause();
           },
         });
@@ -198,5 +200,11 @@ export class SaleInputPage implements OnInit {
 
   clearNote(){
     this.notes = '';
+  }
+
+  cancel(){
+    this.global.sales = new Array();
+    this.notes = '';
+    this.customercash = '';
   }
 }

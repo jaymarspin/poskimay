@@ -37,6 +37,7 @@
     "@ionic/angular": "^5.5.2",
     "apexcharts": "^3.27.1",
     "js-datepicker": "^5.18.0",
+    "localbase": "^0.7.5",
     "ng-lazyload-image": "^9.1.0",
     "ng-sidebar": "^9.4.2",
     "ngx-csv": "^0.3.2",
@@ -45,6 +46,7 @@
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.7",
+    "session-expiration-alert": "^12.0.0",
     "sweetalert2": "^11.0.18",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
