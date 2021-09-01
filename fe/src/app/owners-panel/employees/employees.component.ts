@@ -116,4 +116,9 @@ export class EmployeesComponent implements OnInit {
   async search(){
     await this.loadData();
    }
+   refresh(){
+     this.searchVal = '';
+     this.page = 1;
+     this.loadData();
+   }
 }

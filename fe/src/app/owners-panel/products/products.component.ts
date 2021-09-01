@@ -151,4 +151,11 @@ export class ProductsComponent implements OnInit {
   console.log(images);
   this.global.lightBoxOpen(images,0);
 }
+async refresh(){
+  this.page = 1;
+  this.searchVal = '';
+  this.category = 0;
+  await this.loadData();
+   await this.getCategory();
+}
 }

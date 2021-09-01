@@ -212,4 +212,18 @@ export class SoldComponent implements OnInit {
       });
     }
   }
+  refresh(){
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const day = today.getUTCDate();
+    this.campaignOne = new FormGroup({
+      start: new FormControl(new Date(year, month, 1)),
+      end: new FormControl(new Date(year, month, day)),
+    });
+    this.page = 1;
+    this.getInitialDate().then((data) => {
+      this.loadData(data);
+    });
+  }
 }
