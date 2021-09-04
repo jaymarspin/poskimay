@@ -45,7 +45,6 @@ export class SigninPage implements OnInit {
     return await localStorage.setItem('id',id);
   }
   login(){
-    console.log(this.accountType);
     if(this.uname && this.password && this.accountType){
       const data = {
         username: this.uname,
@@ -84,6 +83,7 @@ export class SigninPage implements OnInit {
             });
           }
         },onerror: error =>{
+          console.log(error);
           this.loading = false;
         }
       });

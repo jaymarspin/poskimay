@@ -14,7 +14,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.global.loading = false;
     const start = Date.now();
-    this.getNow = new Date().toLocaleString().replace(',','');
+    setInterval(() =>{
+      this.getNow = new Date().toLocaleString().replace(',','');
+    });
   }
 
   signout(){

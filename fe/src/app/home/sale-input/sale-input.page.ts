@@ -207,4 +207,10 @@ export class SaleInputPage implements OnInit {
     this.notes = '';
     this.customercash = '';
   }
+  quantityCalc(value,quantity){
+   return this.global.round2Fixed(value * quantity);
+  }
+  changeCalc(value){
+    return value - this.totalcalculator();
+  }
 }

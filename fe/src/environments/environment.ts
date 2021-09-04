@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/poskimay/be/'
+  apiUrl: 'http://localhost/poskimay/be/',
+  electronAPI: 'http://127.0.0.1:5555/be/'
 };
 
 /*

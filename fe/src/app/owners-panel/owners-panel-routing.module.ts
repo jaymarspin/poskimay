@@ -11,7 +11,7 @@ import {ProductsComponent} from './products/products.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {EmployeeAccountsComponent} from './employee-accounts/employee-accounts.component';
 import {SoldComponent} from './sold/sold.component';
-
+import {SettingsComponent} from './settings/settings.component';
 const routes: Routes = [
   {
     path: '',
@@ -62,6 +62,9 @@ const routes: Routes = [
       },{
         path: 'sold',
         component: SoldComponent
+      },{
+        path: 'settings',
+        component: SettingsComponent
       }
     ]
   }
