@@ -29,6 +29,10 @@ export class AddProductsComponent implements OnInit {
   imgResultBeforeCompress: string;
   imgResultAfterCompress: string;
   id: any;
+
+  defaultImage = 'https://www.placecage.com/1000/1000';
+  image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
+
   constructor(
     private imageCompress: NgxImageCompressService,
     private location: Location,
@@ -53,10 +57,6 @@ export class AddProductsComponent implements OnInit {
             resolve(result);
             this.newbase64 = true;
             this.base64data = result;
-            console.warn(
-              'Size in bytes is now:',
-              this.imageCompress.byteCount(result)
-            );
           });
       });
     });
@@ -70,17 +70,22 @@ export class AddProductsComponent implements OnInit {
     }
     this.loadCategory();
   }
+  ionViewWillEnter(){
+    if(this.global.adminTeller.length === 0){
+      this.global.adminTeller.push('Products');
+    }
+    this.global.adminTeller.push('> Add products');
+  }
 
   getProduct() {
     this.http.getData(`get-product.php?id=${this.id}`).subscribe({
       next: (data) => {
-        console.log(data);
         const result = JSON.parse(JSON.stringify(data));
         this.productname = result.product_name;
         this.barcode = result.barcode;
         this.price = result.price.price;
         this.stocks = result.stocks.stocks_count;
-        this.category = result.category.id;
+        this.category = `${result.category.id}`;
         this.description = result.description;
         this.base64data = this.http.server + result.image.name50;
       },
@@ -138,7 +143,6 @@ export class AddProductsComponent implements OnInit {
 
       await this.http.postData(link, data).subscribe({
         next: (datas) => {
-          console.log(datas);
           this.global.loading = false;
           if (datas.body.message === 'success') {
             Swal.fire('Good job!', 'Successfully Added!', 'success').then(
@@ -183,5 +187,8 @@ export class AddProductsComponent implements OnInit {
 
   open(event) {
     console.log(event);
+  }
+  ionViewWillLeave(){
+    this.global.adminTeller.pop();
   }
 }

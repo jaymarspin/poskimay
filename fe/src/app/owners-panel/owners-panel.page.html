@@ -75,9 +75,7 @@
     <!-- Page content -->
     <div ng-sidebar-content>
       <ul>
-        <li class="li-active" (click)="_toggleSidebar()">awdawd</li>
-        <li>></li>
-        <li>awdawd</li>
+        <li *ngFor="let item of global.adminTeller" (click)="_toggleSidebar()">{{item}}</li>
       </ul>
       <!-- <button (click)="_toggleSidebar()">Toggle sidebar</button> -->
       <ion-card>

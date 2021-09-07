@@ -18,7 +18,7 @@
           </div>
         </div>
         <ng-template #uploaded>
-          <img [src]="base64data" onerror="this.src='assets/logo.png'" />
+          <img [lazyLoad]="base64data"  [defaultImage]="defaultImage" [useSrcset]="true" />
           <div class="overlayfilchanger" (click)="promiseCompressedImg()">
             <ion-label>Change Picture</ion-label>
           </div>
@@ -64,7 +64,7 @@
           <ion-row>
             <ion-col size='11'>
               <ion-label position="floating">Category</ion-label>
-              <ion-select [(ngModel)]="category"  placeholder="Select One" >
+              <ion-select [(ngModel)]="category" placeholder="Select One"  >
                 <ion-select-option *ngFor="let item of categories" [value]="item.id">{{item.category}}</ion-select-option>
               </ion-select>
             </ion-col>

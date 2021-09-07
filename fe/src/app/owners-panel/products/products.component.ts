@@ -55,8 +55,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
 
+  }
+  ionViewWillEnter(){
+    this.global.adminTeller = new Array();
+    this.global.adminTeller.push('Products');
+  }
   getCategory(){
     this.http.getData(
       'get-categories.php'

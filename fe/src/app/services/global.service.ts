@@ -7,8 +7,11 @@ import { Lightbox } from 'ngx-lightbox';
 export class GlobalService {
   loading: any;
   sales: any;
+
+  adminTeller: any;
   constructor(private router: Router, private lightbox: Lightbox) {
     this.loading = false;
+    this.adminTeller = new Array();
     this.sales = new Array();
   }
   lightBoxOpen(images, index) {

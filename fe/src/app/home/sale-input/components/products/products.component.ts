@@ -80,9 +80,9 @@ export class ProductsComponent implements OnInit {
 
   loadData() {
     this.global.loading = true;
-    let link = `get-products.php?limit=${this.limit}&page=${this.page}&category=${this.category}`;
+    let link = `get-products-nolimit.php?page=${this.page}&category=${this.category}`;
     if(this.searchVal !== ''){
-      link = `search-products.php?limit=${this.limit}&page=${this.page}&search=${this.searchVal}`;
+      link = `search-products-nolimit.php?page=${this.page}&search=${this.searchVal}`;
     }
 
     this.http

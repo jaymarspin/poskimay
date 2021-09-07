@@ -111,6 +111,8 @@ export class EmployeesComponent implements OnInit {
     this.loadData().then(() =>{
 
     });
+      this.global.adminTeller = new Array();
+      this.global.adminTeller.push('Employee');
   }
 
   async search(){

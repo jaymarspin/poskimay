@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 @Component({
   selector: 'app-owners-panel',
   templateUrl: './owners-panel.page.html',
@@ -18,7 +19,7 @@ export class OwnersPanelPage implements OnInit {
   public _menu: boolean;
   public isMenuActive: string;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,public global: GlobalService) { }
 
   ngOnInit() {
 

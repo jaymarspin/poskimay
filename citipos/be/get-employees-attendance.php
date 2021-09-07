@@ -1,7 +1,6 @@
  
 
 <?php
- require_once("include/header.php");
 
 require_once("include/connection.php");
 require_once("include/timezone.php");

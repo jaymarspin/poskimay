@@ -3,6 +3,7 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+require_once("include/header.php");
 
 require_once("include/connection.php");
 require_once("include/timezone.php");
@@ -12,20 +13,19 @@ $conn = $conn->connectionString();
 $methods = new globalMethods();
 $myobj = array();
 
-$limit = $_GET['limit'];
 $page = $_GET['page'];
 $search = strval($_GET['search']);
 $search = trim($search);
 $count = 0;
 
-$limitcount = intval($page) * intval($limit);
+
 $tmp = array();
-$baselimit = $limitcount - intval($limit);
+
 $q = "SELECT * FROM products WHERE deleted = 0 && product_name = '$search' ORDER BY id DESC";
 $exe = $conn->query($q);
 $products_count = $exe->num_rows;
 while ($row = mysqli_fetch_array($exe)) {
-	if ($count >= $baselimit) {
+
 		$category = $methods->getProductCategory($row['category'], $conn);
 	
 			$price = $methods->getProductPrice(intval($row['id']), $conn);
@@ -48,19 +48,13 @@ while ($row = mysqli_fetch_array($exe)) {
 
 			);
 		
-	}
 
 
-	$count += 1;
-	if ($count > $limitcount - 1) {
-		break;
-	}
+	
 }
 $myobj = $arrayName = array(
 	'products_count' => $products_count,
 	'products' => $tmp,
-	'limitcount' => $limitcount,
-	'q' => $q
 );
 echo json_encode($myobj);
 ?>

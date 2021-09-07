@@ -92,4 +92,14 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
+  ionViewDidEnter(){
+      if(this.global.adminTeller.length === 0){
+        this.global.adminTeller.push('Employee');
+      }
+      this.global.adminTeller.push('> Add Employee');
+  }
+  ionViewWillLeave(){
+    this.global.adminTeller.pop();
+  }
+
 }

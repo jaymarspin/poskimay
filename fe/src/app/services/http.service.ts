@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class HttpService {
-  server: string = environment.electronAPI;
+  server: string = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   public getData(link) {

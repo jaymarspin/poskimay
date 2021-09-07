@@ -61,7 +61,6 @@ $myobj = $arrayName = array(
 	'products_count' => $products_count,
 	'products' => $tmp,
 	'limitcount' => $limitcount,
-	'q' => $q
 );
 echo json_encode($myobj);
 ?>

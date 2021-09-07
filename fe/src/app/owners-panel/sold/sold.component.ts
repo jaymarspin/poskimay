@@ -226,4 +226,8 @@ export class SoldComponent implements OnInit {
       this.loadData(data);
     });
   }
+  ionViewWillEnter(){
+    this.global.adminTeller = new Array();
+    this.global.adminTeller.push('Sold');
+  }
 }

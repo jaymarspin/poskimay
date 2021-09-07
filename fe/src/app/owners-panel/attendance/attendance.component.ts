@@ -62,8 +62,12 @@ export class AttendanceComponent implements OnInit {
     await popover.present();
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+  }
+  ionViewWillEnter(){
+    this.global.adminTeller = new Array();
+    this.global.adminTeller.push('Attendance');
+  }
   addemployee() {}
 
   async loadData(dates) {
