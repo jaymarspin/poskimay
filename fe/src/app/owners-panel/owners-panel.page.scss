@@ -42,7 +42,7 @@ ion-content{
 
  }  ion-card{
      position: relative;
-     height: calc(100vh - 140px);
+     height: calc(100vh - 150px);
      display: block;
      overflow-y: scroll;
      padding: 0;
@@ -57,7 +57,7 @@ ion-content{
  @media (min-width: 768px) {
     ion-card{
         padding: 0;
-        height: calc(100vh - 130px);
+        height: calc(100vh - 150px);
         ion-card-content{
             height: 100%;
             width: 100%;
@@ -74,7 +74,7 @@ ion-content{
 @media (min-width: 1025px){
     ion-card{
 
-        height: calc(100vh - 160px);
+        height: calc(100vh - 180px);
 
 
     }

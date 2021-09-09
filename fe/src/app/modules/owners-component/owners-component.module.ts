@@ -31,6 +31,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {TimeLogViewComponent} from '../../owners-panel/attendance/time-log-view/time-log-view.component';
 import {SettingsComponent} from '../../owners-panel/settings/settings.component';
+import {ReportFrameComponent} from '../../owners-panel/report-frame/report-frame.component';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
@@ -53,7 +54,8 @@ FullCalendarModule.registerPlugins([
     AttendanceActionsComponent,
     CalendarComponent,
     TimeLogViewComponent,
-    SettingsComponent
+    SettingsComponent,
+    ReportFrameComponent
     ],
   imports: [
     CommonModule,
@@ -83,6 +85,7 @@ FullCalendarModule.registerPlugins([
     AttendanceActionsComponent,
     CalendarComponent,
     TimeLogViewComponent,SettingsComponent,
+    ReportFrameComponent,
     ]
 })
 export class OwnersComponentModule { }

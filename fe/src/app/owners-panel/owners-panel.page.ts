@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from '../services/global.service';
+import { PopoverController } from '@ionic/angular';
+import { ReportFrameComponent } from './report-frame/report-frame.component';
 @Component({
   selector: 'app-owners-panel',
   templateUrl: './owners-panel.page.html',
@@ -19,7 +21,7 @@ export class OwnersPanelPage implements OnInit {
   public _menu: boolean;
   public isMenuActive: string;
 
-  constructor(public router: Router,public global: GlobalService) { }
+  constructor(public router: Router,public global: GlobalService,private popoverController: PopoverController) { }
 
   ngOnInit() {
 
@@ -32,6 +34,16 @@ export class OwnersPanelPage implements OnInit {
    _toggleSidebar() {
     // eslint-disable-next-line no-underscore-dangle
     this._opened = !this._opened;
+  }
+
+  async reports(ev: any) {
+    const popover = await this.popoverController.create({
+      component: ReportFrameComponent,
+      cssClass: 'my-custom-class',
+      translucent: true,
+    });
+    await popover.present();
+    await popover.onDidDismiss();
   }
 
 

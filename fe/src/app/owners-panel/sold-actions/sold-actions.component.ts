@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import {ProductsSoldComponent} from '../sold/products-sold/products-sold.component';
+import { ViewCasherComponent } from '../sold/view-casher/view-casher.component';
 @Component({
   selector: 'app-sold-actions',
   templateUrl: './sold-actions.component.html',
@@ -28,6 +29,18 @@ export class SoldActionsComponent implements OnInit {
       cssClass: 'attendance-popover'
     });
     await popover.present();
+    await popover.onDidDismiss();
+  }
+
+  async viewCashier() {
+    const popover = await this.popoverController.create({
+      component: ViewCasherComponent,
+      componentProps: {id: this.id},
+      translucent: true,
+      cssClass: 'attendance-popover'
+    });
+    await popover.present();
+    await popover.onDidDismiss();
   }
 
 }

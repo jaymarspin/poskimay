@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'wall',
     loadChildren: () => import('./wall/wall.module').then( m => m.WallPageModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module').then( m => m.ReportsPageModule)
   }
 
 

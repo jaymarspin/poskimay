@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpService } from 'src/app/services/http.service';
 @Component({
   selector: 'app-view-casher',
   templateUrl: './view-casher.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewCasherComponent implements OnInit {
 
-  constructor() { }
+  constructor(public http: HttpService) { }
 
   ngOnInit() {}
 

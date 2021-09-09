@@ -9,6 +9,7 @@ export class GlobalService {
   sales: any;
 
   adminTeller: any;
+  reportData: any;
   constructor(private router: Router, private lightbox: Lightbox) {
     this.loading = false;
     this.adminTeller = new Array();
