@@ -30,9 +30,6 @@ $employees_count = $exe->num_rows;
  while ($row = mysqli_fetch_array($exe)) {
 
  	if ($count >= $baselimit) {
- 		 
-
- 		
 	$tmp[] = $arrayName = array(
 									'id' => $row['id'],
 									'fname' => $row['fname'],
@@ -43,23 +40,16 @@ $employees_count = $exe->num_rows;
 									'disabled' => intval($row['disabled']),
 									'date_updated' => $row['date_updated'],
 									'date_created' => $row['date_created']
-
-
 	 );
  	}
- 	
-
  	$count += 1;
  	if ($count > $limitcount - 1) {
  		break;
  	}
-
-
  }
  $myobj = $arrayName = array('employees_count' => $employees_count,
  								'employees' => $tmp,
- 								'limitcount' => $limitcount,
-								 'q' => $q
+ 								'limitcount' => $limitcount
   );
  echo json_encode($myobj);
 ?>

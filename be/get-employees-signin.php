@@ -9,7 +9,7 @@ $methods = new globalMethods();
 $conn = new connection();
 $conn = $conn->connectionString();
 $myobj = array();
-$q = "SELECT * FROM employees ";
+$q = "SELECT * FROM employees WHERE active = 1 && disabled = 0";
 $exe = $conn->query($q);
 
 while ($row = mysqli_fetch_array($exe)) {

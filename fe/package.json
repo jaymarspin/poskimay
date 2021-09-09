@@ -44,6 +44,7 @@
     "ngx-image-compress": "^11.0.3",
     "ngx-lightbox": "^2.4.1",
     "ngx-webcam": "^0.3.2",
+    "printd": "^1.5.0",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.7",
     "session-expiration-alert": "^12.0.0",

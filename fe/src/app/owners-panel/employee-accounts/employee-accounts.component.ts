@@ -101,5 +101,14 @@ export class EmployeeAccountsComponent implements OnInit {
       });
     }
   }
+  ionViewDidEnter(){
+    if(this.global.adminTeller.length === 0){
+      this.global.adminTeller.push('Employee');
+    }
+    this.global.adminTeller.push('> Employee Accounts');
+}
+ionViewWillLeave(){
+  this.global.adminTeller.pop();
+}
 
 }

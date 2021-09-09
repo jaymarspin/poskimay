@@ -10,7 +10,18 @@
         <ion-item>
           <ion-label>Type: </ion-label>
           <ion-select placeholder="Select One" [(ngModel)]="type">
-            <ion-select-option value="f">Female</ion-select-option>
+            <ion-select-option value="sale">Sales</ion-select-option>
+            <ion-select-option value="attendance">Attendance</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="type === 'attendance'">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Employee</ion-label>
+          <ion-select placeholder="Select One" [(ngModel)]="employee">
+            <ion-select-option [value]="item.id" *ngFor="let item of employees">{{item.lname}}, {{item.fname}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
