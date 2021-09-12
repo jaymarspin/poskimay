@@ -9,6 +9,7 @@ import { ViewCasherComponent } from '../sold/view-casher/view-casher.component';
 })
 export class SoldActionsComponent implements OnInit {
   @Input() id: any;
+  @Input() timestamp: any;
   constructor(public popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class SoldActionsComponent implements OnInit {
   async presentPopover() {
     const popover = await this.popoverController.create({
       component: ProductsSoldComponent,
-      componentProps: {id: this.id},
+      componentProps: {id: this.id,timestamp: this.timestamp},
       translucent: true,
       cssClass: 'attendance-popover'
     });
@@ -35,7 +36,7 @@ export class SoldActionsComponent implements OnInit {
   async viewCashier() {
     const popover = await this.popoverController.create({
       component: ViewCasherComponent,
-      componentProps: {id: this.id},
+      componentProps: {id: this.id,timestamp: this.timestamp},
       translucent: true,
       cssClass: 'attendance-popover'
     });

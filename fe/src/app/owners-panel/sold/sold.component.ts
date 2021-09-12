@@ -61,11 +61,12 @@ export class SoldComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any, id) {
+  async presentPopover(ev: any, id,timestamp) {
     const popover = await this.popoverController.create({
       component: SoldActionsComponent,
       cssClass: 'my-custom-class',
-      componentProps: { id },
+      componentProps: { id,timestamp
+       },
       event: ev,
       translucent: true,
     });
@@ -145,7 +146,6 @@ export class SoldComponent implements OnInit {
             }
             for (let i = 0; i < length; i++) {
               this.sold2.push(result.sold[i]);
-              console.log(this.sold2);
             }
             this.global.loading = false;
           },

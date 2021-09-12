@@ -71,7 +71,6 @@ export class EmployeesComponent implements OnInit {
       .getData(link)
       .subscribe({
         next: (data) => {
-          console.log(data);
           this.employee = new Array();
 
           const result = JSON.parse(JSON.stringify(data));

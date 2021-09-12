@@ -32,6 +32,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import {TimeLogViewComponent} from '../../owners-panel/attendance/time-log-view/time-log-view.component';
 import {SettingsComponent} from '../../owners-panel/settings/settings.component';
 import {ReportFrameComponent} from '../../owners-panel/report-frame/report-frame.component';
+import {ViewCasherComponent} from '../../owners-panel/sold/view-casher/view-casher.component';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
@@ -55,7 +56,8 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     TimeLogViewComponent,
     SettingsComponent,
-    ReportFrameComponent
+    ReportFrameComponent,
+    ViewCasherComponent
     ],
   imports: [
     CommonModule,
@@ -86,6 +88,7 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     TimeLogViewComponent,SettingsComponent,
     ReportFrameComponent,
+    ViewCasherComponent
     ]
 })
 export class OwnersComponentModule { }

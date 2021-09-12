@@ -8,7 +8,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./products-sold.component.scss'],
 })
 export class ProductsSoldComponent implements OnInit {
-  @Input() id;
+  @Input() id: any;
+  @Input() timestamp: any;
   sold: any;
   soldcount: any;
   defaultImage = 'https://www.placecage.com/1000/1000';

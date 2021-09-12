@@ -8,8 +8,6 @@
 
 
   <ng-sidebar-container>
-
-    <!-- A sidebar -->
     <ng-sidebar [(opened)]="_opened"
     [mode]="_MODES[_modeNum]"
     [animate]="_animate"
@@ -17,21 +15,19 @@
     [closeOnClickOutside]="_closeOnClickOutside">
       <div class="menu-wrapper">
         <ion-list class="bg-transparent" >
-          <!-- <ion-item lines="full" (click)="gofurther('owners-panel/dashboard')">
-            <ion-icon name="pie-chart" slot="start" color="light"></ion-icon>
-            <ion-label color="light">
-              Dashboard
-            </ion-label>
-          </ion-item> -->
+          <ion-item lines="none">
+            <ion-icon name="close" (click)="_toggleSidebar()" slot="end" color="light"></ion-icon>
+            </ion-item>
           <ion-item lines="full" (click)="gofurther('owners-panel/products')">
-            <ion-icon name="bag" slot="start" color="light"></ion-icon>
+            <ion-icon name="storefront" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Products
             </ion-label>
           </ion-item>
 
           <ion-item lines="full" (click)="gofurther('owners-panel/sold')">
-            <ion-icon name="bag" slot="start" color="light"></ion-icon>
+            <ion-icon name="cash" slot="start" color="light"></ion-icon>
+            
             <ion-label color="light">
               Sold
             </ion-label>
@@ -62,7 +58,7 @@
 
           </ion-item>
           <ion-item lines="full" (click)="gofurther('owners-panel/settings')">
-            <ion-icon name="cash" slot="start" color="light"></ion-icon>
+            <ion-icon name="settings" slot="start" color="light"></ion-icon>
             <ion-label color="light">
               Settings
             </ion-label>
@@ -77,7 +73,9 @@
       <ion-row>
         <ion-col size="10">
           <ul>
-            <li *ngFor="let item of global.adminTeller" (click)="_toggleSidebar()">{{item}}</li>
+            <li><ion-icon name="menu-outline" (click)="_toggleSidebar()"  style="font-size: 30px;position: relative;top: 10px;" *ngIf="!this._opened" slot="end" color="dark"></ion-icon>
+            </li>
+            <li *ngFor="let item of global.adminTeller" >{{item}}</li>
           </ul>
         </ion-col>
         <ion-col size="2">

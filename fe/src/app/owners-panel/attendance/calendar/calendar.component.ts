@@ -22,7 +22,6 @@ export class CalendarComponent implements OnInit {
     setTimeout( () => {
       window.dispatchEvent(new Event('resize'));
   }, 1);
-  console.log(this.notimeout);
   for (const iterator of this.rendered) {
     this.events.push({ title: 'in', date: iterator.time_in,id: iterator.id });
     this.events.push({ title: 'out', date: iterator.time_out,id: iterator.id});

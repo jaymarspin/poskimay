@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 @Component({
   selector: 'app-view-casher',
@@ -6,9 +6,11 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./view-casher.component.scss'],
 })
 export class ViewCasherComponent implements OnInit {
-
+  @Input() id: any;
+  @Input() timestamp: any;
   constructor(public http: HttpService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }
