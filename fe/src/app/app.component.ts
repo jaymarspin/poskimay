@@ -96,4 +96,4 @@ export class AppComponent implements OnInit {
 // npx cap add electron
 // npx cap open electron
 
-//npm config set legacy-peer-deps true adding android platform
+//npm config set legacy-peer-deps true adding android
