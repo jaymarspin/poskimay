@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync ,} from '@angular/core/testing';
-import { IonicModule, } from '@ionic/angular';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
 import { OwnersPanelPage } from './owners-panel.page';
 
 describe('OwnersPanelPage', () => {
@@ -8,8 +8,8 @@ describe('OwnersPanelPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OwnersPanelPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [OwnersPanelPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OwnersPanelPage);

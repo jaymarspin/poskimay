@@ -61,12 +61,11 @@ export class SoldComponent implements OnInit {
     });
   }
 
-  async presentPopover(ev: any, id,timestamp) {
+  async presentPopover(ev: any, id, timestamp) {
     const popover = await this.popoverController.create({
       component: SoldActionsComponent,
       cssClass: 'my-custom-class',
-      componentProps: { id,timestamp
-       },
+      componentProps: { id, timestamp },
       event: ev,
       translucent: true,
     });
@@ -212,7 +211,7 @@ export class SoldComponent implements OnInit {
       });
     }
   }
-  refresh(){
+  refresh() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -226,7 +225,7 @@ export class SoldComponent implements OnInit {
       this.loadData(data);
     });
   }
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.global.adminTeller = new Array();
     this.global.adminTeller.push('Sold');
   }

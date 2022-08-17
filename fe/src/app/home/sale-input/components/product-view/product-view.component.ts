@@ -37,7 +37,7 @@ export class ProductViewComponent implements OnInit {
   }
   async addProduct() {
     const duplicateCheck = new Array();
-    _.forEach(this.global.sales, value => {
+    _.forEach(this.global.sales, (value) => {
       console.log(value);
       if (this.item.id === value.data.id) {
         duplicateCheck.push(true);

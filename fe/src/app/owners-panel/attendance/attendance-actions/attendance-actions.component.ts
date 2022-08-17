@@ -27,7 +27,7 @@ export class AttendanceActionsComponent implements OnInit {
         id: this.id,
         rendered: this.rendered,
         notimeout: this.notimeout,
-        name: this.name
+        name: this.name,
       },
     });
     await popover.present();

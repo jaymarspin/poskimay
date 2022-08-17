@@ -33,21 +33,20 @@ export class EmployeesComponent implements OnInit {
     this.searchVal = '';
   }
 
-  async presentPopover(ev: any, id,disabled) {
+  async presentPopover(ev: any, id, disabled) {
     const popover = await this.popoverController.create({
       component: EmployeeActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
       translucent: true,
       componentProps: {
-        id,disabled
+        id,
+        disabled,
       },
     });
     await popover.present();
     await popover.onDidDismiss();
-    this.loadData().then(() =>{
-
-    });
+    this.loadData().then(() => {});
   }
 
   ngOnInit() {
@@ -61,41 +60,39 @@ export class EmployeesComponent implements OnInit {
     let link = `get-employees.php?
     limit=${this.limit}
     &page=${this.page}`;
-    if(this.searchVal){
+    if (this.searchVal) {
       link = `get-employees.php?
     limit=${this.limit}
     &page=${this.page}
     &search=${this.searchVal}`;
     }
-   await this.http
-      .getData(link)
-      .subscribe({
-        next: (data) => {
-          this.employee = new Array();
+    await this.http.getData(link).subscribe({
+      next: (data) => {
+        this.employee = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          this.employeescount = result.employees_count;
-          const length = result.employees.length;
+        const result = JSON.parse(JSON.stringify(data));
+        this.employeescount = result.employees_count;
+        const length = result.employees.length;
 
-          this.pagebtntmp = this.employeescount / this.limit;
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let iii = 0; iii < length; iii++) {
-            this.employee.push(result.employees[iii]);
-          }
-          this.global.loading = false;
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+        this.pagebtntmp = this.employeescount / this.limit;
+        this.pagebtn = Array();
+        for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+          this.pagebtn.push(ii);
+        }
+        for (let iii = 0; iii < length; iii++) {
+          this.employee.push(result.employees[iii]);
+        }
+        this.global.loading = false;
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message,
+          footer: ' ',
+        });
+      },
+    });
   }
 
   pager(page) {
@@ -106,20 +103,18 @@ export class EmployeesComponent implements OnInit {
   gofurther(link) {
     this.router.navigate([link]);
   }
-  ionViewDidEnter(){
-    this.loadData().then(() =>{
-
-    });
-      this.global.adminTeller = new Array();
-      this.global.adminTeller.push('Employee');
+  ionViewDidEnter() {
+    this.loadData().then(() => {});
+    this.global.adminTeller = new Array();
+    this.global.adminTeller.push('Employee');
   }
 
-  async search(){
+  async search() {
     await this.loadData();
-   }
-   refresh(){
-     this.searchVal = '';
-     this.page = 1;
-     this.loadData();
-   }
+  }
+  refresh() {
+    this.searchVal = '';
+    this.page = 1;
+    this.loadData();
+  }
 }

@@ -9,12 +9,7 @@ import { WallPageRoutingModule } from './wall-routing.module';
 import { WallPage } from './wall.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    WallPageRoutingModule
-  ],
-  declarations: [WallPage]
+  imports: [CommonModule, FormsModule, IonicModule, WallPageRoutingModule],
+  declarations: [WallPage],
 })
 export class WallPageModule {}

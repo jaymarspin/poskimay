@@ -15,10 +15,7 @@ export class ProductsSoldComponent implements OnInit {
   defaultImage = 'https://www.placecage.com/1000/1000';
   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
 
-  constructor(
-    public global: GlobalService,
-    public http: HttpService,
-  ) {
+  constructor(public global: GlobalService, public http: HttpService) {
     this.sold = new Array();
   }
 
@@ -28,27 +25,23 @@ export class ProductsSoldComponent implements OnInit {
   loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
     this.global.loading = true;
-    this.http
-      .getData(
-        `get-each-sold.php?id=${this.id}`
-      )
-      .subscribe({
-        next: (data) => {
-          this.sold = new Array();
+    this.http.getData(`get-each-sold.php?id=${this.id}`).subscribe({
+      next: (data) => {
+        this.sold = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          this.sold = result;
-          this.global.loading = false;
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+        const result = JSON.parse(JSON.stringify(data));
+        this.sold = result;
+        this.global.loading = false;
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message,
+          footer: ' ',
+        });
+      },
+    });
   }
   async viewimg(src) {
     const images: any = new Array();
@@ -56,5 +49,4 @@ export class ProductsSoldComponent implements OnInit {
     console.log(images);
     this.global.lightBoxOpen(images, 0);
   }
-
 }

@@ -9,8 +9,8 @@ describe('ReportFrameComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportFrameComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ReportFrameComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ReportFrameComponent);

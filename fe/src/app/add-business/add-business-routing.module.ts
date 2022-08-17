@@ -6,8 +6,8 @@ import { AddBusinessPage } from './add-business.page';
 const routes: Routes = [
   {
     path: '',
-    component: AddBusinessPage
-  }
+    component: AddBusinessPage,
+  },
 ];
 
 @NgModule({

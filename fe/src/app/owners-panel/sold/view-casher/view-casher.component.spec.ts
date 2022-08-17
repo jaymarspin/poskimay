@@ -9,8 +9,8 @@ describe('ViewCasherComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewCasherComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ViewCasherComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewCasherComponent);

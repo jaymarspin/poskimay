@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import {ProductsSoldComponent} from '../sold/products-sold/products-sold.component';
+import { ProductsSoldComponent } from '../sold/products-sold/products-sold.component';
 import { ViewCasherComponent } from '../sold/view-casher/view-casher.component';
 @Component({
   selector: 'app-sold-actions',
@@ -10,24 +10,22 @@ import { ViewCasherComponent } from '../sold/view-casher/view-casher.component';
 export class SoldActionsComponent implements OnInit {
   @Input() id: any;
   @Input() timestamp: any;
-  constructor(public popoverController: PopoverController) { }
+  constructor(public popoverController: PopoverController) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  viewProducts(){
-    this.popoverController.dismiss().then(() =>{
-      this.presentPopover().then(() =>{
-      });
+  viewProducts() {
+    this.popoverController.dismiss().then(() => {
+      this.presentPopover().then(() => {});
     });
   }
 
   async presentPopover() {
     const popover = await this.popoverController.create({
       component: ProductsSoldComponent,
-      componentProps: {id: this.id,timestamp: this.timestamp},
+      componentProps: { id: this.id, timestamp: this.timestamp },
       translucent: true,
-      cssClass: 'attendance-popover'
+      cssClass: 'attendance-popover',
     });
     await popover.present();
     await popover.onDidDismiss();
@@ -36,12 +34,11 @@ export class SoldActionsComponent implements OnInit {
   async viewCashier() {
     const popover = await this.popoverController.create({
       component: ViewCasherComponent,
-      componentProps: {id: this.id,timestamp: this.timestamp},
+      componentProps: { id: this.id, timestamp: this.timestamp },
       translucent: true,
-      cssClass: 'attendance-popover'
+      cssClass: 'attendance-popover',
     });
     await popover.present();
     await popover.onDidDismiss();
   }
-
 }

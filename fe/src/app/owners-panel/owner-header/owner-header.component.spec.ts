@@ -9,8 +9,8 @@ describe('OwnerHeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OwnerHeaderComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [OwnerHeaderComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OwnerHeaderComponent);

@@ -7,15 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReportsPageRoutingModule } from './reports-routing.module';
 
 import { ReportsPage } from './reports.page';
-import {NgxPrintModule} from 'ngx-print';
+import { NgxPrintModule } from 'ngx-print';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ReportsPageRoutingModule,
-    NgxPrintModule
+    NgxPrintModule,
   ],
-  declarations: [ReportsPage]
+  declarations: [ReportsPage],
 })
 export class ReportsPageModule {}

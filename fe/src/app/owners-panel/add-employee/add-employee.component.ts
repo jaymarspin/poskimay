@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../services/global.service';
-import {AddDepartmentComponent} from '../add-department/add-department.component';
-import {HttpService} from '../../services/http.service';
+import { GlobalService } from '../../services/global.service';
+import { AddDepartmentComponent } from '../add-department/add-department.component';
+import { HttpService } from '../../services/http.service';
 import { PopoverController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -16,33 +16,38 @@ export class AddEmployeeComponent implements OnInit {
   address: any;
   contact: any;
   gender: any;
-  constructor(private location: Location,
+  constructor(
+    private location: Location,
     public http: HttpService,
     private popoverController: PopoverController,
-    public global: GlobalService) {
-
-   }
+    public global: GlobalService
+  ) {}
 
   ngOnInit() {
-      // this.loadDepartment()
+    // this.loadDepartment()
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: AddDepartmentComponent,
       cssClass: 'my-custom-class',
       event: ev,
-      translucent: true
+      translucent: true,
     });
     await popover.present();
 
-     await popover.onDidDismiss().then(
-      (data: any) => {
+    await popover.onDidDismiss().then((data: any) => {
       //  this.loadDepartment()
-      });
+    });
   }
 
-  next(){
-    if(this.fname && this.lname && this.address && this.contact && this.contact){
+  next() {
+    if (
+      this.fname &&
+      this.lname &&
+      this.address &&
+      this.contact &&
+      this.contact
+    ) {
       this.global.loading = true;
       const data = {
         fname: this.fname,
@@ -52,54 +57,49 @@ export class AddEmployeeComponent implements OnInit {
         gender: this.gender,
       };
       console.log(data);
-      this.http.postData('add-employee.php',data).subscribe({
-        next: res =>{
-
-          if(res.body.message ==='success'){
-            Swal.fire(
-              'Good job!',
-              'You clicked the button!',
-              'success'
-            ).then(() =>{
-              this.location.back();
-            });
-          }else{
+      this.http.postData('add-employee.php', data).subscribe({
+        next: (res) => {
+          if (res.body.message === 'success') {
+            Swal.fire('Good job!', 'You clicked the button!', 'success').then(
+              () => {
+                this.location.back();
+              }
+            );
+          } else {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!',
-              footer: '<a href>Why do I have this issue?</a>'
+              footer: '<a href>Why do I have this issue?</a>',
             });
           }
-
-        },onerror: error =>{
+        },
+        onerror: (error) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: error,
-            footer: ' '
+            footer: ' ',
           });
-        }
+        },
       });
-    }else{
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Please complete the fields',
-        footer: ' '
+        footer: ' ',
       });
     }
-
   }
 
-  ionViewDidEnter(){
-      if(this.global.adminTeller.length === 0){
-        this.global.adminTeller.push('Employee');
-      }
-      this.global.adminTeller.push('> Add Employee');
+  ionViewDidEnter() {
+    if (this.global.adminTeller.length === 0) {
+      this.global.adminTeller.push('Employee');
+    }
+    this.global.adminTeller.push('> Add Employee');
   }
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.global.adminTeller.pop();
   }
-
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import {HeaderComponent} from '../../components/header/header.component';
+import { HeaderComponent } from '../../components/header/header.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -12,8 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     IonicModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-  ],exports: [
-    HeaderComponent
-  ]
+  ],
+  exports: [HeaderComponent],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

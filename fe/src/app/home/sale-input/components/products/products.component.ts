@@ -42,33 +42,31 @@ export class ProductsComponent implements OnInit {
   async ngOnInit() {
     await this.loadData();
     await this.getCategory();
-
   }
-  getCategory(){
-    this.http.getData(
-      'get-categories.php'
-    ).subscribe({
-      next: data =>{
+  getCategory() {
+    this.http.getData('get-categories.php').subscribe({
+      next: (data) => {
         console.log(data);
         const result = JSON.parse(JSON.stringify(data));
         this.categories = result;
-      },error: err =>{
+      },
+      error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
-  choosenCategory(id){
+  choosenCategory(id) {
     this.category = id;
     this.searchVal = '';
     this.loadData();
   }
 
-  async presentPopover(ev: any,item) {
+  async presentPopover(ev: any, item) {
     const popover = await this.popoverController.create({
       component: ProductViewComponent,
       cssClass: 'productview',
-      componentProps: {item},
+      componentProps: { item },
       event: ev,
       translucent: true,
     });
@@ -81,54 +79,50 @@ export class ProductsComponent implements OnInit {
   loadData() {
     this.global.loading = true;
     let link = `get-products-nolimit.php?page=${this.page}&category=${this.category}`;
-    if(this.searchVal !== ''){
+    if (this.searchVal !== '') {
       link = `search-products-nolimit.php?page=${this.page}&search=${this.searchVal}`;
     }
 
-    this.http
-      .getData(link)
-      .subscribe({
-        next: (data) => {
-          this.products = new Array();
+    this.http.getData(link).subscribe({
+      next: (data) => {
+        this.products = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          console.log(result);
-          this.productscount = result.products_count;
-          const length = result.products.length;
+        const result = JSON.parse(JSON.stringify(data));
+        console.log(result);
+        this.productscount = result.products_count;
+        const length = result.products.length;
 
-          this.pagebtntmp = this.productscount / this.limit;
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let iii = 0; iii < length; iii++) {
-            this.products.push(result.products[iii]);
-            console.log(this.products);
-          }
-          this.global.loading = false;
-        },
-        error: (error) => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+        this.pagebtntmp = this.productscount / this.limit;
+        this.pagebtn = Array();
+        for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+          this.pagebtn.push(ii);
+        }
+        for (let iii = 0; iii < length; iii++) {
+          this.products.push(result.products[iii]);
+          console.log(this.products);
+        }
+        this.global.loading = false;
+      },
+      error: (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message,
+          footer: ' ',
+        });
+      },
+    });
   }
-  refresh(){
+  refresh() {
     this.searchVal = '';
     this.page = 1;
     this.category = 0;
     this.loadData();
   }
-  search(){
+  search() {
     this.page = 1;
     this.category = 0;
     this.loadData();
-
   }
-
 }

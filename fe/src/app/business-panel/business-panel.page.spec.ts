@@ -9,8 +9,8 @@ describe('BusinessPanelPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BusinessPanelPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [BusinessPanelPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BusinessPanelPage);

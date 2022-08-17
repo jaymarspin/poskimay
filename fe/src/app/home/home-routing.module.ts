@@ -9,21 +9,22 @@ const routes: Routes = [
     children: [
       {
         path: 'sale',
-        loadChildren: () => import('./sale-input/sale-input.module').then( m => m.SaleInputPageModule)
-
+        loadChildren: () =>
+          import('./sale-input/sale-input.module').then(
+            (m) => m.SaleInputPageModule
+          ),
       },
       {
         path: '',
         redirectTo: 'sale',
-        pathMatch: 'full'
-      }
-    ]
-
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class HomePageRoutingModule {}

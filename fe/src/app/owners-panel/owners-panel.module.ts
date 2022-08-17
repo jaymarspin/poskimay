@@ -8,9 +8,9 @@ import { OwnersPanelPageRoutingModule } from './owners-panel-routing.module';
 
 import { OwnersPanelPage } from './owners-panel.page';
 
-import {SidebarModule} from 'ng-sidebar';
+import { SidebarModule } from 'ng-sidebar';
 import { LightboxModule } from 'ngx-lightbox';
-import {OwnersComponentModule} from '../modules/owners-component/owners-component.module';
+import { OwnersComponentModule } from '../modules/owners-component/owners-component.module';
 
 @NgModule({
   imports: [
@@ -21,12 +21,7 @@ import {OwnersComponentModule} from '../modules/owners-component/owners-componen
     OwnersComponentModule,
     LightboxModule,
     SidebarModule.forRoot(),
-
   ],
-  declarations: [OwnersPanelPage
-
-  ],
-
-
+  declarations: [OwnersPanelPage],
 })
 export class OwnersPanelPageModule {}

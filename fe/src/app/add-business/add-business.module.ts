@@ -13,8 +13,8 @@ import { AddBusinessPage } from './add-business.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AddBusinessPageRoutingModule
+    AddBusinessPageRoutingModule,
   ],
-  declarations: [AddBusinessPage]
+  declarations: [AddBusinessPage],
 })
 export class AddBusinessPageModule {}

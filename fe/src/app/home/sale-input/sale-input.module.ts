@@ -8,10 +8,10 @@ import { SaleInputPageRoutingModule } from './sale-input-routing.module';
 
 import { SaleInputPage } from './sale-input.page';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
-import {ProductsComponent} from './components/products/products.component';
-import { LazyLoadImageModule} from 'ng-lazyload-image';
+import { ProductsComponent } from './components/products/products.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
-import {DiscountsComponent} from './components/discounts/discounts.component';
+import { DiscountsComponent } from './components/discounts/discounts.component';
 import { SaleNoteComponent } from './sale-note/sale-note.component';
 @NgModule({
   imports: [
@@ -21,12 +21,19 @@ import { SaleNoteComponent } from './sale-note/sale-note.component';
     SaleInputPageRoutingModule,
     SuperTabsModule,
     LazyLoadImageModule,
-
   ],
-  declarations: [SaleInputPage,
-    ProductsComponent,TodaysTransactionComponent,
-    DiscountsComponent,SaleNoteComponent],
-  exports:[ProductsComponent,TodaysTransactionComponent,DiscountsComponent
-  ,SaleNoteComponent]
+  declarations: [
+    SaleInputPage,
+    ProductsComponent,
+    TodaysTransactionComponent,
+    DiscountsComponent,
+    SaleNoteComponent,
+  ],
+  exports: [
+    ProductsComponent,
+    TodaysTransactionComponent,
+    DiscountsComponent,
+    SaleNoteComponent,
+  ],
 })
 export class SaleInputPageModule {}

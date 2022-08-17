@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../services/global.service';
-import {Router } from '@angular/router';
+import { GlobalService } from '../../services/global.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,20 +8,18 @@ import {Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   getNow: any;
-  constructor(private router: Router,public global: GlobalService) {
-  }
+  constructor(private router: Router, public global: GlobalService) {}
 
   ngOnInit() {
     this.global.loading = false;
     const start = Date.now();
-    setInterval(() =>{
-      this.getNow = new Date().toLocaleString().replace(',','');
+    setInterval(() => {
+      this.getNow = new Date().toLocaleString().replace(',', '');
     });
   }
 
-  signout(){
+  signout() {
     localStorage.clear();
-    this.router.navigate(['splash'],{replaceUrl: true});
+    this.router.navigate(['splash'], { replaceUrl: true });
   }
-
 }

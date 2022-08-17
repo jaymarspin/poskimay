@@ -4,50 +4,62 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
   },
 
   {
     path: '',
     redirectTo: 'splash',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'owners-panel',
-    loadChildren: () => import('./owners-panel/owners-panel.module').then( m => m.OwnersPanelPageModule)
+    loadChildren: () =>
+      import('./owners-panel/owners-panel.module').then(
+        (m) => m.OwnersPanelPageModule
+      ),
   },
   {
     path: 'signin',
-    loadChildren: () => import('./signin/signin.module').then( m => m.SigninPageModule)
+    loadChildren: () =>
+      import('./signin/signin.module').then((m) => m.SigninPageModule),
   },
   {
     path: 'splash',
-    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
+    loadChildren: () =>
+      import('./splash/splash.module').then((m) => m.SplashPageModule),
   },
   {
     path: 'add-business',
-    loadChildren: () => import('./add-business/add-business.module').then( m => m.AddBusinessPageModule)
+    loadChildren: () =>
+      import('./add-business/add-business.module').then(
+        (m) => m.AddBusinessPageModule
+      ),
   },
   {
     path: 'business-panel',
-    loadChildren: () => import('./business-panel/business-panel.module').then( m => m.BusinessPanelPageModule)
+    loadChildren: () =>
+      import('./business-panel/business-panel.module').then(
+        (m) => m.BusinessPanelPageModule
+      ),
   },
   {
     path: 'wall',
-    loadChildren: () => import('./wall/wall.module').then( m => m.WallPageModule)
+    loadChildren: () =>
+      import('./wall/wall.module').then((m) => m.WallPageModule),
   },
   {
     path: 'reports',
-    loadChildren: () => import('./reports/reports.module').then( m => m.ReportsPageModule)
-  }
-
-
+    loadChildren: () =>
+      import('./reports/reports.module').then((m) => m.ReportsPageModule),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

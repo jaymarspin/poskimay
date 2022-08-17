@@ -13,8 +13,8 @@ import { BusinessPanelPage } from './business-panel.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    BusinessPanelPageRoutingModule
+    BusinessPanelPageRoutingModule,
   ],
-  declarations: [BusinessPanelPage]
+  declarations: [BusinessPanelPage],
 })
 export class BusinessPanelPageModule {}

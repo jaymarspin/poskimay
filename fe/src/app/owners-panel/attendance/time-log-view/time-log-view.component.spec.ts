@@ -9,8 +9,8 @@ describe('TimeLogViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeLogViewComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [TimeLogViewComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimeLogViewComponent);

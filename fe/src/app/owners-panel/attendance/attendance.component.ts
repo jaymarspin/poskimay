@@ -62,9 +62,8 @@ export class AttendanceComponent implements OnInit {
     await popover.present();
   }
 
-  ngOnInit() {
-  }
-  ionViewWillEnter(){
+  ngOnInit() {}
+  ionViewWillEnter() {
     this.global.adminTeller = new Array();
     this.global.adminTeller.push('Attendance');
   }
@@ -147,13 +146,13 @@ export class AttendanceComponent implements OnInit {
     return this.campaignOne.value;
   }
 
-  search(){
+  search() {
     this.page = 1;
     this.getInitialDate().then((data) => {
       this.loadData(data);
     });
   }
-  refresh(){
+  refresh() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();

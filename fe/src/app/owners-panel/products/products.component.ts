@@ -39,13 +39,14 @@ export class ProductsComponent implements OnInit {
     this.searchVal = '';
   }
 
-  async presentPopover(ev: any,id: any,availability: any) {
+  async presentPopover(ev: any, id: any, availability: any) {
     const popover = await this.popoverController.create({
       component: ProductActionsComponent,
       cssClass: 'my-custom-class',
       event: ev,
       componentProps: {
-        id,availability
+        id,
+        availability,
       },
       translucent: true,
     });
@@ -54,37 +55,34 @@ export class ProductsComponent implements OnInit {
     this.loadData();
   }
 
-  ngOnInit() {
-
-  }
-  ionViewWillEnter(){
+  ngOnInit() {}
+  ionViewWillEnter() {
     this.global.adminTeller = new Array();
     this.global.adminTeller.push('Products');
   }
-  getCategory(){
-    this.http.getData(
-      'get-categories.php'
-    ).subscribe({
-      next: data =>{
+  getCategory() {
+    this.http.getData('get-categories.php').subscribe({
+      next: (data) => {
         console.log(data);
         const result = JSON.parse(JSON.stringify(data));
         this.categories = result;
         console.log(this.categories);
-      },error: err =>{
+      },
+      error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
-  choosenCategory(){
+  choosenCategory() {
     this.page = 1;
-   this.loadData();
+    this.loadData();
   }
-  async search(){
-   await this.loadData();
+  async search() {
+    await this.loadData();
   }
-  async ionViewDidEnter(){
-   await this.loadData();
-   await this.getCategory();
+  async ionViewDidEnter() {
+    await this.loadData();
+    await this.getCategory();
   }
   loadData() {
     // ?limit="+this.limit+"&page="+pager+"&filter="+this.filter
@@ -92,52 +90,51 @@ export class ProductsComponent implements OnInit {
     let link = `get-products.php?
     limit=${this.limit}
     &page=${this.page}`;
-    if(this.category){
+    if (this.category) {
       link = `get-products.php?
       limit=${this.limit}
       &page=${this.page}
       &category=${this.category}
       &search=${this.searchVal}
       `;
-    }if(this.searchVal){
+    }
+    if (this.searchVal) {
       link = `search-products.php?
       limit=${this.limit}
       &page=${this.page}
       &search=${this.searchVal}
       `;
     }
-    this.http
-      .getData(link)
-      .subscribe({
-        next: (data) => {
-          this.products = new Array();
+    this.http.getData(link).subscribe({
+      next: (data) => {
+        this.products = new Array();
 
-          const result = JSON.parse(JSON.stringify(data));
-          console.log(result);
-          this.productscount = result.products_count;
-          const length = result.products.length;
+        const result = JSON.parse(JSON.stringify(data));
+        console.log(result);
+        this.productscount = result.products_count;
+        const length = result.products.length;
 
-          this.pagebtntmp = this.productscount / this.limit;
-          console.log(this.productscount);
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let i = 0; i < length; i++) {
-            this.products.push(result.products[i]);
-          }
-          this.global.loading = false;
-        },
-        error: (error) => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message,
-            footer: ' ',
-          });
-        },
-      });
+        this.pagebtntmp = this.productscount / this.limit;
+        console.log(this.productscount);
+        this.pagebtn = Array();
+        for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+          this.pagebtn.push(ii);
+        }
+        for (let i = 0; i < length; i++) {
+          this.products.push(result.products[i]);
+        }
+        this.global.loading = false;
+      },
+      error: (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message,
+          footer: ' ',
+        });
+      },
+    });
   }
   addemployee() {}
 
@@ -149,17 +146,17 @@ export class ProductsComponent implements OnInit {
   gofurther(link) {
     this.router.navigate([link]);
   }
-  async viewimg(src){
-  const images: any = new Array();
-  await images.push({src});
-  console.log(images);
-  this.global.lightBoxOpen(images,0);
-}
-async refresh(){
-  this.page = 1;
-  this.searchVal = '';
-  this.category = 0;
-  await this.loadData();
-   await this.getCategory();
-}
+  async viewimg(src) {
+    const images: any = new Array();
+    await images.push({ src });
+    console.log(images);
+    this.global.lightBoxOpen(images, 0);
+  }
+  async refresh() {
+    this.page = 1;
+    this.searchVal = '';
+    this.category = 0;
+    await this.loadData();
+    await this.getCategory();
+  }
 }

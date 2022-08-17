@@ -37,18 +37,18 @@ export class SaleInputPage implements OnInit {
       .getData(`get-productbycode.php?code=${this.barcode}`)
       .subscribe({
         next: (data) => {
-         const result =  JSON.parse(JSON.stringify(data));
-         const duplicateCheck = new Array();
-          _.forEach(this.global.sales, value => {
+          const result = JSON.parse(JSON.stringify(data));
+          const duplicateCheck = new Array();
+          _.forEach(this.global.sales, (value) => {
             console.log('from saleinput');
             console.log(value);
-            if(result.id === value.data.id){
+            if (result.id === value.data.id) {
               duplicateCheck.push(true);
-            }else{
+            } else {
               duplicateCheck.push(false);
             }
           });
-          if(!duplicateCheck.includes(true)){
+          if (!duplicateCheck.includes(true)) {
             if (data && !Array.isArray(data)) {
               this.global.sales.push({
                 data,
@@ -62,7 +62,7 @@ export class SaleInputPage implements OnInit {
                 footer: '',
               });
             }
-          }else{
+          } else {
             Swal.fire({
               backdrop: false,
               icon: 'error',
@@ -92,17 +92,17 @@ export class SaleInputPage implements OnInit {
   }
 
   async addNote(ev: any) {
-    if(this.global.sales.length > 0){
+    if (this.global.sales.length > 0) {
       const popover = await this.popoverController.create({
         component: SaleNoteComponent,
         cssClass: 'productviewfrominput',
         componentProps: {
-          notes: this.notes
+          notes: this.notes,
         },
         translucent: true,
       });
       await popover.present();
-      await popover.onDidDismiss().then(data =>{
+      await popover.onDidDismiss().then((data) => {
         this.notes = data.data.note;
       });
     }
@@ -141,7 +141,7 @@ export class SaleInputPage implements OnInit {
           sold: this.global.sales,
           cash: this.customercash,
           employeeid: localStorage.getItem(`id`),
-          notes: this.notes
+          notes: this.notes,
         };
         console.log(data);
         this.http.postData(`add-sold.php`, data).subscribe({
@@ -152,9 +152,8 @@ export class SaleInputPage implements OnInit {
                 title: 'Good Job',
                 icon: 'success',
                 text: 'Transaction Recorded!',
-                backdrop: false
-              }
-              );
+                backdrop: false,
+              });
             }
             this.global.sales = new Array();
             delete this.customercash;
@@ -183,34 +182,34 @@ export class SaleInputPage implements OnInit {
     }, 1500);
   }
 
-  checkInput(value){
+  checkInput(value) {
     let tmp = value;
-    if(parseFloat(value) <= 0){
+    if (parseFloat(value) <= 0) {
       tmp = 1;
     }
     return tmp;
   }
-  inputChange(value){
+  inputChange(value) {
     let tmp = value;
-    if(!value){
+    if (!value) {
       tmp = 1;
     }
     return tmp;
   }
 
-  clearNote(){
+  clearNote() {
     this.notes = '';
   }
 
-  cancel(){
+  cancel() {
     this.global.sales = new Array();
     this.notes = '';
     this.customercash = '';
   }
-  quantityCalc(value,quantity){
-   return this.global.round2Fixed(value * quantity);
+  quantityCalc(value, quantity) {
+    return this.global.round2Fixed(value * quantity);
   }
-  changeCalc(value){
+  changeCalc(value) {
     return value - this.totalcalculator();
   }
 }

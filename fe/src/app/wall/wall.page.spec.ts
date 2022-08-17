@@ -9,8 +9,8 @@ describe('WallPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WallPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [WallPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WallPage);

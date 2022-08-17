@@ -1,8 +1,5 @@
-
 export class Api {
-    constructor( ){
-
-    }
+  constructor() {}
 }
 // eslint-disable-next-line @typescript-eslint/naming-convention
 // interface apiconfog{

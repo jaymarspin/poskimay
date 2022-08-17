@@ -8,13 +8,11 @@ import { PopoverController } from '@ionic/angular';
 })
 export class SaleNoteComponent implements OnInit {
   @Input() notes: any;
-  constructor(private popoverController: PopoverController,) {
-   }
+  constructor(private popoverController: PopoverController) {}
 
   ngOnInit() {}
 
-  save(){
-    this.popoverController.dismiss({note: this.notes});
+  save() {
+    this.popoverController.dismiss({ note: this.notes });
   }
-
 }

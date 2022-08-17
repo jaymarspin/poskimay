@@ -16,28 +16,40 @@ export class CalendarComponent implements OnInit {
   events: any;
   constructor(private popoverController: PopoverController) {
     this.events = Array();
-   }
+  }
 
   ngOnInit() {
-    setTimeout( () => {
+    setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
-  }, 1);
-  for (const iterator of this.rendered) {
-    this.events.push({ title: 'in', date: iterator.time_in,id: iterator.id });
-    this.events.push({ title: 'out', date: iterator.time_out,id: iterator.id});
-  }
-  for (const iterator of this.notimeout) {
-    this.events.push({ title: 'in', date: iterator.time_in, id: iterator.id });
-  }
+    }, 1);
+    for (const iterator of this.rendered) {
+      this.events.push({
+        title: 'in',
+        date: iterator.time_in,
+        id: iterator.id,
+      });
+      this.events.push({
+        title: 'out',
+        date: iterator.time_out,
+        id: iterator.id,
+      });
+    }
+    for (const iterator of this.notimeout) {
+      this.events.push({
+        title: 'in',
+        date: iterator.time_in,
+        id: iterator.id,
+      });
+    }
 
-  this.calendarOptions = {
-    initialView: 'dayGridMonth',
-    // dateClick: null,
-    events: this.events,
-    eventClick: (info) =>{
-      this.presentPopover(info.event.id);
-    },
-  };
+    this.calendarOptions = {
+      initialView: 'dayGridMonth',
+      // dateClick: null,
+      events: this.events,
+      eventClick: (info) => {
+        this.presentPopover(info.event.id);
+      },
+    };
   }
   handleDateClick(arg) {
     this.presentPopover(arg.dateStr);
@@ -45,7 +57,6 @@ export class CalendarComponent implements OnInit {
   }
 
   async presentPopover(id) {
-
     const popover = await this.popoverController.create({
       component: TimeLogViewComponent,
       cssClass: 'my-custom-class',
@@ -53,11 +64,10 @@ export class CalendarComponent implements OnInit {
       componentProps: {
         id: this.id,
         timeID: id,
-        name: this.name
+        name: this.name,
       },
     });
     await popover.present();
   }
   // https://fullcalendar.io/docs/angular
-
 }

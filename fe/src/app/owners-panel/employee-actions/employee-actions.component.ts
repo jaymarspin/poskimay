@@ -1,8 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
-import {Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
-import {GlobalService} from '../../services/global.service';
-import {HttpService} from '../../services/http.service';
+import { GlobalService } from '../../services/global.service';
+import { HttpService } from '../../services/http.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,19 +13,24 @@ import Swal from 'sweetalert2';
 export class EmployeeActionsComponent implements OnInit {
   @Input() id;
   @Input() disabled;
-  constructor(public http: HttpService,public global: GlobalService,private popover: PopoverController,private router: Router) { }
+  constructor(
+    public http: HttpService,
+    public global: GlobalService,
+    private popover: PopoverController,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     console.log(this.id);
   }
 
-  gofurther(link){
+  gofurther(link) {
     this.popover.dismiss();
-    this.router.navigate([link,this.id]);
+    this.router.navigate([link, this.id]);
   }
-  disabler(){
+  disabler() {
     let disable = 'enable';
-    if(this.disabled === 1){
+    if (this.disabled === 1) {
       disable = 'disable';
     }
     Swal.fire({
@@ -41,43 +46,47 @@ export class EmployeeActionsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(this.disabled);
-      this.http.postData('employee-disabler.php',{id: this.id,disabled: this.disabled}).subscribe({
-        next: data =>{
-          const response = JSON.parse(JSON.stringify(data));
+        this.http
+          .postData('employee-disabler.php', {
+            id: this.id,
+            disabled: this.disabled,
+          })
+          .subscribe({
+            next: (data) => {
+              const response = JSON.parse(JSON.stringify(data));
 
-          if(response.body.message === 'success'){
-            Swal.fire({
-              icon: 'success',
-              title: 'success',
-              text: 'Updated successfully',
-            }).then(() =>{
-              this.popover.dismiss();
-            });
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: response.message,
-              footer: ' ',
-            });
-          }
-        },error: err =>{
-          console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: err,
-            footer: ' ',
+              if (response.body.message === 'success') {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'success',
+                  text: 'Updated successfully',
+                }).then(() => {
+                  this.popover.dismiss();
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: response.message,
+                  footer: ' ',
+                });
+              }
+            },
+            error: (err) => {
+              console.log(err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err,
+                footer: ' ',
+              });
+            },
           });
-        }
-      });
       }
     });
-
-
   }
 
-  delete(){
+  delete() {
     Swal.fire({
       title: 'Are you sure?',
       backdrop: false,
@@ -90,27 +99,28 @@ export class EmployeeActionsComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.postData(`delete-employee.php`,{id: this.id}).subscribe({
-          next: data =>{
+        this.http.postData(`delete-employee.php`, { id: this.id }).subscribe({
+          next: (data) => {
             const response = JSON.parse(JSON.stringify(data));
 
-          if(response.body.message === 'success'){
-            Swal.fire({
-              icon: 'success',
-              title: 'success',
-              text: 'Deleted successfully',
-            }).then(() =>{
-              this.popover.dismiss();
-            });
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: response.message,
-              footer: ' ',
-            });
-          }
-          },error: err =>{
+            if (response.body.message === 'success') {
+              Swal.fire({
+                icon: 'success',
+                title: 'success',
+                text: 'Deleted successfully',
+              }).then(() => {
+                this.popover.dismiss();
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response.message,
+                footer: ' ',
+              });
+            }
+          },
+          error: (err) => {
             console.log(err);
             Swal.fire({
               icon: 'error',
@@ -118,11 +128,9 @@ export class EmployeeActionsComponent implements OnInit {
               text: err,
               footer: ' ',
             });
-          }
+          },
         });
       }
     });
-
   }
-
 }

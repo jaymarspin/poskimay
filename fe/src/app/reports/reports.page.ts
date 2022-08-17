@@ -7,22 +7,19 @@ import { Printd } from 'printd';
   styleUrls: ['./reports.page.scss'],
 })
 export class ReportsPage implements OnInit {
- cssText = `
+  cssText = `
   h1 {
     color: black;
     font-family: sans-serif;
   }
 `;
 
+  constructor(public global: GlobalService) {}
 
-  constructor(public global: GlobalService) { }
-
-  ngOnInit() {
-  }
-  print(){
+  ngOnInit() {}
+  print() {
     const d = new Printd();
-    d.print( document.getElementById('print-section'), [ this.cssText ] );
-        console.log(this.global.reportData);
-
+    d.print(document.getElementById('print-section'), [this.cssText]);
+    console.log(this.global.reportData);
   }
 }

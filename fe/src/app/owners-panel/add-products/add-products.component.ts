@@ -65,13 +65,13 @@ export class AddProductsComponent implements OnInit {
     if (this.snapshot.snapshot.paramMap.get('id')) {
       this.id = parseInt(this.snapshot.snapshot.paramMap.get('id'), 10);
       this.getProduct();
-    }else{
+    } else {
       this.id = 0;
     }
     this.loadCategory();
   }
-  ionViewWillEnter(){
-    if(this.global.adminTeller.length === 0){
+  ionViewWillEnter() {
+    if (this.global.adminTeller.length === 0) {
       this.global.adminTeller.push('Products');
     }
     this.global.adminTeller.push('> Add products');
@@ -126,7 +126,7 @@ export class AddProductsComponent implements OnInit {
     if (this.productname && this.stocks && this.category && this.price) {
       this.global.loading = true;
       let link = `add-product.php`;
-      if(this.id !== 0){
+      if (this.id !== 0) {
         link = `edit-product.php`;
       }
       const data = {
@@ -138,7 +138,7 @@ export class AddProductsComponent implements OnInit {
         description: this.description,
         base64data: this.base64data,
         newbase64: this.newbase64,
-        id: this.id
+        id: this.id,
       };
 
       await this.http.postData(link, data).subscribe({
@@ -188,7 +188,7 @@ export class AddProductsComponent implements OnInit {
   open(event) {
     console.log(event);
   }
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.global.adminTeller.pop();
   }
 }

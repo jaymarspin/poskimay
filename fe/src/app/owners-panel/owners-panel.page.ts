@@ -21,17 +21,18 @@ export class OwnersPanelPage implements OnInit {
   public _menu: boolean;
   public isMenuActive: string;
 
-  constructor(public router: Router,public global: GlobalService,private popoverController: PopoverController) { }
+  constructor(
+    public router: Router,
+    public global: GlobalService,
+    private popoverController: PopoverController
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
-
-
-  gofurther(link){
+  gofurther(link) {
     this.router.navigate([link]);
   }
-   _toggleSidebar() {
+  _toggleSidebar() {
     // eslint-disable-next-line no-underscore-dangle
     this._opened = !this._opened;
   }
@@ -45,8 +46,4 @@ export class OwnersPanelPage implements OnInit {
     await popover.present();
     await popover.onDidDismiss();
   }
-
-
-
 }
-

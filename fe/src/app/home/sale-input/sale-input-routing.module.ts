@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SaleInputPage } from './sale-input.page';
-import {ProductsComponent} from './components/products/products.component';
-import {TodaysTransactionComponent} from './components/todays-transaction/todays-transaction.component';
-import {DiscountsComponent} from './components/discounts/discounts.component';
+import { ProductsComponent } from './components/products/products.component';
+import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
+import { DiscountsComponent } from './components/discounts/discounts.component';
 const routes: Routes = [
   {
     path: '',
@@ -13,22 +13,22 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'product',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'product',
-        component: ProductsComponent
+        component: ProductsComponent,
       },
       {
         path: 'discounts',
-        component: DiscountsComponent
+        component: DiscountsComponent,
       },
       {
         path: 'transactions',
-        component: TodaysTransactionComponent
-      }
-    ]
-  }
+        component: TodaysTransactionComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
