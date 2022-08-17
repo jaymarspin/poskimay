@@ -1,26 +1,32 @@
- 
+ion-grid{
+  overflow-y: hidden;
+  height: calc(100vh - 130px);
+  position: relative;
+  display: block;
+  width: 100%;
+}
      ion-row{
          position: relative;
          margin-bottom: 10px;
      }
-  
+
    .wrapper{
        width: 100%;
        position: relative;
        height: calc(100vh - 130px);
        overflow-x: scroll;
-       
+
        padding-left: 2%;
-        
+    padding-bottom: 150px;
        float: left;
     .product{
         width: 19%;
         height: 210px;
         position: relative;
         float: left;
-     
+
         overflow: hidden;
-     
+
         margin-bottom: 10px;
         margin-left: 2px;
         margin-right: 2px;
@@ -30,8 +36,8 @@
         ion-label.product_name{
             position: relative;
             display: block;
-            
-        
+
+
             color: #888;
         }
         img{
@@ -42,10 +48,10 @@
           margin-bottom: 5px;
           border: none;
         }
-        
+
     }
    }
-   
+
    .search{
     background-color: #fff;
     padding: 10px;
@@ -71,33 +77,33 @@
   .nav-horizontal::-webkit-scrollbar {
     display: none;
   }
-  
+
   .nav-horizontal {
     background-color: #333;
-    
+
     height: 3em;
-    width: 100%; 
+    width: 100%;
     overflow-x: scroll;
-    
-    
+
+
     .mask {
       height: 5em;
       width: 100%;
       overflow-x: auto;
-     
+
     }
-    
+
     .list {
       display: inline-table;
       margin: 0 auto;
       max-width: 100%;
       padding-left: 0;
-      
+
       li {
       display: table-cell;
 
       }
-  
+
       a {
         display: block;
         padding: 0 1em;
@@ -113,10 +119,9 @@
       }
     }
   }
- 
-  
-  
+
+
+
   //codepen用 reset
   *{box-sizing: border-box;}body{font-family:sans-serif;padding-top: 100px;width:100vw;background-color:#999;}
-   
- 
+
