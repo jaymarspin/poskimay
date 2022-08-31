@@ -153,6 +153,58 @@ const routes: Routes = [
     redirectTo: 'hometests',
     pathMatch: 'full'
   },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
+  },
+
+  {
+    path: '',
+    redirectTo: 'splash',
+    pathMatch: 'full',
+  },
+  {
+    path: 'owners-panel',
+    loadChildren: () =>
+      import('./pages/owners-panel/owners-panel.module').then(
+        (m) => m.OwnersPanelPageModule
+      ),
+  },
+  {
+    path: 'signin',
+    loadChildren: () =>
+      import('./pages/signin/signin.module').then((m) => m.SigninPageModule),
+  },
+  {
+    path: 'splash',
+    loadChildren: () =>
+      import('./pages/splash/splash.module').then((m) => m.SplashPageModule),
+  },
+  {
+    path: 'add-business',
+    loadChildren: () =>
+      import('./pages/add-business/add-business.module').then(
+        (m) => m.AddBusinessPageModule
+      ),
+  },
+  {
+    path: 'business-panel',
+    loadChildren: () =>
+      import('./pages/business-panel/business-panel.module').then(
+        (m) => m.BusinessPanelPageModule
+      ),
+  },
+  {
+    path: 'wall',
+    loadChildren: () =>
+      import('./pages/wall/wall.module').then((m) => m.WallPageModule),
+  },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('./pages/reports/reports.module').then((m) => m.ReportsPageModule),
+  },
 ];
 
 @NgModule({

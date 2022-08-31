@@ -1,0 +1,32 @@
+<div class="menu-wrapper">
+  <ion-list class="bg-transparent" >
+
+    <ion-item lines="full" (click)="delete()">
+      <ion-icon name="trash-outline" slot="start" color="light"></ion-icon>
+      <ion-label color="light">
+        Delete
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="full"  (click)="gofurther('owners-panel/employee-accounts')">
+      <ion-icon name="key-outline" slot="start" color="light"></ion-icon>
+      <ion-label color="light">
+        Accounts
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="full" (click)="disabler()">
+      <ion-icon name="alert-circle-outline" slot="start" color="light"></ion-icon>
+      <ion-label color="light" *ngIf="disabled === 0;else Enable">
+        Disable
+      </ion-label>
+      <ng-template #Enable>
+        <ion-label color="light">
+          Enable
+        </ion-label>
+      </ng-template>
+      
+    </ion-item>
+  
+  </ion-list>
+</div>

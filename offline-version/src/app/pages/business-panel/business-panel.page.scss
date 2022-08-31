@@ -1,0 +1,40 @@
+.business-wrapper{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    max-width: 80%;
+    transform: translate(-50%,-50%);
+    ul{
+        list-style-type: none;
+        position: relative;
+        padding: 0;
+         
+          display:block;
+          text-align: center;
+          justify-content: center;
+         
+        li{
+            position: relative;
+            display: inline-block; 
+            width: 200px; 
+             
+        }
+    }
+    .add-business-btn{
+        position: relative;
+        margin: auto;
+        display: block;
+        margin-bottom: 50px;
+        max-width: 50%;
+    }
+}.wrapper{ 
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background: url("~src/assets/background/simona-sergi-BW4.jpg ");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    top: 0px;
+}

@@ -1,0 +1,58 @@
+.employee-right{
+    position: relative;
+    float: right;
+}.table-head{
+    position: relative;
+    border-bottom: 1px solid #dedede;
+    font-weight: bold;
+}.table-content{
+    color: #333;
+    ion-avatar{
+      width: 30px;
+      height: 30px;
+      float: left;
+  }
+}.td-label-center{
+    position: relative;
+    margin: auto;
+    display: block;
+   
+}ion-grid{ 
+    width: 100%;
+}.badge-wrapper{
+    position: relative;
+    width: 100%; 
+    height: auto;
+    overflow: hidden;
+}
+
+ion-badge{
+    position: relative;
+    width: 26px;
+     float: left;
+    display: block;
+   
+     
+
+}ion-content{
+    --background: #fff; 
+}
+ul {
+    width: 100%;
+  white-space:nowrap;
+  overflow-x: scroll;
+  padding-left: 0;
+}
+ul::-webkit-scrollbar {
+    display: none;
+  }
+
+li {
+  display:inline;
+}.disabled{
+    opacity: 0.3;
+}ion-label{
+    span{
+        color: red;
+    }
+}

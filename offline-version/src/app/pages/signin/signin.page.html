@@ -1,0 +1,99 @@
+
+<ion-progress-bar *ngIf="loading === true" style="position: fixed;z-index: 99;" type="indeterminate" color="warning"></ion-progress-bar>
+<ion-content>
+
+
+  <div class="wrapper">
+    <!-- <div class="webcam">
+      <div *ngIf="isCameraExist; else noCameraExist">
+        <div style="text-align:center">
+          <h1>Take a selfie for your attendance</h1>
+            <ng-container *ngIf="showWebcam;else showpic">
+
+            <webcam [height]="500" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                 [switchCamera]="nextWebcamObservable"></webcam>
+
+                <div class="btn-group">
+                  <ion-button class="button" (click)="takeSnapshot()">Take Picture</ion-button>
+              </div>
+            </ng-container>
+                <ng-template #showpic>
+
+
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="12">
+                      <img [src]="myimage"/>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="12">
+
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-button color="secondary" (click)="change()">
+                        Change
+                      </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-button color="warning" (click)="submit()">
+                        Submit
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ng-template>
+        </div>
+
+        <div *ngIf="errors.length > 0">
+            <h4>Error Messages:</h4>
+            <ul *ngFor="let error of errors">
+                <li>{{ error | json }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <ng-template #noCameraExist>
+        Camera device not available
+    </ng-template>
+    </div> -->
+  <div class="login-page">
+    <div class="form">
+      <form class="register-form">
+        <input type="text" placeholder="name"/>
+        <input type="password" placeholder="password"/>
+        <input type="text" placeholder="email address"/>
+        <button>create</button>
+        <p class="message">Already registered? <a href="#">Sign In</a></p>
+      </form>
+      <form class="login-form">
+        <input type="text" [(ngModel)]="uname" name="uname" placeholder="username"/>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="password"/>
+        <button (click)="login()">login</button>
+        <ion-radio-group [(ngModel)]="accountType" name="accountType">
+          <!-- <ion-list-header>
+            <ion-label>
+              Auto Manufacturers
+            </ion-label>
+          </ion-list-header> -->
+
+          <ion-item>
+            <ion-label>Owner</ion-label>
+            <ion-radio value="owner"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Employee</ion-label>
+            <ion-radio value="employee"></ion-radio>
+          </ion-item>
+
+
+        </ion-radio-group>
+        <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+      </form>
+    </div>
+  </div>
+</div>
+</ion-content>

@@ -25,3 +25,62 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+ion-content{
+    --background: #edece8
+}
+:root {
+    ion-menu::part(backdrop) {
+        background-color: transparent;
+        display: none;
+    }
+  }
+  ion-popover{
+    ion-backdrop{
+    opacity: 0.5 !important;
+    }
+    .popover-wrapper{
+    .popover-content{
+    width:80vw;
+
+    
+    }
+    }
+    }
+    .product-sold-popover
+    {
+        .popover-content{
+            width:200vw;
+            max-width: 1000px;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            }
+       
+    }
+    .my-custom-class,.productview{
+        .popover-content{
+            max-width: 500px;
+        }
+
+        
+    }.productviewfrominput{
+        .popover-content{
+            max-width: 500px;
+            .btn{
+                display: none;
+            }
+        }
+    }.attendance-popover{
+        .popover-content{
+            
+           width: 50vw;
+           max-width: 700px;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            }
+    }
+
+   
+

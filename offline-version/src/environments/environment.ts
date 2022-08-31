@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   databaseName: 'test',
+  apiUrl: 'http://localhost/be/',
+  electronAPI: 'http://127.0.0.1:5555/be/',
 };
 
 /*

@@ -33,6 +33,7 @@ import { TimeLogViewComponent } from '../../owners-panel/attendance/time-log-vie
 import { SettingsComponent } from '../../owners-panel/settings/settings.component';
 import { ReportFrameComponent } from '../../owners-panel/report-frame/report-frame.component';
 import { ViewCasherComponent } from '../../owners-panel/sold/view-casher/view-casher.component';
+
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
