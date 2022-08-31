@@ -38,44 +38,45 @@ export class TodaysTransactionComponent implements OnInit {
       start: new FormControl(new Date(year, month, day)),
       end: new FormControl(new Date(year, month, day)),
     });
-   }
-
-  ngOnInit() {
   }
 
-  async loadData(dates){
+  ngOnInit() {}
+
+  async loadData(dates) {
     this.global.loading = true;
-   await this.http.getData(
-      `get-bulk-sold.php?
+    await this.http
+      .getData(
+        `get-bulk-sold.php?
       limit=${this.limit}
       &page=${this.page}
       &start=${this.global.formattedDate(dates.start)},
           &end=${this.global.formattedDate(dates.end)}`
-    ).subscribe({
-      next: data =>{
-      this.sold = new Array();
+      )
+      .subscribe({
+        next: (data) => {
+          this.sold = new Array();
 
-      const result = JSON.parse(JSON.stringify(data));
-      console.log(result);
-      this.soldcount = result.sold_count;
-      const length = result.sold.length;
+          const result = JSON.parse(JSON.stringify(data));
+          console.log(result);
+          this.soldcount = result.sold_count;
+          const length = result.sold.length;
 
-      this.pagebtntmp = this.soldcount / this.limit;
-      this.pagebtn = Array();
-      for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-        this.pagebtn.push(ii);
-      }
-      for (let i = 0; i < length; i++) {
-        this.sold.push(result.sold[i]);
-        console.log(this.sold);
-      }
+          this.pagebtntmp = this.soldcount / this.limit;
+          this.pagebtn = Array();
+          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+            this.pagebtn.push(ii);
+          }
+          for (let i = 0; i < length; i++) {
+            this.sold.push(result.sold[i]);
+            console.log(this.sold);
+          }
 
-      this.global.loading = false;
-      },error: err =>{
-        console.log(err);
-      }
-    });
-
+          this.global.loading = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   async getInitialDate() {
     return this.campaignOne.value;
@@ -86,36 +87,36 @@ export class TodaysTransactionComponent implements OnInit {
       this.loadData(data);
     });
   }
-  getPaid(products){
+  getPaid(products) {
     let tmp: any = 0;
     for (const iterator of products) {
-      tmp += this.global.round2Fixed(iterator.quantity * iterator.product.price.price);
+      tmp += this.global.round2Fixed(
+        iterator.quantity * iterator.product.price.price
+      );
     }
     return tmp;
   }
 
-  async presentPopover(ev: any,id) {
+  async presentPopover(ev: any, id) {
     const popover = await this.popoverController.create({
       component: SoldActionsComponent,
       cssClass: 'my-custom-class',
-      componentProps: {id},
+      componentProps: { id },
       event: ev,
       translucent: true,
     });
     await popover.present();
   }
-  refresh(){
+  refresh() {
     this.page = 1;
     this.getInitialDate().then((data) => {
       this.loadData(data);
     });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getInitialDate().then((data) => {
       this.loadData(data);
     });
   }
-
-
 }

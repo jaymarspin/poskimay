@@ -1,0 +1,35 @@
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <div class="menu-wrapper">
+          <ion-list class="bg-transparent" >
+            <ion-radio-group value="biff" [(ngModel)]="id">
+            <ion-list-header>
+              <ion-label>Name</ion-label>
+            </ion-list-header>
+            <ion-item lines="full" *ngFor="let item of employees">
+              
+              <ion-label color="light">
+                {{item.lname}}, {{item.fname}}
+              </ion-label>
+              <ion-radio slot="start" [value]="item.id"></ion-radio>
+            </ion-item>
+        
+          </ion-radio-group>
+          </ion-list>
+          
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color='success' (click)="submit('time in')" id='timeinbtn'>Time in</ion-button>
+      </ion-col>  
+      <ion-col size="6">
+        <ion-button color='success' (click)="submit('time out')">Time out</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

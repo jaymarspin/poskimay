@@ -1,0 +1,33 @@
+ 
+<!-- simona-sergi-BW4.jpg -->
+<ion-content>
+  <div class="wrapper">
+
+ 
+  <div class="business-wrapper">
+    <ul>
+      <li *ngFor="let item of business" (click)="openBusiness(item)">
+        <ion-card class="ion-activatable ripple-parent">
+          
+        
+          <ion-card-content>
+            <img [src]="http.server + 'assets/' + item.image_assets" />
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-subtitle>{{item.category.category}}</ion-card-subtitle>
+            <ion-card-title>{{item.business_name}}</ion-card-title>
+          </ion-card-header>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+        
+      </li>
+      
+      
+    </ul>
+    <ion-button class="add-business-btn" (click)="gofurther()">
+      Add Business
+    </ion-button>
+
+  </div>
+</div>
+</ion-content>

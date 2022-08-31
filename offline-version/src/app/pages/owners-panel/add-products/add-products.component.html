@@ -1,0 +1,127 @@
+<ion-content>
+
+
+
+<ion-grid  >
+
+  <ion-row  >
+    <ion-col size="3">
+
+    </ion-col>
+    <ion-col size="6">
+      <div class="image-wrapper">
+        <div class="wrapper" *ngIf="!base64data; else uploaded" >
+          <div class="file-upload" >
+
+            <!-- <input type="file" id="videofile" (change)="inputchange($event)" /> -->
+            <ion-icon name="arrow-up-circle-outline" (click)="promiseCompressedImg()"></ion-icon>
+          </div>
+        </div>
+        <ng-template #uploaded>
+          <img [lazyLoad]="base64data"  [defaultImage]="defaultImage" [useSrcset]="true" />
+          <div class="overlayfilchanger" (click)="promiseCompressedImg()">
+            <ion-label>Change Picture</ion-label>
+          </div>
+        </ng-template>
+        
+        
+      </div>
+    </ion-col>
+    <ion-col size="3">
+
+    </ion-col>
+  </ion-row>
+  <ion-row  >
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Product Name</ion-label>
+        <ion-input [(ngModel)]="productname"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2">
+
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Stocks count</ion-label>
+        <ion-input [(ngModel)]="stocks" type="number"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row  >
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Barcode(optional)</ion-label>
+        <ion-input [(ngModel)]="barcode"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2">
+
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ng-template #nocategories>
+          <ion-row>
+            <ion-col size='11'>
+              <ion-label position="floating">Category</ion-label>
+              <ion-select [(ngModel)]="category" placeholder="Select One"  >
+                <ion-select-option *ngFor="let item of categories" [value]="item.id">{{item.category}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size='1'>
+             <ion-button (click)="presentPopover($event)">Add Category</ion-button>
+            </ion-col>
+          </ion-row>
+          
+        </ng-template>
+        
+
+        <ion-button *ngIf="!categories; else nocategories " (click)="presentPopover($event)">Add Category</ion-button>
+      </ion-item>
+
+      <!-- <ion-col size="5">
+      <ion-item>
+        <ion-label *ngIf="department" position="floating">Department</ion-label>
+        <ion-select *ngIf="department" placeholder="Select One" >
+          <ion-select-option *ngFor="let item of department" [value]="item.id">{{item.department}}</ion-select-option>
+
+        </ion-select>
+        <ion-button *ngIf="!department" (click)="presentPopover($event)">Add Department</ion-button>
+      </ion-item>
+    </ion-col> -->
+    </ion-col>
+  </ion-row>
+  <ion-row  >
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Price</ion-label>
+        <ion-input [(ngModel)]="price" type="number" step="0.01"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2">
+
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Description(optional)</ion-label>
+        <ion-textarea [(ngModel)]="description"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col size="3">
+
+    </ion-col>
+    <ion-col size="5">
+      <ion-button (click)="next()" style="width: 100%;">Done </ion-button>
+    </ion-col>
+    <ion-col size="3">
+    </ion-col>
+  </ion-row>
+
+
+</ion-grid>
+</ion-content>

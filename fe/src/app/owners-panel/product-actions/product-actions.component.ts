@@ -4,7 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { LoadingController } from '@ionic/angular';
 import { GlobalService } from 'src/app/services/global.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-actions',
   templateUrl: './product-actions.component.html',
@@ -23,10 +23,10 @@ export class ProductActionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if(this.availability === 1){
+    if (this.availability === 1) {
       this.availability = 0;
       this.availabilityText = 'You can just mark it available again sometimes';
-    }else{
+    } else {
       this.availability = 1;
       this.availabilityText = 'You are going to mark it available';
     }
@@ -47,13 +47,13 @@ export class ProductActionsComponent implements OnInit {
         this.global.loading = true;
         const data = {
           id: this.id,
-          availability: this.availability
+          availability: this.availability,
         };
         this.http.postData('availability.php', data).subscribe({
           next: (res) => {
             this.global.loading = false;
             const response = JSON.parse(JSON.stringify(res));
-           console.log(res);
+            console.log(res);
             if (response.body.message === 'success') {
               Swal.fire({
                 icon: 'success',
@@ -83,9 +83,9 @@ export class ProductActionsComponent implements OnInit {
       }
     });
   }
-  edit(){
+  edit() {
     this.popoverController.dismiss();
-    this.router.navigate(['owners-panel/add-products/'+this.id]);
+    this.router.navigate(['owners-panel/add-products/' + this.id]);
   }
   delete() {
     Swal.fire({
