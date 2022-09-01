@@ -15,8 +15,22 @@ CREATE TABLE IF NOT EXISTS products (
   category TEXT DEFAULT '',
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
-`;
 
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    username TEXT DEFAULT '',
+    password TEXT NOT NULL,
+    restrictions TEXT NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+    );
+
+ 
+
+  
+`;
+   // ALTER TABLE users
+    // ADD COLUMN restrictions TEXT NOT NULL;
 export const createSchemaTest: string = `
 CREATE TABLE IF NOT EXISTS test (
   id INTEGER PRIMARY KEY NOT NULL,

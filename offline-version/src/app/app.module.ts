@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { environment } from '../environments/environment';
+import { UserRepository } from './repositories/users/users.repository';
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
 }
@@ -58,6 +59,7 @@ export function initializeFactory(init: InitializeAppService) {
 
     MigrationService,
     ProductRepository,
+    UserRepository,
     ProductDefaultQueryRepository,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

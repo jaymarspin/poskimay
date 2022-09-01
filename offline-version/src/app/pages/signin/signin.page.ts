@@ -7,6 +7,9 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { PopoverController } from '@ionic/angular';
 import { ChooseEmployeeComponent } from './choose-employee/choose-employee.component';
+import { UserRepository } from 'src/app/repositories/users/users.repository';
+import { User } from 'src/app/models/user';
+import { SQLiteService } from 'src/app/services/sqlite.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.page.html',
@@ -34,12 +37,33 @@ export class SigninPage implements OnInit {
     private router: Router,
     public global: GlobalService,
     public http: HttpService,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    public userRespository: UserRepository,
+    public sql: SQLiteService
   ) {
     this.accountType = 'employee';
   }
 
   ngOnInit() {
+
+    this.userRespository.getUser().then((res) =>{
+      if(res.length === 0){
+        const user: User = {
+          id: 0,
+          name: 'admin',
+          username: 'admin',
+          password: 'admin',
+          restrictions: '{}',
+        }
+        this.userRespository.createUser(user)
+      }
+    }).finally(() =>{
+        this.userRespository.getUserById(3).then(res =>{
+          console.log(res)
+        })
+    })
+
+    
     WebcamUtil.getAvailableVideoInputs().then(
       (mediaDevices: MediaDeviceInfo[]) => {
         this.isCameraExist = mediaDevices && mediaDevices.length > 0;
@@ -55,40 +79,47 @@ export class SigninPage implements OnInit {
     if (this.uname && this.password && this.accountType) {
       const data = {
         username: this.uname,
-        password: this.password,
-        accountType: this.accountType,
+        password: this.password
       };
-      this.loading = true;
-      this.http.postData('signin.php', data).subscribe({
-        next: (datas) => {
-          console.log(datas.body);
-          this.loading = false;
-          if (datas.body.message === 'success') {
-            Swal.fire('Good job!', 'You clicked the button!', 'success').then(
-              () => {
-                this.setter(datas.body.id).then(() => {
-                  if (this.accountType === 'owner') {
-                    this.router.navigate(['splash'], { replaceUrl: true });
-                  } else {
-                    this.router.navigate(['home'], { replaceUrl: true });
-                  }
-                });
-              }
-            );
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: datas.body.message,
-              footer: ' ',
-            });
-          }
-        },
-        onerror: (error) => {
-          console.log(error);
-          this.loading = false;
-        },
-      });
+      const user:User = {
+        username: this.uname,
+        password: this.password
+      }
+      this.userRespository.login(user).then(res =>{
+        console.log(res)
+      })
+      
+      // this.loading = true;
+      // this.http.postData('signin.php', data).subscribe({
+      //   next: (datas) => {
+      //     console.log(datas.body);
+      //     this.loading = false;
+      //     if (datas.body.message === 'success') {
+      //       Swal.fire('Good job!', 'You clicked the button!', 'success').then(
+      //         () => {
+      //           this.setter(datas.body.id).then(() => {
+      //             if (this.accountType === 'owner') {
+      //               this.router.navigate(['splash'], { replaceUrl: true });
+      //             } else {
+      //               this.router.navigate(['home'], { replaceUrl: true });
+      //             }
+      //           });
+      //         }
+      //       );
+      //     } else {
+      //       Swal.fire({
+      //         icon: 'error',
+      //         title: 'Oops...',
+      //         text: datas.body.message,
+      //         footer: ' ',
+      //       });
+      //     }
+      //   },
+      //   onerror: (error) => {
+      //     console.log(error);
+      //     this.loading = false;
+      //   },
+      // });
     } else {
       Swal.fire({
         icon: 'error',
