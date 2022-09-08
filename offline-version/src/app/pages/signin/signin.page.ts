@@ -72,7 +72,7 @@ export class SigninPage implements OnInit {
   }
 
   async setter(id) {
-    localStorage.setItem('accountType', this.accountType);
+    // localStorage.setItem('accountType', this.accountType);
     return await localStorage.setItem('id', id);
   }
   login() {
@@ -86,7 +86,15 @@ export class SigninPage implements OnInit {
         password: this.password
       }
       this.userRespository.login(user).then(res =>{
-        console.log(res)
+        if(res.name){
+          this.setter(res.id).then(() => {
+           
+                          // this.router.navigate(['splash'], { replaceUrl: true });
+                
+                          this.router.navigate(['home'], { replaceUrl: true });
+           
+                      });
+        }
       })
       
       // this.loading = true;
