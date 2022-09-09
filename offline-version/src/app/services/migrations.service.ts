@@ -47,6 +47,14 @@ CREATE TABLE IF NOT EXISTS products (
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
         );
 
+
+        CREATE TABLE IF NOT EXISTS categories
+        (id INTEGER PRIMARY KEY NOT NULL,
+          category TEXT NOT NULL,
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+          );
+  
+
  
     
 
