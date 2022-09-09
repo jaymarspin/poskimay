@@ -14,15 +14,18 @@ CREATE TABLE IF NOT EXISTS users (
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
   );
 
+ 
 
-CREATE TABLE IF NOT EXISTS products (
-  id INTEGER PRIMARY KEY NOT NULL,
-  name TEXT NOT NULL,
-  description TEXT DEFAULT '',
-  category_id TEXT,
-  isAvailable BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)),
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  );
+
+  CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    barcode TEXT DEFAULT NULL,
+    category_id TEXT,
+    isAvailable BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 
   
 
@@ -36,9 +39,11 @@ CREATE TABLE IF NOT EXISTS products (
     CREATE TABLE IF NOT EXISTS product_image (
       id INTEGER PRIMARY KEY NOT NULL,
       product_id TEXT NOT NULL,
-      name TEXT NOT NULL, 
+      blobdata BLOB NOT NULL, 
       createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
       );
+
+   
 
       CREATE TABLE IF NOT EXISTS product_price
       (id INTEGER PRIMARY KEY NOT NULL,
