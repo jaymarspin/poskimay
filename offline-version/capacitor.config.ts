@@ -1,31 +1,32 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'com.jeep.app.ionic.angular',
-  appName: 'angular-sqlite-app-starter',
-  webDir: 'www',
+  appId: "com.eyesoft.pos",
+  appName: "angular-sqlite-app-starter",
+  webDir: "www",
   bundledWebRuntime: false,
-//  hideLogs: true,
+  //  hideLogs: true,
   plugins: {
     CapacitorSQLite: {
-      iosDatabaseLocation: 'Library/CapacitorDatabase',
+      iosDatabaseLocation: "Library/CapacitorDatabase",
       iosIsEncryption: true,
-      iosKeychainPrefix: 'angular-sqlite-app-starter',
+      iosKeychainPrefix: "angular-sqlite-app-starter",
       iosBiometric: {
         biometricAuth: false,
-        biometricTitle : "Biometric login for capacitor sqlite"
+        biometricTitle: "Biometric login for capacitor sqlite",
       },
       androidIsEncryption: true,
       androidBiometric: {
-        biometricAuth : true,
-        biometricTitle : "Biometric login for capacitor sqlite",
-        biometricSubTitle : "Log in using your biometric"
+        biometricAuth: true,
+        biometricTitle: "Biometric login for capacitor sqlite",
+        biometricSubTitle: "Log in using your biometric",
       },
       electronWindowsLocation: "C:\\ProgramData\\CapacitorDatabases",
-      electronMacLocation: "/Volumes/Development_Lacie/Development/CapacitorDatabases",
-      electronLinuxLocation: "Databases"
-    }
-  }
+      electronMacLocation:
+        "/Volumes/Development_Lacie/Development/CapacitorDatabases",
+      electronLinuxLocation: "Databases",
+    },
+  },
 };
 
 export default config;

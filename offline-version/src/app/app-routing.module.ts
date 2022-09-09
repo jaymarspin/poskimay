@@ -1,216 +1,269 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
   {
-    path: 'products',
-    loadChildren: () => import('./pages/products/products.module')
-      .then(m => m.ProductsPageModule)
-  },
-  {
-    path: 'hometests',
-    loadChildren: () => import('./test/hometests/hometests.module')
-      .then(m => m.HomeTestsPageModule)
-  },
-  {
-    path: 'test2dbs',
-    loadChildren: () => import('./test/test2dbs/test2dbs.module')
-      .then(m => m.Test2dbsPageModule)
-  },
-  {
-    path: 'testIssue230',
-    loadChildren: () => import('./test/testIssue230/testIssue230.module')
-      .then(m => m.TestIssue230PageModule)
-  },
-  {
-    path: 'existingconnection',
-    loadChildren: () => import('./test/existingconnection/existingconnection.module')
-      .then(m => m.ExistingconnectionPageModule)
-  },
-  {
-    path: 'encryption',
-    loadChildren: () => import('./test/testencryption/testencryption.module')
-      .then(m => m.TestencryptionPageModule)
-  },
-  {
-    path: 'upgradeversion',
+    path: "products",
     loadChildren: () =>
-      import('./test/testupgradeversion/testupgradeversion.module')
-        .then(m => m.TestupgradeversionPageModule)
+      import("./pages/products/products.module").then(
+        (m) => m.ProductsPageModule
+      ),
   },
   {
-    path: 'importjson',
-    loadChildren: () => import('./test/testimportjson/testimportjson.module')
-      .then(m => m.TestimportjsonPageModule)
-  },
-  {
-    path: 'exportjson',
-    loadChildren: () => import('./test/testexportjson/testexportjson.module')
-      .then(m => m.TestexportjsonPageModule)
-  },
-  {
-    path: 'exportjson59',
-    loadChildren: () => import('./test/testexportjson59/testexportjson59.module')
-      .then(m => m.Testexportjson59PageModule)
-  },
-  {
-    path: 'json71',
-    loadChildren: () => import('./test/testjson71/testjson71.module')
-      .then(m => m.Testjson71PageModule)
-  },
-  {
-    path: 'json94',
-    loadChildren: () => import('./test/testjson94/testjson94.module')
-      .then(m => m.Testjson94PageModule)
-  },
-  {
-    path: 'json97',
-    loadChildren: () => import('./test/testjson97/testjson97.module')
-      .then(m => m.Testjson97PageModule)
-  },
-  {
-    path: 'copyfromassets',
-    loadChildren: () => import('./test/copyfromassets/copyfromassets.module')
-      .then(m => m.CopyfromassetsPageModule)
-  },
-  {
-    path: 'downloadtocacheandmove',
-    loadChildren: () => import('./test/downloadtocacheandmove/downloadtocacheandmove.module')
-      .then(m => m.DownloadToCacheAndMoveModule)
-  },
-  {
-    path: 'copy',
-    loadChildren: () => import('./test/testcopy/testcopy.module')
-      .then(m => m.TestCopyPageModule)
-  },
-  {
-    path: 'ncdatabase',
-    loadChildren: () => import('./test/testncdbs/testncdbs.module')
-      .then(m => m.TestNCDbsPageModule)
-  },
-  {
-    path: 'test111',
-    loadChildren: () => import('./test/testissue111/testissue111.module')
-      .then(m => m.TestIssue111PageModule)
-  },
-  {
-    path: 'testtypes',
-    loadChildren: () => import('./test/testtypes/testtypes.module')
-      .then(m => m.TestTypesPageModule)
-  },
-  {
-    path: 'setsecuresecret',
-    loadChildren: () => import('./test/testsetsecuresecret/testsetsecuresecret.module')
-      .then(m => m.TestSetSecureSecretPageModule)
-  },
-  {
-    path: 'changesecuresecret',
-    loadChildren: () => import('./test/testchangesecuresecret/testchangesecuresecret.module')
-      .then(m => m.TestChangeSecureSecretPageModule)
-  },
-  {
-    path: 'testjson1',
-    loadChildren: () => import('./test/testjson1extension/testjson1extension.module')
-      .then(m => m.TestJson1ExtensionPageModule)
-  },
-  {
-    path: 'json164',
-    loadChildren: () => import('./test/testjson164/testjson164.module')
-      .then(m => m.Testjson164PageModule)
-  },
-  {
-    path: 'json167',
-    loadChildren: () => import('./test/testjson167/testjson167.module')
-      .then(m => m.Testjson167PageModule)
-  },
-  {
-    path: 'json192',
-    loadChildren: () => import('./test/testjson192/testjson192.module')
-      .then(m => m.Testjson192PageModule)
-  },
-  {
-    path: 'json231',
-    loadChildren: () => import('./test/testjson231/testjson231.module')
-      .then(m => m.Testjson231PageModule)
-  },
-  {
-    path: 'json237',
-    loadChildren: () => import('./test/testjson237/testjson237.module')
-      .then(m => m.Testjson237PageModule)
-  },
-  {
-    path: 'json245',
-    loadChildren: () => import('./test/testjson245/testjson245.module')
-      .then(m => m.Testjson245PageModule)
-  },
-  {
-    path: 'json292',
-    loadChildren: () => import('./test/testjson292/testjson292.module')
-      .then(m => m.Testjson292PageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'hometests',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
+    path: "hometests",
     loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
+      import("./test/hometests/hometests.module").then(
+        (m) => m.HomeTestsPageModule
+      ),
+  },
+  {
+    path: "test2dbs",
+    loadChildren: () =>
+      import("./test/test2dbs/test2dbs.module").then(
+        (m) => m.Test2dbsPageModule
+      ),
+  },
+  {
+    path: "testIssue230",
+    loadChildren: () =>
+      import("./test/testIssue230/testIssue230.module").then(
+        (m) => m.TestIssue230PageModule
+      ),
+  },
+  {
+    path: "existingconnection",
+    loadChildren: () =>
+      import("./test/existingconnection/existingconnection.module").then(
+        (m) => m.ExistingconnectionPageModule
+      ),
+  },
+  {
+    path: "encryption",
+    loadChildren: () =>
+      import("./test/testencryption/testencryption.module").then(
+        (m) => m.TestencryptionPageModule
+      ),
+  },
+  {
+    path: "upgradeversion",
+    loadChildren: () =>
+      import("./test/testupgradeversion/testupgradeversion.module").then(
+        (m) => m.TestupgradeversionPageModule
+      ),
+  },
+  {
+    path: "importjson",
+    loadChildren: () =>
+      import("./test/testimportjson/testimportjson.module").then(
+        (m) => m.TestimportjsonPageModule
+      ),
+  },
+  {
+    path: "exportjson",
+    loadChildren: () =>
+      import("./test/testexportjson/testexportjson.module").then(
+        (m) => m.TestexportjsonPageModule
+      ),
+  },
+  {
+    path: "exportjson59",
+    loadChildren: () =>
+      import("./test/testexportjson59/testexportjson59.module").then(
+        (m) => m.Testexportjson59PageModule
+      ),
+  },
+  {
+    path: "json71",
+    loadChildren: () =>
+      import("./test/testjson71/testjson71.module").then(
+        (m) => m.Testjson71PageModule
+      ),
+  },
+  {
+    path: "json94",
+    loadChildren: () =>
+      import("./test/testjson94/testjson94.module").then(
+        (m) => m.Testjson94PageModule
+      ),
+  },
+  {
+    path: "json97",
+    loadChildren: () =>
+      import("./test/testjson97/testjson97.module").then(
+        (m) => m.Testjson97PageModule
+      ),
+  },
+  {
+    path: "copyfromassets",
+    loadChildren: () =>
+      import("./test/copyfromassets/copyfromassets.module").then(
+        (m) => m.CopyfromassetsPageModule
+      ),
+  },
+  {
+    path: "downloadtocacheandmove",
+    loadChildren: () =>
+      import(
+        "./test/downloadtocacheandmove/downloadtocacheandmove.module"
+      ).then((m) => m.DownloadToCacheAndMoveModule),
+  },
+  {
+    path: "copy",
+    loadChildren: () =>
+      import("./test/testcopy/testcopy.module").then(
+        (m) => m.TestCopyPageModule
+      ),
+  },
+  {
+    path: "ncdatabase",
+    loadChildren: () =>
+      import("./test/testncdbs/testncdbs.module").then(
+        (m) => m.TestNCDbsPageModule
+      ),
+  },
+  {
+    path: "test111",
+    loadChildren: () =>
+      import("./test/testissue111/testissue111.module").then(
+        (m) => m.TestIssue111PageModule
+      ),
+  },
+  {
+    path: "testtypes",
+    loadChildren: () =>
+      import("./test/testtypes/testtypes.module").then(
+        (m) => m.TestTypesPageModule
+      ),
+  },
+  {
+    path: "setsecuresecret",
+    loadChildren: () =>
+      import("./test/testsetsecuresecret/testsetsecuresecret.module").then(
+        (m) => m.TestSetSecureSecretPageModule
+      ),
+  },
+  {
+    path: "changesecuresecret",
+    loadChildren: () =>
+      import(
+        "./test/testchangesecuresecret/testchangesecuresecret.module"
+      ).then((m) => m.TestChangeSecureSecretPageModule),
+  },
+  {
+    path: "testjson1",
+    loadChildren: () =>
+      import("./test/testjson1extension/testjson1extension.module").then(
+        (m) => m.TestJson1ExtensionPageModule
+      ),
+  },
+  {
+    path: "json164",
+    loadChildren: () =>
+      import("./test/testjson164/testjson164.module").then(
+        (m) => m.Testjson164PageModule
+      ),
+  },
+  {
+    path: "json167",
+    loadChildren: () =>
+      import("./test/testjson167/testjson167.module").then(
+        (m) => m.Testjson167PageModule
+      ),
+  },
+  {
+    path: "json192",
+    loadChildren: () =>
+      import("./test/testjson192/testjson192.module").then(
+        (m) => m.Testjson192PageModule
+      ),
+  },
+  {
+    path: "json231",
+    loadChildren: () =>
+      import("./test/testjson231/testjson231.module").then(
+        (m) => m.Testjson231PageModule
+      ),
+  },
+  {
+    path: "json237",
+    loadChildren: () =>
+      import("./test/testjson237/testjson237.module").then(
+        (m) => m.Testjson237PageModule
+      ),
+  },
+  {
+    path: "json245",
+    loadChildren: () =>
+      import("./test/testjson245/testjson245.module").then(
+        (m) => m.Testjson245PageModule
+      ),
+  },
+  {
+    path: "json292",
+    loadChildren: () =>
+      import("./test/testjson292/testjson292.module").then(
+        (m) => m.Testjson292PageModule
+      ),
   },
 
   {
-    path: '',
-    redirectTo: 'splash',
-    pathMatch: 'full',
+    path: "home",
+    loadChildren: () =>
+      import("./pages/home/home.module").then((m) => m.HomePageModule),
+  },
+
+  {
+    path: "",
+    redirectTo: "splash",
+    pathMatch: "full",
   },
   {
-    path: 'owners-panel',
+    path: "owners-panel",
     loadChildren: () =>
-      import('./pages/owners-panel/owners-panel.module').then(
+      import("./pages/owners-panel/owners-panel.module").then(
         (m) => m.OwnersPanelPageModule
       ),
   },
   {
-    path: 'signin',
+    path: "signin",
     loadChildren: () =>
-      import('./pages/signin/signin.module').then((m) => m.SigninPageModule),
+      import("./pages/signin/signin.module").then((m) => m.SigninPageModule),
   },
   {
-    path: 'splash',
+    path: "splash",
     loadChildren: () =>
-      import('./pages/splash/splash.module').then((m) => m.SplashPageModule),
+      import("./pages/splash/splash.module").then((m) => m.SplashPageModule),
   },
   {
-    path: 'add-business',
+    path: "add-business",
     loadChildren: () =>
-      import('./pages/add-business/add-business.module').then(
+      import("./pages/add-business/add-business.module").then(
         (m) => m.AddBusinessPageModule
       ),
   },
   {
-    path: 'business-panel',
+    path: "business-panel",
     loadChildren: () =>
-      import('./pages/business-panel/business-panel.module').then(
+      import("./pages/business-panel/business-panel.module").then(
         (m) => m.BusinessPanelPageModule
       ),
   },
   {
-    path: 'wall',
+    path: "wall",
     loadChildren: () =>
-      import('./pages/wall/wall.module').then((m) => m.WallPageModule),
+      import("./pages/wall/wall.module").then((m) => m.WallPageModule),
   },
   {
-    path: 'reports',
+    path: "reports",
     loadChildren: () =>
-      import('./pages/reports/reports.module').then((m) => m.ReportsPageModule),
+      import("./pages/reports/reports.module").then((m) => m.ReportsPageModule),
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
