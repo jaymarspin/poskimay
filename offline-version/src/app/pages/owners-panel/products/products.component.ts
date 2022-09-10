@@ -61,17 +61,17 @@ export class ProductsComponent implements OnInit {
     this.global.adminTeller.push("Products");
   }
   getCategory() {
-    this.http.getData("get-categories.php").subscribe({
-      next: (data) => {
-        console.log(data);
-        const result = JSON.parse(JSON.stringify(data));
-        this.categories = result;
-        console.log(this.categories);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    // this.http.getData("get-categories.php").subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //     const result = JSON.parse(JSON.stringify(data));
+    //     this.categories = result;
+    //     console.log(this.categories);
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
   }
   choosenCategory() {
     this.page = 1;
@@ -84,7 +84,9 @@ export class ProductsComponent implements OnInit {
     await this.loadData();
     await this.getCategory();
   }
-  loadData() {}
+  loadData() {
+    this.global.loading = true;
+  }
   addemployee() {}
 
   pager(page) {

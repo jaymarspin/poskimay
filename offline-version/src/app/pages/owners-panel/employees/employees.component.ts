@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { EmployeeActionsComponent } from '../employee-actions/employee-actions.component';
-import { GlobalService } from '../../services/global.service';
-import { HttpService } from '../../services/http.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { PopoverController } from "@ionic/angular";
+import { Router } from "@angular/router";
+import { EmployeeActionsComponent } from "../employee-actions/employee-actions.component";
+import { GlobalService } from "../../services/global.service";
+import { HttpService } from "../../services/http.service";
+import Swal from "sweetalert2";
 @Component({
-  selector: 'app-employees',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss'],
+  selector: "app-employees",
+  templateUrl: "./employees.component.html",
+  styleUrls: ["./employees.component.scss"],
 })
 export class EmployeesComponent implements OnInit {
   employee: any;
@@ -30,13 +30,13 @@ export class EmployeesComponent implements OnInit {
 
     this.page = 1;
     this.limit = 10;
-    this.searchVal = '';
+    this.searchVal = "";
   }
 
   async presentPopover(ev: any, id, disabled) {
     const popover = await this.popoverController.create({
       component: EmployeeActionsComponent,
-      cssClass: 'my-custom-class',
+      cssClass: "my-custom-class",
       event: ev,
       translucent: true,
       componentProps: {
@@ -66,33 +66,6 @@ export class EmployeesComponent implements OnInit {
     &page=${this.page}
     &search=${this.searchVal}`;
     }
-    await this.http.getData(link).subscribe({
-      next: (data) => {
-        this.employee = new Array();
-
-        const result = JSON.parse(JSON.stringify(data));
-        this.employeescount = result.employees_count;
-        const length = result.employees.length;
-
-        this.pagebtntmp = this.employeescount / this.limit;
-        this.pagebtn = Array();
-        for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-          this.pagebtn.push(ii);
-        }
-        for (let iii = 0; iii < length; iii++) {
-          this.employee.push(result.employees[iii]);
-        }
-        this.global.loading = false;
-      },
-      error: (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.message,
-          footer: ' ',
-        });
-      },
-    });
   }
 
   pager(page) {
@@ -106,14 +79,14 @@ export class EmployeesComponent implements OnInit {
   ionViewDidEnter() {
     this.loadData().then(() => {});
     this.global.adminTeller = new Array();
-    this.global.adminTeller.push('Employee');
+    this.global.adminTeller.push("Employee");
   }
 
   async search() {
     await this.loadData();
   }
   refresh() {
-    this.searchVal = '';
+    this.searchVal = "";
     this.page = 1;
     this.loadData();
   }

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     description TEXT DEFAULT '',
     barcode TEXT DEFAULT NULL,
     category_id TEXT,
-    isAvailable BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)),
+    isAvailable BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)) DEFAULT 1,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS users (
     CREATE TABLE IF NOT EXISTS product_image (
       id INTEGER PRIMARY KEY NOT NULL,
       product_id TEXT NOT NULL,
-      blobdata BLOB NOT NULL, 
+      blobdata TEXT NOT NULL, 
       createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
       );
 
@@ -84,22 +84,23 @@ export class MigrationService {
   ) {}
 
   async migrate(): Promise<any> {
-    await this.createTable().then(() => {
-      const db = this.sqliteService.createConnection(
-        environment.databaseName,
-        false,
-        "no-encryption",
-        1
-      );
+    const db = await this.sqliteService.createConnection(
+      environment.databaseName,
+      false,
+      "no-encryption",
+      1
+    );
+    console.log(`db ${JSON.stringify(db)}`);
+    await db.open();
 
-      db.then((res) => {
-        res.open().then(() => {
-          res.exportToJson("full").then((cap) => {
-            console.log(cap);
-          });
-        });
-      });
-    });
+    await this.sqliteService.closeConnection(environment.databaseName);
+    // db.exportToJson("full").then((cap) => {
+    //   console.log(cap);
+    // });
+    // res.exportToJson("full").then((cap) => {
+    //   console.log(cap);
+    // });
+    await this.createTable();
   }
 
   async createTable(): Promise<any> {

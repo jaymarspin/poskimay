@@ -1,10 +1,16 @@
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
-  price: number;
+
   description: string;
-  imageUrl: string;
-  isAvailable: boolean;
-  isPopular: boolean;
-  category: string;
+  barcode: string;
+
+  category_id: number;
+}
+
+export interface ProductImage {
+  id?: number;
+  product_id: number;
+
+  blobdata: any;
 }

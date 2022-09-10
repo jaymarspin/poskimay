@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalService } from '../../services/global.service';
-import { AddCategoryComponent } from '../add-category/add-category.component';
-import { HttpService } from '../../services/http.service';
-import { PopoverController } from '@ionic/angular';
-import Swal from 'sweetalert2';
-import { Location } from '@angular/common';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { GlobalService } from "../../services/global.service";
+import { AddCategoryComponent } from "../add-category/add-category.component";
+import { HttpService } from "../../services/http.service";
+import { PopoverController } from "@ionic/angular";
+import Swal from "sweetalert2";
+import { Location } from "@angular/common";
+import { NgxImageCompressService } from "ngx-image-compress";
+import { ActivatedRoute } from "@angular/router";
+import { ProductRepository } from "src/app/repositories/product.repository";
+import { productImageRepository } from "src/app/repositories/product_images/product_images.repository";
+import { ProductImage } from "src/app/models/Product";
+
+import * as Base64_Blob from "base64-blob";
 @Component({
-  selector: 'app-add-products',
-  templateUrl: './add-products.component.html',
-  styleUrls: ['./add-products.component.scss'],
+  selector: "app-add-products",
+  templateUrl: "./add-products.component.html",
+  styleUrls: ["./add-products.component.scss"],
 })
 export class AddProductsComponent implements OnInit {
   productname: any;
@@ -30,8 +35,8 @@ export class AddProductsComponent implements OnInit {
   imgResultAfterCompress: string;
   id: any;
 
-  defaultImage = 'https://www.placecage.com/1000/1000';
-  image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
+  defaultImage = "https://www.placecage.com/1000/1000";
+  image = "https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg";
 
   constructor(
     private imageCompress: NgxImageCompressService,
@@ -39,11 +44,13 @@ export class AddProductsComponent implements OnInit {
     public http: HttpService,
     private popoverController: PopoverController,
     public global: GlobalService,
-    private snapshot: ActivatedRoute
+    private snapshot: ActivatedRoute,
+    private productRepository: ProductRepository,
+    private productImages: productImageRepository
   ) {
-    this.imgsrc = 'assets/icon/photo.svg';
-    this.barcode = '';
-    this.description = '';
+    this.imgsrc = "assets/icon/photo.svg";
+    this.barcode = "";
+    this.description = "";
     this.newbase64 = false;
   }
   promiseCompressedImg = () =>
@@ -52,18 +59,20 @@ export class AddProductsComponent implements OnInit {
         // console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
         this.imageCompress
-          .compressFile(image, orientation, 100, 100)
-          .then((result) => {
-            resolve(result);
+          .compressFile(image, orientation, 100, 50)
+          .then(async (result) => {
             this.newbase64 = true;
             this.base64data = result;
+            // Base64_Blob.base64ToBlob(result).then((res) => {
+            //   t
+            // });
           });
       });
     });
 
   ngOnInit() {
-    if (this.snapshot.snapshot.paramMap.get('id')) {
-      this.id = parseInt(this.snapshot.snapshot.paramMap.get('id'), 10);
+    if (this.snapshot.snapshot.paramMap.get("id")) {
+      this.id = parseInt(this.snapshot.snapshot.paramMap.get("id"), 10);
       this.getProduct();
     } else {
       this.id = 0;
@@ -72,9 +81,9 @@ export class AddProductsComponent implements OnInit {
   }
   ionViewWillEnter() {
     if (this.global.adminTeller.length === 0) {
-      this.global.adminTeller.push('Products');
+      this.global.adminTeller.push("Products");
     }
-    this.global.adminTeller.push('> Add products');
+    this.global.adminTeller.push("> Add products");
   }
 
   getProduct() {
@@ -96,22 +105,22 @@ export class AddProductsComponent implements OnInit {
   }
   loadCategory() {
     this.global.loading = true;
-    this.http.getData(`get-product-category.php`).subscribe({
-      next: (data) => {
-        this.categories = data;
-        this.global.loading = false;
-      },
-      error: (error) => {
-        this.global.loading = false;
-        console.error('There was an error!', error);
-      },
-    });
+    // this.http.getData(`get-product-category.php`).subscribe({
+    //   next: (data) => {
+    //     this.categories = data;
+    //     this.global.loading = false;
+    //   },
+    //   error: (error) => {
+    //     this.global.loading = false;
+    //     console.error("There was an error!", error);
+    //   },
+    // });
   }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: AddCategoryComponent,
-      cssClass: 'my-custom-class',
+      cssClass: "my-custom-class",
       event: ev,
       translucent: true,
     });
@@ -123,64 +132,83 @@ export class AddProductsComponent implements OnInit {
   }
 
   async next() {
-    if (this.productname && this.stocks && this.category && this.price) {
+    if (this.productname && this.price) {
       this.global.loading = true;
       let link = `add-product.php`;
       if (this.id !== 0) {
         link = `edit-product.php`;
       }
-      const data = {
-        productname: this.productname,
-        stocks: this.stocks,
-        category: this.category,
-        barcode: this.barcode,
-        price: this.price,
-        description: this.description,
-        base64data: this.base64data,
-        newbase64: this.newbase64,
-        id: this.id,
-      };
 
-      await this.http.postData(link, data).subscribe({
-        next: (datas) => {
-          this.global.loading = false;
-          if (datas.body.message === 'success') {
-            Swal.fire('Good job!', 'Successfully Added!', 'success').then(
-              () => {
-                delete this.productname;
-                delete this.stocks;
-                delete this.category;
-                delete this.barcode;
-                delete this.price;
-                delete this.base64data;
-              }
-            );
-            this.location.back();
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-            });
-          }
-        },
-        onerror: (error) => {
-          console.log(error);
-          this.global.loading = false;
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error,
-            footer: ' ',
-          });
-        },
-      });
+      //     name: string;
+
+      // description: string;
+      // barcode: string;
+
+      // category_id: number;
+      const data = {
+        name: this.productname,
+        category_id: 0,
+        barcode: this.barcode,
+        description: this.description,
+      };
+      const product = await this.productRepository
+        .createProduct(data)
+        .then((res) => res);
+      const image = {
+        product_id: product.lastId,
+
+        blobdata: this.base64data,
+      } as ProductImage;
+
+      await this.productImages.createProductImage(image);
+      const products = await this.productRepository
+        .getProducts()
+        .then((res) => res);
+      const images = await this.productImages
+        .getProductImages()
+        .then((res) => res);
+      console.log(images);
+      console.log(products);
+      // await this.http.postData(link, data).subscribe({
+      //   next: (datas) => {
+      //     this.global.loading = false;
+      //     if (datas.body.message === "success") {
+      //       Swal.fire("Good job!", "Successfully Added!", "success").then(
+      //         () => {
+      //           delete this.productname;
+      //           delete this.stocks;
+      //           delete this.category;
+      //           delete this.barcode;
+      //           delete this.price;
+      //           delete this.base64data;
+      //         }
+      //       );
+      //       this.location.back();
+      //     } else {
+      //       Swal.fire({
+      //         icon: "error",
+      //         title: "Oops...",
+      //         text: "Something went wrong!",
+      //       });
+      //     }
+      //   },
+      //   onerror: (error) => {
+      //     console.log(error);
+      //     this.global.loading = false;
+      //     Swal.fire({
+      //       icon: "error",
+      //       title: "Oops...",
+      //       text: error,
+      //       footer: " ",
+      //     });
+      //   },
+      // });
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please complete the fields',
-        footer: ' ',
+        icon: "error",
+        title: "Oops...",
+        text: "Please complete the fields",
+        footer: " ",
       });
     }
   }
