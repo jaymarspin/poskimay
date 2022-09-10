@@ -1,5 +1,5 @@
 {
-	"appId": "com.jeep.app.ionic.angular",
+	"appId": "com.eyesoft.pos",
 	"appName": "angular-sqlite-app-starter",
 	"webDir": "www",
 	"bundledWebRuntime": false,

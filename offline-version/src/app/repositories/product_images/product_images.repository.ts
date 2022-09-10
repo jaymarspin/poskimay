@@ -57,6 +57,21 @@ export class productImageRepository {
   async getProducImageById(id: number): Promise<ProductImage> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
+        let sqlcmd: string =
+          "select * from product_image where product_id = ? limit 1";
+        let values: Array<any> = [id];
+        let ret: any = await db.query(sqlcmd, values);
+        if (ret.values.length > 0) {
+          return ret.values[0] as ProductImage;
+        }
+        throw Error("get product image by id failed");
+      }
+    );
+  }
+
+  async getProducImageByProductId(id: number): Promise<ProductImage> {
+    return this._databaseService.executeQuery<any>(
+      async (db: SQLiteDBConnection) => {
         let sqlcmd: string = "select * from product_image where id = ? limit 1";
         let values: Array<any> = [id];
         let ret: any = await db.query(sqlcmd, values);

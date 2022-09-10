@@ -6,6 +6,7 @@ export interface Product {
   barcode: string;
 
   category_id: number;
+  productImage?: ProductImage;
 }
 
 export interface ProductImage {

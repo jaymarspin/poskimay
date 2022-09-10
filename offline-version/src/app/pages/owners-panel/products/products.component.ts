@@ -5,6 +5,9 @@ import { ProductActionsComponent } from "../product-actions/product-actions.comp
 import { GlobalService } from "../../services/global.service";
 import { HttpService } from "../../services/http.service";
 import Swal from "sweetalert2";
+import { ProductRepository } from "src/app/repositories/product.repository";
+import { productImageRepository } from "src/app/repositories/product_images/product_images.repository";
+import { ProductImage } from "src/app/models/Product";
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
@@ -29,7 +32,9 @@ export class ProductsComponent implements OnInit {
     public global: GlobalService,
     public http: HttpService,
     private router: Router,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private productRepository: ProductRepository,
+    private productImages: productImageRepository
   ) {
     this.products = new Array();
     this.pagebtn = new Array();
@@ -84,14 +89,24 @@ export class ProductsComponent implements OnInit {
     await this.loadData();
     await this.getCategory();
   }
-  loadData() {
+  async loadData() {
     this.global.loading = true;
+    this.products = await this.productRepository
+      .getProductsRelations()
+      .then((res) => res);
+    console.log(this.products);
   }
   addemployee() {}
 
   pager(page) {
     this.page = page;
     this.loadData();
+  }
+
+  async getProductImage(id: number) {
+    return await this.productImages
+      .getProducImageByProductId(id)
+      .then((res) => res);
   }
 
   gofurther(link) {

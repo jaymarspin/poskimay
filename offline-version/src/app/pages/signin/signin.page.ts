@@ -3,6 +3,7 @@ import { GlobalService } from "../services/global.service";
 import { HttpService } from "../services/http.service";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import { Observable, Subject } from "rxjs";
 import { PopoverController } from "@ionic/angular";

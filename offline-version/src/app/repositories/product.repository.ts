@@ -5,15 +5,46 @@ import {
 import { Injectable } from "@angular/core";
 import { DatabaseService } from "../services/database.service";
 import { Product } from "../models/Product";
+import { productImageRepository } from "./product_images/product_images.repository";
 @Injectable()
 export class ProductRepository {
-  constructor(private _databaseService: DatabaseService) {}
+  constructor(
+    private _databaseService: DatabaseService,
+    private productImage: productImageRepository
+  ) {}
 
   async getProducts(): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         var products: DBSQLiteValues = await db.query("select * from products");
         return products.values as Product[];
+      }
+    );
+  }
+
+  async getProductsRelations(): Promise<Product[]> {
+    return this._databaseService.executeQuery<any>(
+      async (db: SQLiteDBConnection) => {
+        var products: DBSQLiteValues = await db
+          .query("select * from products")
+          .then((res) => res);
+
+        const tmp = new Array<Product>();
+        await products.values.map(async (value: Product, i) => {
+          const productsimage = await this.productImage
+            .getProducImageByProductId(value.id)
+            .then((res) => res);
+          const productTmp: Product = {
+            name: value.name,
+            description: value.description,
+            barcode: value.barcode,
+            category_id: value.category_id,
+            productImage: productsimage,
+          };
+          tmp.push(productTmp);
+        });
+
+        return tmp as Product[];
       }
     );
   }

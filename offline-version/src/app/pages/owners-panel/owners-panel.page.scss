@@ -1,85 +1,75 @@
-
-ul{
+ul {
+  position: relative;
+  list-style-type: none;
+  padding: 0;
+  padding-left: 20px;
+  height: 30px;
+  overflow: hidden;
+  li {
+    display: inline-block;
     position: relative;
-    list-style-type: none;
-    padding: 0;
-    padding-left: 20px;
-    height: 30px;
-    overflow: hidden;
-    li{
-        display: inline-block;
-        position: relative;
-        margin-right: 10px;
-        font-size: 13px;
-        cursor: pointer;
-        color: #333;
-        font-weight: normal;
-    }li.li-active{
-        color: #8b97b0;
-        font-weight: bold;
-    }
+    margin-right: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #333;
+    font-weight: normal;
+  }
+  li.li-active {
+    color: #8b97b0;
+    font-weight: bold;
+  }
 }
-  .menu-wrapper{
-    width: 200px;
-    height: 100%;
-    overflow: hidden;
-    background-color: #50545c;
-
-
+.menu-wrapper {
+  width: 200px;
+  height: 100%;
+  overflow: hidden;
+  background-color: #50545c;
 }
 .bg-transparent {
-   background: transparent;
-   ion-item{
-       --background: transparent;
-       cursor: pointer;
-
-   }
- }
-
-ion-content{
-   display: flex;
-   flex-direction: column;
-
- }  ion-card{
-     position: relative;
-     height: calc(100vh - 150px);
-     display: block;
-     overflow-y: scroll;
-     padding: 0;
-     ion-card-content{
-         height: auto;
-         overflow: hidden;
-     }
-
-
- }
-
- @media (min-width: 768px) {
-    ion-card{
-        padding: 0;
-        height: calc(100vh - 150px);
-        ion-card-content{
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            display: block;
-
-        }
-
-
-
-    }
+  background: transparent;
+  ion-item {
+    --background: transparent;
+    cursor: pointer;
+  }
 }
 
-@media (min-width: 1025px){
-    ion-card{
-
-        height: calc(100vh - 180px);
-
-
-    }
+ion-content {
+  display: flex;
+  flex-direction: column;
+}
+ion-card {
+  position: relative;
+  width: 100%;
+  clear: both;
+  display: inline-block;
+  height: calc(100vh - 150px);
+  display: block;
+  overflow-y: scroll;
+  padding: 0;
+  ion-card-content {
+    height: auto;
+    overflow: hidden;
+  }
 }
 
-ion-toolbar{
-    --padding: 0;
+@media (min-width: 50px) {
+  ion-card {
+    padding: 0;
+
+    ion-card-content {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: block;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  ion-card {
+  }
+}
+
+ion-toolbar {
+  --padding: 0;
 }
