@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export interface Product {
   id?: number;
   name: string;
@@ -6,6 +8,7 @@ export interface Product {
   barcode: string;
 
   category_id: number;
+  category?: Category;
   productImage?: ProductImage;
   stocks?: ProductStocks;
   price?: ProductPrice;

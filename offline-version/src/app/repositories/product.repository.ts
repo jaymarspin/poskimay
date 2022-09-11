@@ -8,13 +8,15 @@ import { Product } from "../models/Product";
 import { productImageRepository } from "./product_images/product_images.repository";
 import { productStocksRepository } from "./products_stocks/products_stocks.repositories";
 import { productPriceRepository } from "./product_prices/product_prices.repositories";
+import { categoryRepository } from "./category/category.repository";
 @Injectable()
 export class ProductRepository {
   constructor(
     private _databaseService: DatabaseService,
     private productImage: productImageRepository,
     private productStocks: productStocksRepository,
-    private productPrice: productPriceRepository
+    private productPrice: productPriceRepository,
+    private category: categoryRepository
   ) {}
 
   async getProducts(): Promise<Product[]> {
@@ -45,11 +47,16 @@ export class ProductRepository {
             .getByProductId(value.id)
             .then((res) => res);
 
+          const productCategory = await this.category
+            .getById(value.category_id)
+            .then((res) => res);
+
           const productTmp: Product = {
             name: value.name,
             description: value.description,
             barcode: value.barcode,
             category_id: value.category_id,
+            category: productCategory,
             productImage: productsimage,
             stocks: productStocks,
             price: productPrice,

@@ -32,6 +32,7 @@ import { UserRepository } from "./repositories/users/users.repository";
 import { productImageRepository } from "./repositories/product_images/product_images.repository";
 import { productStocksRepository } from "./repositories/products_stocks/products_stocks.repositories";
 import { productPriceRepository } from "./repositories/product_prices/product_prices.repositories";
+import { categoryRepository } from "./repositories/category/category.repository";
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
 }
@@ -79,6 +80,7 @@ export function initializeFactory(init: InitializeAppService) {
     UserRepository,
     ProductDefaultQueryRepository,
     productPriceRepository,
+    categoryRepository,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

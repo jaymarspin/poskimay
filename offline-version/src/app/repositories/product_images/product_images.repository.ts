@@ -85,7 +85,7 @@ export class productImageRepository {
     );
   }
 
-  async deleteProductImageById(id: number): Promise<void> {
+  async deleteById(id: number): Promise<void> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         await db.query(`delete from ${this.table} where id = ${id};`);

@@ -18,6 +18,7 @@ import {
 import * as Base64_Blob from "base64-blob";
 import { productStocksRepository } from "src/app/repositories/products_stocks/products_stocks.repositories";
 import { productPriceRepository } from "src/app/repositories/product_prices/product_prices.repositories";
+import { categoryRepository } from "src/app/repositories/category/category.repository";
 @Component({
   selector: "app-add-products",
   templateUrl: "./add-products.component.html",
@@ -54,7 +55,8 @@ export class AddProductsComponent implements OnInit {
     private productRepository: ProductRepository,
     private productImages: productImageRepository,
     private productStocks: productStocksRepository,
-    private productPrice: productPriceRepository
+    private productPrice: productPriceRepository,
+    private categoryRepository: categoryRepository
   ) {
     this.imgsrc = "assets/icon/photo.svg";
     this.barcode = "";
@@ -111,18 +113,9 @@ export class AddProductsComponent implements OnInit {
       },
     });
   }
-  loadCategory() {
+  async loadCategory() {
     this.global.loading = true;
-    // this.http.getData(`get-product-category.php`).subscribe({
-    //   next: (data) => {
-    //     this.categories = data;
-    //     this.global.loading = false;
-    //   },
-    //   error: (error) => {
-    //     this.global.loading = false;
-    //     console.error("There was an error!", error);
-    //   },
-    // });
+    this.categories = await this.categoryRepository.get().then((res) => res);
   }
 
   async presentPopover(ev: any) {
@@ -155,7 +148,7 @@ export class AddProductsComponent implements OnInit {
       // category_id: number;
       const data = {
         name: this.productname,
-        category_id: 0,
+        category_id: this.category ? this.category : 0,
         barcode: this.barcode,
         description: this.description,
       };
