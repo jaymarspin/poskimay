@@ -31,14 +31,14 @@ CREATE TABLE IF NOT EXISTS users (
 
   CREATE TABLE IF NOT EXISTS products_stocks (
     id INTEGER PRIMARY KEY NOT NULL,
-    product_id TEXT NOT NULL,
+    product_id INTEGER NOT NULL,
     stocks_count NOT NULL, 
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     );
 
     CREATE TABLE IF NOT EXISTS product_image (
       id INTEGER PRIMARY KEY NOT NULL,
-      product_id TEXT NOT NULL,
+      product_id INTEGER NOT NULL,
       blobdata TEXT NOT NULL, 
       createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
       );
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS users (
 
       CREATE TABLE IF NOT EXISTS product_price
       (id INTEGER PRIMARY KEY NOT NULL,
-        product_id TEXT NOT NULL,
+        product_id INTEGER NOT NULL,
         price NUMERIC NOT NULL, 
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
         );
@@ -58,11 +58,8 @@ CREATE TABLE IF NOT EXISTS users (
           category TEXT NOT NULL,
           createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
           );
-  
-
  
-    
-
+          
   
 `;
 // DROP TABLE products
@@ -92,11 +89,11 @@ export class MigrationService {
     );
     console.log(`db ${JSON.stringify(db)}`);
     await db.open();
-
-    await this.sqliteService.closeConnection(environment.databaseName);
     // db.exportToJson("full").then((cap) => {
     //   console.log(cap);
     // });
+    await this.sqliteService.closeConnection(environment.databaseName);
+
     // res.exportToJson("full").then((cap) => {
     //   console.log(cap);
     // });

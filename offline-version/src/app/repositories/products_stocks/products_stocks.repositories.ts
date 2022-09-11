@@ -4,83 +4,82 @@ import {
 } from "@capacitor-community/sqlite";
 import { Injectable } from "@angular/core";
 import { DatabaseService } from "../../services/database.service";
-import { ProductImage } from "src/app/models/Product";
+import { ProductStocks } from "../../models/Product";
 
 @Injectable()
-export class productImageRepository {
-  table = "product_image";
+export class productStocksRepository {
+  table = "products_stocks";
   constructor(private _databaseService: DatabaseService) {}
 
-  async get(): Promise<ProductImage[]> {
+  async get(): Promise<ProductStocks[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         var products: DBSQLiteValues = await db.query(
           `select * from ${this.table}`
         );
-        return products.values as ProductImage[];
+        return products.values as ProductStocks[];
       }
     );
   }
 
-  async create(data: ProductImage) {
-    console.log(data);
+  async create(data: ProductStocks) {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        let sqlcmd: string = `insert into ${this.table} (product_id, blobdata) values (?, ?)`;
-        let values: Array<any> = [data.product_id, data.blobdata];
+        let sqlcmd: string = `insert into ${this.table} (product_id, stocks_count) values (?, ?)`;
+        let values: Array<any> = [data.product_id, data.stocks_count];
         let ret: any = await db.run(sqlcmd, values);
         if (ret.changes.lastId > 0) {
-          return ret.changes as ProductImage;
-        } else {
-          return [];
+          return ret.changes as ProductStocks;
         }
+        throw Error("create product stock failed");
       }
     );
   }
 
-  async update(productImage: ProductImage) {
+  async update(data: ProductStocks) {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        let sqlcmd: string = `update ${this.table} set blobdata = ?, where id = ?`;
-        let values: Array<any> = [productImage.blobdata, productImage.id];
+        let sqlcmd: string = `update ${this.table} set stocks_count = ?, where id = ?`;
+        let values: Array<any> = [data.stocks_count, data.id];
         let ret: any = await db.run(sqlcmd, values);
         if (ret.changes.changes > 0) {
-          return await this.getById(productImage.id);
+          return await this.getById(data.id);
         } else {
           return [];
         }
+        // throw Error("update product stock failed");
       }
     );
   }
 
-  async getById(id: number): Promise<ProductImage> {
+  async getById(id: number): Promise<ProductStocks> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         let sqlcmd: string = `select * from ${this.table} where id = ? limit 1`;
         let values: Array<any> = [id];
         let ret: any = await db.query(sqlcmd, values);
         if (ret.values.length > 0) {
-          return ret.values[0] as ProductImage;
+          return ret.values[0] as ProductStocks;
         } else {
           return [];
         }
-        // throw Error("get product image by id failed");
+        // throw Error("get product stock by id failed");
       }
     );
   }
 
-  async getByProductId(id: number): Promise<ProductImage> {
+  async getByProductId(id: number): Promise<ProductStocks> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         let sqlcmd: string = `select * from ${this.table} where product_id = ? ORDER BY id DESC limit 1`;
         let values: Array<any> = [id];
         let ret: any = await db.query(sqlcmd, values);
         if (ret.values.length > 0) {
-          return ret.values[0] as ProductImage;
+          return ret.values[0] as ProductStocks;
         } else {
           return [];
         }
-        // throw Error("get product image by id failed");
+        // throw Error("get product stock by id failed");
       }
     );
   }

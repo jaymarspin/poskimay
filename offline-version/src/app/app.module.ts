@@ -30,6 +30,8 @@ import { NgxImageCompressService } from "ngx-image-compress";
 import { environment } from "../environments/environment";
 import { UserRepository } from "./repositories/users/users.repository";
 import { productImageRepository } from "./repositories/product_images/product_images.repository";
+import { productStocksRepository } from "./repositories/products_stocks/products_stocks.repositories";
+import { productPriceRepository } from "./repositories/product_prices/product_prices.repositories";
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
 }
@@ -73,8 +75,10 @@ export function initializeFactory(init: InitializeAppService) {
     MigrationService,
     ProductRepository,
     productImageRepository,
+    productStocksRepository,
     UserRepository,
     ProductDefaultQueryRepository,
+    productPriceRepository,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

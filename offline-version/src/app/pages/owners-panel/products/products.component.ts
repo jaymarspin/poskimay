@@ -7,7 +7,7 @@ import { HttpService } from "../../services/http.service";
 import Swal from "sweetalert2";
 import { ProductRepository } from "src/app/repositories/product.repository";
 import { productImageRepository } from "src/app/repositories/product_images/product_images.repository";
-import { ProductImage } from "src/app/models/Product";
+import { Product, ProductImage } from "src/app/models/Product";
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
@@ -15,7 +15,7 @@ import { ProductImage } from "src/app/models/Product";
 })
 export class ProductsComponent implements OnInit {
   employee: any;
-  products: any;
+  products: Product[];
   productscount: any;
 
   page: number;
@@ -28,6 +28,7 @@ export class ProductsComponent implements OnInit {
   categories: any;
   category: any;
   searchVal: string;
+  p: number = 1;
   constructor(
     public global: GlobalService,
     public http: HttpService,
@@ -93,20 +94,16 @@ export class ProductsComponent implements OnInit {
     this.global.loading = true;
     this.products = await this.productRepository
       .getProductsRelations()
-      .then((res) => res);
-    console.log(this.products);
+      .then((res) => {
+        console.log(res);
+        return res;
+      });
   }
   addemployee() {}
 
   pager(page) {
     this.page = page;
     this.loadData();
-  }
-
-  async getProductImage(id: number) {
-    return await this.productImages
-      .getProducImageByProductId(id)
-      .then((res) => res);
   }
 
   gofurther(link) {

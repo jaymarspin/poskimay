@@ -56,6 +56,7 @@
     "ng-sidebar": "^9.4.3",
     "ngx-image-compress": "^13.1.13",
     "ngx-lightbox": "^2.6.1",
+    "ngx-pagination": "^6.0.2",
     "ngx-print": "^1.2.1",
     "ngx-webcam": "^0.4.1",
     "printd": "^1.5.1",

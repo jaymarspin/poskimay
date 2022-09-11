@@ -6,11 +6,15 @@ import { Injectable } from "@angular/core";
 import { DatabaseService } from "../services/database.service";
 import { Product } from "../models/Product";
 import { productImageRepository } from "./product_images/product_images.repository";
+import { productStocksRepository } from "./products_stocks/products_stocks.repositories";
+import { productPriceRepository } from "./product_prices/product_prices.repositories";
 @Injectable()
 export class ProductRepository {
   constructor(
     private _databaseService: DatabaseService,
-    private productImage: productImageRepository
+    private productImage: productImageRepository,
+    private productStocks: productStocksRepository,
+    private productPrice: productPriceRepository
   ) {}
 
   async getProducts(): Promise<Product[]> {
@@ -26,20 +30,29 @@ export class ProductRepository {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         var products: DBSQLiteValues = await db
-          .query("select * from products")
+          .query("select * from products order by id desc")
           .then((res) => res);
 
         const tmp = new Array<Product>();
         await products.values.map(async (value: Product, i) => {
           const productsimage = await this.productImage
-            .getProducImageByProductId(value.id)
+            .getByProductId(value.id)
             .then((res) => res);
+          const productStocks = await this.productStocks
+            .getByProductId(value.id)
+            .then((res) => res);
+          const productPrice = await this.productPrice
+            .getByProductId(value.id)
+            .then((res) => res);
+
           const productTmp: Product = {
             name: value.name,
             description: value.description,
             barcode: value.barcode,
             category_id: value.category_id,
             productImage: productsimage,
+            stocks: productStocks,
+            price: productPrice,
           };
           tmp.push(productTmp);
         });

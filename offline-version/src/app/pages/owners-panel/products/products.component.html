@@ -58,7 +58,8 @@
 
 
 
-    <ion-row class="table-content" *ngFor="let item of products;index as i"
+    <ion-row class="table-content"
+      *ngFor="let item of products | paginate: { itemsPerPage: 10, currentPage: p };index as i "
       [ngClass]="{'notavailable': item.availability === 0}">
       <ion-col size="1">
         <ion-label>{{(i + 1)}}</ion-label>
@@ -70,11 +71,11 @@
         <ion-label style="top: 5px;position: relative;margin-left: 5px;">{{item.name}}<span
             *ngIf="item.availability === 0">(Not available)</span></ion-label>
       </ion-col>
-      <!--<ion-col size="2">
+      <ion-col size="2">
         <ion-label>{{item.stocks.stocks_count}}</ion-label>
       </ion-col>
       <ion-col size="2">
-        <ion-label>{{item.category.category}}</ion-label>
+        <ion-label>category</ion-label>
       </ion-col>
       <ion-col size="2">
         <div class="badge-wrapper">
@@ -82,7 +83,7 @@
           </ion-badge>
         </div>
       </ion-col>
-      <ion-col size="2">
+      <!-- <ion-col size="2">
         <ion-label class="td-label-center">{{item.date_updated}}</ion-label>
       </ion-col>
       <ion-col size="1">
@@ -92,16 +93,9 @@
     </ion-row>
     <ion-row>
 
-      <ion-col size="2">
-        <ion-label style="margin-top: 25px;position: relative;display: block;float: right;">Showing {{page}} of
-          {{pagebtn.length}} pages</ion-label>
-      </ion-col>
-      <ion-col size="10">
-        <ul>
-          <li *ngFor="let item of pagebtn" value="home" (click)="pager(item)">
-            <ion-button>{{item}}</ion-button>
-          </li>
-        </ul>
+
+      <ion-col size="12">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </ion-col>
 
     </ion-row>

@@ -9,9 +9,15 @@ import { NgxImageCompressService } from "ngx-image-compress";
 import { ActivatedRoute } from "@angular/router";
 import { ProductRepository } from "src/app/repositories/product.repository";
 import { productImageRepository } from "src/app/repositories/product_images/product_images.repository";
-import { ProductImage } from "src/app/models/Product";
+import {
+  ProductImage,
+  ProductPrice,
+  ProductStocks,
+} from "src/app/models/Product";
 
 import * as Base64_Blob from "base64-blob";
+import { productStocksRepository } from "src/app/repositories/products_stocks/products_stocks.repositories";
+import { productPriceRepository } from "src/app/repositories/product_prices/product_prices.repositories";
 @Component({
   selector: "app-add-products",
   templateUrl: "./add-products.component.html",
@@ -46,7 +52,9 @@ export class AddProductsComponent implements OnInit {
     public global: GlobalService,
     private snapshot: ActivatedRoute,
     private productRepository: ProductRepository,
-    private productImages: productImageRepository
+    private productImages: productImageRepository,
+    private productStocks: productStocksRepository,
+    private productPrice: productPriceRepository
   ) {
     this.imgsrc = "assets/icon/photo.svg";
     this.barcode = "";
@@ -160,15 +168,32 @@ export class AddProductsComponent implements OnInit {
         blobdata: this.base64data,
       } as ProductImage;
 
-      await this.productImages.createProductImage(image);
+      await this.productImages.create(image);
+      const stocks: ProductStocks = {
+        product_id: product.lastId,
+        stocks_count: this.stocks,
+      };
+
+      await this.productStocks.create(stocks);
+      const productPrice: ProductPrice = {
+        product_id: product.lastId,
+        price: this.price,
+      };
+
+      await this.productPrice.create(productPrice);
+
       const products = await this.productRepository
         .getProducts()
         .then((res) => res);
-      const images = await this.productImages
-        .getProductImages()
-        .then((res) => res);
+      const images = await this.productImages.get().then((res) => res);
+
+      const stocksvar = await this.productStocks.get().then((res) => res);
+
+      const price = await this.productPrice.get().then((res) => res);
       console.log(images);
       console.log(products);
+      console.log(stocksvar);
+      console.log(price);
       // await this.http.postData(link, data).subscribe({
       //   next: (datas) => {
       //     this.global.loading = false;

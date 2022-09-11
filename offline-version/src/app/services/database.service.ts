@@ -36,7 +36,7 @@ export class DatabaseService {
         );
         await db.open();
         let cb = await callback(db);
-        // await this.sqlite.closeConnection(databaseName);
+        await this.sqlite.closeConnection(databaseName);
         return cb;
       }
     } catch (error) {
