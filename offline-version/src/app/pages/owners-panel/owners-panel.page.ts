@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from '../services/global.service';
 import { PopoverController } from '@ionic/angular';
 import { ReportFrameComponent } from './report-frame/report-frame.component';
+import * as $ from 'jquery'
 @Component({
   selector: 'app-owners-panel',
   templateUrl: './owners-panel.page.html',
@@ -27,7 +28,13 @@ export class OwnersPanelPage implements OnInit {
     private popoverController: PopoverController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      $(".ng-sidebar__content").css({
+        "overflow": 'hidden'
+      })
+    }, 10);
+  }
 
   gofurther(link) {
     this.router.navigate([link]);

@@ -27,7 +27,14 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 ion-content{
-    --background: #edece8
+    --background: #edece8;
+    overflow: hidden;
+}
+html {
+    overflow: hidden !important;
+}
+body{
+    overflow-y: hidden;
 }
 :root {
     ion-menu::part(backdrop) {

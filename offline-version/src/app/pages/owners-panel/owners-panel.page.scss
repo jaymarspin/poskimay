@@ -34,42 +34,36 @@ ul {
 }
 
 ion-content {
-  display: flex;
-  flex-direction: column;
+  display: inline-block; 
+  overflow: hidden;
+  
 }
+ 
 ion-card {
   position: relative;
-  width: 100%;
+  width:99%;
   clear: both;
   display: inline-block;
   height: calc(100vh - 150px);
-  display: block;
-  overflow-y: scroll;
+  overflow-y: hidden;
   padding: 0;
   ion-card-content {
     height: auto;
     overflow: hidden;
+    height: 100%;
+    width: 100%;
   }
 }
 
-@media (min-width: 50px) {
-  ion-card {
-    padding: 0;
-
-    ion-card-content {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      display: block;
-    }
-  }
-}
-
-@media (min-width: 1025px) {
-  ion-card {
-  }
-}
+ 
 
 ion-toolbar {
   --padding: 0;
+}
+
+.sidebar-content {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden; 
+  padding: 0px !important;
 }

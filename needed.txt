@@ -1,0 +1,20 @@
+pos needed:
+owners panel
+supplier pane = {
+supplier name
+address
+email
+contact number
+}
+
+
+
+cashier panel
+
+sales inventory
+
+ total transaction
+ total net sales
+ 
+
+

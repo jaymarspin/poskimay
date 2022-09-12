@@ -56,6 +56,7 @@ export class ProductRepository {
             description: value.description,
             barcode: value.barcode,
             category_id: value.category_id,
+            createdAt: value.createdAt,
             category: productCategory,
             productImage: productsimage,
             stocks: productStocks,

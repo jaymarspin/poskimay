@@ -35,6 +35,8 @@ ion-badge{
      
 
 }ion-content{
+    width: 100%;
+    display: inline-block;
     --background: #fff; 
 }ion-segment::-webkit-scrollbar {
     display: none;

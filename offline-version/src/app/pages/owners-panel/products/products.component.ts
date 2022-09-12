@@ -109,10 +109,10 @@ export class ProductsComponent implements OnInit {
   gofurther(link) {
     this.router.navigate([link]);
   }
-  async viewimg(src) {
+   viewimg(src) {
     const images: any = new Array();
-    await images.push({ src });
-    console.log(images);
+     images.push({ src });
+  
     this.global.lightBoxOpen(images, 0);
   }
   async refresh() {

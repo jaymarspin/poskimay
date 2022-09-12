@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
- <app-owner-header></app-owner-header>
+    <app-owner-header></app-owner-header>
   </ion-toolbar>
 </ion-header>
 
@@ -8,16 +8,13 @@
 
 
   <ng-sidebar-container>
-    <ng-sidebar [(opened)]="_opened"
-    [mode]="_MODES[_modeNum]"
-    [animate]="_animate"
-    [position]="_POSITIONS[_positionNum]"
-    [closeOnClickOutside]="_closeOnClickOutside">
+    <ng-sidebar [(opened)]="_opened" [mode]="_MODES[_modeNum]" [animate]="_animate" [sidebarClass]="'sidebar'"
+      [position]="_POSITIONS[_positionNum]" [closeOnClickOutside]="_closeOnClickOutside">
       <div class="menu-wrapper">
-        <ion-list class="bg-transparent" >
+        <ion-list class="bg-transparent">
           <ion-item lines="none">
             <ion-icon name="close" (click)="_toggleSidebar()" slot="end" color="light"></ion-icon>
-            </ion-item>
+          </ion-item>
           <ion-item lines="full" (click)="gofurther('owners-panel/products')">
             <ion-icon name="storefront" slot="start" color="light"></ion-icon>
             <ion-label color="light">
@@ -27,7 +24,7 @@
 
           <ion-item lines="full" (click)="gofurther('owners-panel/sold')">
             <ion-icon name="cash" slot="start" color="light"></ion-icon>
-            
+
             <ion-label color="light">
               Sold
             </ion-label>
@@ -69,17 +66,21 @@
     </ng-sidebar>
 
     <!-- Page content -->
-    <div ng-sidebar-content>
+    <div ng-sidebar-content class="sidebar-content">
       <ion-row>
         <ion-col size="10">
           <ul>
-            <li><ion-icon name="menu-outline" (click)="_toggleSidebar()"  style="font-size: 30px;position: relative;top: 10px;" *ngIf="!this._opened" slot="end" color="dark"></ion-icon>
+            <li>
+              <ion-icon name="menu-outline" (click)="_toggleSidebar()"
+                style="font-size: 30px;position: relative;top: 10px;" *ngIf="!this._opened" slot="end" color="dark">
+              </ion-icon>
             </li>
-            <li *ngFor="let item of global.adminTeller" >{{item}}</li>
+            <li *ngFor="let item of global.adminTeller">{{item}}</li>
           </ul>
         </ion-col>
         <ion-col size="2">
-          <ion-button color='warning' style="float: right;position: relative;top: 20px;" (click)="reports($event)">Reports</ion-button>
+          <ion-button color='warning' style="float: right;position: relative;top: 20px;" (click)="reports($event)">
+            Reports</ion-button>
         </ion-col>
       </ion-row>
       <!-- <button (click)="_toggleSidebar()">Toggle sidebar</button> -->
