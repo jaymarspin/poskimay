@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 import { ProductRepository } from "src/app/repositories/product.repository";
 import { productImageRepository } from "src/app/repositories/product_images/product_images.repository";
 import { Product, ProductImage } from "src/app/models/Product";
+import { categoryRepository } from "src/app/repositories/category/category.repository";
+import Fuse from 'fuse.js'
+import * as _ from 'lodash'
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
@@ -26,6 +29,7 @@ export class ProductsComponent implements OnInit {
   defaultImage = "https://www.placecage.com/1000/1000";
   image = "https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg";
   categories: any;
+  productsPersist: Product[];
   category: any;
   searchVal: string;
   p: number = 1;
@@ -35,7 +39,8 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     public popoverController: PopoverController,
     private productRepository: ProductRepository,
-    private productImages: productImageRepository
+    private productImages: productImageRepository,
+    private categoryRepository: categoryRepository
   ) {
     this.products = new Array();
     this.pagebtn = new Array();
@@ -66,7 +71,9 @@ export class ProductsComponent implements OnInit {
     this.global.adminTeller = new Array();
     this.global.adminTeller.push("Products");
   }
-  getCategory() {
+  async getCategory() {
+
+    this.categories = await this.categoryRepository.get().then((res) => res);
     // this.http.getData("get-categories.php").subscribe({
     //   next: (data) => {
     //     console.log(data);
@@ -79,12 +86,47 @@ export class ProductsComponent implements OnInit {
     //   },
     // });
   }
+
+  
   choosenCategory() {
     this.page = 1;
-    this.loadData();
+
+    const options = {
+      includeScore: true,
+      // Search in `author` and in `tags` array
+      keys: ['category_id']
+    }
+    
+    const fuse = new Fuse(this.productsPersist, options)
+    this.products = new Array<Product>()
+    const result = fuse.search(this.category+'')
+ 
+    _.forEach(result,value => {
+      this.products.push(value.item)
+    });
+
+
+  
   }
   async search() {
-    await this.loadData();
+
+    this.page = 1;
+
+    const options = {
+      includeScore: true,
+      // Search in `author` and in `tags` array
+      keys: ['category_id','name']
+    }
+    
+    const fuse = new Fuse(this.productsPersist, options)
+    this.products = new Array<Product>()
+    const result = fuse.search(this.searchVal)
+ 
+    _.forEach(result,value => {
+      this.products.push(value.item)
+    });
+
+     
   }
   async ionViewDidEnter() {
     await this.loadData();
@@ -95,7 +137,8 @@ export class ProductsComponent implements OnInit {
     this.products = await this.productRepository
       .getProductsRelations()
       .then((res) => {
-        console.log(res);
+         this.productsPersist = res
+         console.log(res)
         return res;
       });
   }
