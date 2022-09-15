@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="data">
   <ion-grid>
     <ion-row>
       <ion-col size="6">
@@ -59,7 +59,7 @@
 
 
     <ion-row class="table-content"
-      *ngFor="let item of products | paginate: { itemsPerPage: 10, currentPage: p };index as i "
+      *ngFor="let item of products | paginate: { itemsPerPage: 10, currentPage: p, totalItems: data.count };index as i "
       [ngClass]="{'notavailable': item.availability === 0}">
       <ion-col size="1">
         <ion-label>{{(i + 1)}}</ion-label>

@@ -28,6 +28,16 @@ export class ProductRepository {
     );
   }
 
+  async getCounts(): Promise<any> {
+    return this._databaseService.executeQuery<any>(
+      async (db: SQLiteDBConnection) => {
+        var count:DBSQLiteValues= await db.query("select count(*) from products");
+        return count.values[0];
+      }
+    );
+  }
+
+
   async getProductsRelations(): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {

@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   employee: any;
   products: Product[];
   productscount: any;
-
+  data: any;
   page: number;
   limit: number;
   pagebtntmp: any;
@@ -141,6 +141,15 @@ export class ProductsComponent implements OnInit {
          console.log(res)
         return res;
       });
+
+      this.data = {
+        "count": 14453,
+  "data": this.products
+      }
+
+    const count = await this.productRepository.getCounts().then(res => res)
+
+    console.log(count)
   }
   addemployee() {}
 
