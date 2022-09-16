@@ -17,6 +17,7 @@ export class SigninPage implements OnInit {
   password: any;
 
   accountType: any;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   @Output() getPicture = new EventEmitter<WebcamImage>();
   showWebcam = true;
   isCameraExist = true;

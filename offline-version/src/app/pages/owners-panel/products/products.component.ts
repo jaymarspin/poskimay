@@ -89,21 +89,23 @@ export class ProductsComponent implements OnInit {
 
   
   choosenCategory() {
-    this.page = 1;
+    this.p = 1;
 
-    const options = {
-      includeScore: true,
-      // Search in `author` and in `tags` array
-      keys: ['category_id']
-    }
+    this.loadData()
+
+    // const options = {
+    //   includeScore: true,
+    //   // Search in `author` and in `tags` array
+    //   keys: ['category_id']
+    // }
     
-    const fuse = new Fuse(this.productsPersist, options)
-    this.products = new Array<Product>()
-    const result = fuse.search(this.category+'')
+    // const fuse = new Fuse(this.productsPersist, options)
+    // this.products = new Array<Product>()
+    // const result = fuse.search(this.category+'')
  
-    _.forEach(result,value => {
-      this.products.push(value.item)
-    });
+    // _.forEach(result,value => {
+    //   this.products.push(value.item)
+    // });
 
 
   
@@ -132,25 +134,34 @@ export class ProductsComponent implements OnInit {
     await this.loadData();
     await this.getCategory();
   }
+
+
+  pageChange(e: any){
+  
+    this.p = e
+      
+    
+     this.loadData()
+  }
   async loadData() {
     this.global.loading = true;
     this.products = await this.productRepository
-      .getProductsRelations()
+      .getProductsRelations(((20 * (this.p - 1))) - 1,this.category)
       .then((res) => {
          this.productsPersist = res
          console.log(res)
         return res;
       });
 
-      this.data = {
-        "count": 14453,
-  "data": this.products
-      }
+   
 
-    const count = await this.productRepository.getCounts().then(res => res)
-
-    console.log(count)
+    this.productscount = await this.productRepository.getCounts().then(res => res)
+    console.log(this.productscount)
+ 
   }
+ 
+
+
   addemployee() {}
 
   pager(page) {

@@ -38,11 +38,13 @@ export class ProductRepository {
   }
 
 
-  async getProductsRelations(): Promise<Product[]> {
+  async getProductsRelations(offset,category?: string): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
+        const tmpq = category ? `where category_id = ${category} ` : ``;
+        console.log(`select * from products ${tmpq} order by id desc limit 20 offset ${offset}`)
         var products: DBSQLiteValues = await db
-          .query("select * from products order by id desc")
+          .query(`select * from products ${tmpq} order by id desc limit 20 offset ${offset}`)
           .then((res) => res);
 
         const tmp = new Array<Product>();
