@@ -21,7 +21,6 @@ export class ProductsComponent implements OnInit {
   products: Product[];
   productscount: any;
   data: any;
-  page: number;
   limit: number;
   pagebtntmp: any;
   pagebtn: any;
@@ -45,7 +44,6 @@ export class ProductsComponent implements OnInit {
     this.products = new Array();
     this.pagebtn = new Array();
     this.categories = new Array();
-    this.page = 1;
     this.limit = 10;
     this.searchVal = "";
   }
@@ -90,7 +88,7 @@ export class ProductsComponent implements OnInit {
   
   choosenCategory() {
     this.p = 1;
-
+    this.searchVal = null
     this.loadData()
 
     // const options = {
@@ -111,23 +109,9 @@ export class ProductsComponent implements OnInit {
   
   }
   async search() {
-
-    this.page = 1;
-
-    const options = {
-      includeScore: true,
-      // Search in `author` and in `tags` array
-      keys: ['category_id','name']
-    }
-    
-    const fuse = new Fuse(this.productsPersist, options)
-    this.products = new Array<Product>()
-    const result = fuse.search(this.searchVal)
- 
-    _.forEach(result,value => {
-      this.products.push(value.item)
-    });
-
+    this.category = null
+    this.p = 1;
+    this.loadData()
      
   }
   async ionViewDidEnter() {
@@ -146,29 +130,23 @@ export class ProductsComponent implements OnInit {
   async loadData() {
     this.global.loading = true;
     this.products = await this.productRepository
-      .getProductsRelations(((20 * (this.p - 1))) - 1,this.category)
+      .getProductsRelations(((20 * (this.p - 1))) - 1,this.category,this.searchVal)
       .then((res) => {
          this.productsPersist = res
          console.log(res)
         return res;
       });
-
+ 
    
 
-    this.productscount = await this.productRepository.getCounts().then(res => res)
+    this.productscount = await this.productRepository.getCounts(this.category,this.searchVal).then(res => res)
+   
+    this.productscount = parseInt(Object.values(this.productscount)[0]+'')
     console.log(this.productscount)
  
   }
  
-
-
-  addemployee() {}
-
-  pager(page) {
-    this.page = page;
-    this.loadData();
-  }
-
+ 
   gofurther(link) {
     this.router.navigate([link]);
   }
@@ -179,9 +157,9 @@ export class ProductsComponent implements OnInit {
     this.global.lightBoxOpen(images, 0);
   }
   async refresh() {
-    this.page = 1;
-    this.searchVal = "";
-    this.category = 0;
+    this.p = 1;
+    this.searchVal = null;
+    this.category = null;
     await this.loadData();
     await this.getCategory();
   }
