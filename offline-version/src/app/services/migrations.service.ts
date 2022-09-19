@@ -58,6 +58,23 @@ CREATE TABLE IF NOT EXISTS users (
           category TEXT NOT NULL,
           createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
           );
+
+
+          CREATE TABLE IF NOT EXISTS whole_sold
+          (id INTEGER PRIMARY KEY NOT NULL,
+            cash NUMERIC NOT NULL,
+            extras TEXT,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+            );
+
+            CREATE TABLE IF NOT EXISTS sold
+            (id INTEGER PRIMARY KEY NOT NULL,
+              whole_sold_id NUMERIC NOT NULL,
+              product_id NUMERIC NOT NULL,
+              quantity NUMERIC NOT NULL,
+              price_id NUMERIC NOT NULL,
+              createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+              );
  
           
   
@@ -89,9 +106,9 @@ export class MigrationService {
     );
     console.log(`db ${JSON.stringify(db)}`);
     await db.open();
-    // db.exportToJson("full").then((cap) => {
-    //   console.log(cap);
-    // });
+    db.exportToJson("full").then((cap) => {
+      console.log(cap);
+    });
     await this.sqliteService.closeConnection(environment.databaseName);
 
     // res.exportToJson("full").then((cap) => {

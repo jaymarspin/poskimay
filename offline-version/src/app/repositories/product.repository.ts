@@ -11,6 +11,7 @@ import { productPriceRepository } from "./product_prices/product_prices.reposito
 import { categoryRepository } from "./category/category.repository";
 @Injectable()
 export class ProductRepository {
+  table = "products";
   constructor(
     private _databaseService: DatabaseService,
     private productImage: productImageRepository,
@@ -22,7 +23,7 @@ export class ProductRepository {
   async getProducts(): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        var products: DBSQLiteValues = await db.query("select * from products");
+        var products: DBSQLiteValues = await db.query(`select * from ${this.table}`);
         return products.values as Product[];
       }
     );
@@ -34,7 +35,7 @@ export class ProductRepository {
       async (db: SQLiteDBConnection) => {
         const searchq = search ? `where name like '%${search}' or description like '%${search}'` : ''
         const tmpq = category ? `where category_id = ${category} ` : ``;
-        var count:DBSQLiteValues= await db.query(`select count(*) from products ${tmpq} ${searchq}`);
+        var count:DBSQLiteValues= await db.query(`select count(*) from ${this.table} ${tmpq} ${searchq}`);
         return count.values[0];
       }
     );
@@ -46,9 +47,9 @@ export class ProductRepository {
       async (db: SQLiteDBConnection) => {
         const searchq = search ? `where name like '%${search}' or description like '%${search}'` : ''
         const tmpq = category ? `where category_id = ${category} ` : ``;
-        console.log(`select * from products ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
+        console.log(`select * from ${this.table} ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
         var products: DBSQLiteValues = await db
-          .query(`select * from products ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
+          .query(`select * from ${this.table} ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
           .then((res) => res);
 
         const tmp = new Array<Product>();
@@ -91,7 +92,7 @@ export class ProductRepository {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         let sqlcmd: string =
-          "insert into products (name, description, category_id,barcode) values (?, ?, ?, ?)";
+          `insert into ${this.table} (name, description, category_id,barcode) values (?, ?, ?, ?)`;
         let values: Array<any> = [
           product.name,
           product.description,
@@ -111,7 +112,7 @@ export class ProductRepository {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         let sqlcmd: string =
-          "update products set name = ?, description = ?, price = ?, imageUrl = ?, isAvailable = ?, isPopular = ?, category = ? where id = ?";
+          `update ${this.table} set name = ?, description = ?, price = ?, imageUrl = ?, isAvailable = ?, isPopular = ?, category = ? where id = ?`;
         let values: Array<any> = [
           product.name,
           product.description,
@@ -130,7 +131,7 @@ export class ProductRepository {
   async getProductById(id: number): Promise<Product> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        let sqlcmd: string = "select * from products where id = ? limit 1";
+        let sqlcmd: string = `select * from ${this.table} where id = ? limit 1`;
         let values: Array<any> = [id];
         let ret: any = await db.query(sqlcmd, values);
         if (ret.values.length > 0) {
@@ -144,7 +145,7 @@ export class ProductRepository {
   async deleteProductById(id: number): Promise<void> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        await db.query(`delete from products where id = ${id};`);
+        await db.query(`delete from ${this.table} where id = ${id};`);
       }
     );
   }
@@ -152,7 +153,7 @@ export class ProductRepository {
   async getProductsByCategory(category: string): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
-        let sqlcmd: string = "select * from products where category = ?";
+        let sqlcmd: string = `select * from ${this.table} where category = ?`;
         let values: Array<any> = [category];
         let ret: any = await db.query(sqlcmd, values);
         if (ret.values.length > 0) {

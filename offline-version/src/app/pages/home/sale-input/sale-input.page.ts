@@ -8,6 +8,8 @@ import { ProductViewComponent } from './components/product-view/product-view.com
 import { GlobalService } from '../../services/global.service';
 import { PopoverController } from '@ionic/angular';
 import { SaleNoteComponent } from './sale-note/sale-note.component';
+import {wholesoldRepository} from 'src/app/repositories/whole_sold/whole_sold.repository'
+import { wholesold } from 'src/app/models/sold';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -23,7 +25,8 @@ export class SaleInputPage implements OnInit {
     public global: GlobalService,
     private popoverController: PopoverController,
     public http: HttpService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private sold: wholesoldRepository
   ) {
     this.total = 0;
     this.buyaction = false;
@@ -137,34 +140,38 @@ export class SaleInputPage implements OnInit {
     if (this.buyaction === false) {
       if (this.customercash >= this.totalcalculator()) {
         this.buyaction = true;
-        const data = {
+        const data: wholesold = {
           sold: this.global.sales,
-          cash: this.customercash,
-          employeeid: localStorage.getItem(`id`),
-          notes: this.notes,
+          cash: this.customercash, 
+          extras: {
+            notes: this.notes
+          },
         };
         console.log(data);
-        this.http.postData(`add-sold.php`, data).subscribe({
-          next: (res) => {
-            console.log(res);
-            if (res.body.message === 'success') {
-              Swal.fire({
-                title: 'Good Job',
-                icon: 'success',
-                text: 'Transaction Recorded!',
-                backdrop: false,
-              });
-            }
-            this.global.sales = new Array();
-            delete this.customercash;
-            this.notes = '';
-            this.buypause();
-          },
-          error: (err) => {
-            console.log(err);
-            this.buypause();
-          },
-        });
+        this.sold.create(data).then(res =>{
+          console.log(res)
+        })
+        // this.http.postData(`add-sold.php`, data).subscribe({
+        //   next: (res) => {
+        //     console.log(res);
+        //     if (res.body.message === 'success') {
+        //       Swal.fire({
+        //         title: 'Good Job',
+        //         icon: 'success',
+        //         text: 'Transaction Recorded!',
+        //         backdrop: false,
+        //       });
+        //     }
+        //     this.global.sales = new Array();
+        //     delete this.customercash;
+        //     this.notes = '';
+        //     this.buypause();
+        //   },
+        //   error: (err) => {
+        //     console.log(err);
+        //     this.buypause();
+        //   },
+        // });
       } else {
         Swal.fire({
           backdrop: false,

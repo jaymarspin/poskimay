@@ -38,14 +38,14 @@ export class productImageRepository {
     );
   }
 
-  async update(productImage: ProductImage) {
+  async update(data: ProductImage) {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         let sqlcmd: string = `update ${this.table} set blobdata = ?, where id = ?`;
-        let values: Array<any> = [productImage.blobdata, productImage.id];
+        let values: Array<any> = [data.blobdata, data.id];
         let ret: any = await db.run(sqlcmd, values);
         if (ret.changes.changes > 0) {
-          return await this.getById(productImage.id);
+          return await this.getById(data.id);
         } else {
           return [];
         }
