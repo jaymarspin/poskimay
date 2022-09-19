@@ -1,9 +1,9 @@
 <ion-content>
-   
- <ion-grid>
-  <ion-row>
-    <ion-col size="12" class="ion-no-padding">
-     
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-no-padding">
+
         <nav class="nav-horizontal">
           <div class="mask">
             <ul class="list">
@@ -13,30 +13,32 @@
           </div>
         </nav>
 
-      
-    </ion-col>
-  </ion-row>
 
-  <ion-row>
-    <ion-col size="10" class="ion-no-padding">
-      <ion-input (keyup.enter)="search()" [(ngModel)]="searchVal" class="search" placeholder="Search Product Here"></ion-input>
-      <ion-icon class="search-icon" name="search-outline"></ion-icon>
-    </ion-col>
-    <ion-col size="2">
-      <ion-button (click)="refresh()" style="float: right;position: relative;top: -8px;" color='primary'>Refresh</ion-button>
-    </ion-col>
-    
-  </ion-row>
-  <ion-row>
-    <ion-col *ngIf="products" size="12" style="height: auto;overflow: hidden;width: 30%;" class="ion-no-padding">
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="10" class="ion-no-padding">
+        <ion-input (keyup.enter)="search()" [(ngModel)]="searchVal" class="search" placeholder="Search Product Here">
+        </ion-input>
+        <ion-icon class="search-icon" name="search-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button (click)="refresh()" style="float: right;position: relative;top: -8px;" color='primary'>Refresh
+        </ion-button>
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="products" size="12" style="height: auto;overflow: hidden;width: 30%;" class="ion-no-padding">
         <div class="wrapper">
           <div class="product" (click)="presentPopover($event,item)" *ngFor="let item of products">
-            <img [defaultImage]="defaultImage" [lazyLoad]="http.server + item.image.name20"  [useSrcset]="true" />
+            <!-- <img [defaultImage]="defaultImage" [lazyLoad]="http.server + item.image.name20"  [useSrcset]="true" /> -->
             <ion-label class="product_name">{{item.product_name}}</ion-label>
             <ion-label color='danger'>{{item.price.price}}</ion-label>
           </div>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid> 
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

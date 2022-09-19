@@ -72,17 +72,7 @@ export class ProductsComponent implements OnInit {
   async getCategory() {
 
     this.categories = await this.categoryRepository.get().then((res) => res);
-    // this.http.getData("get-categories.php").subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     const result = JSON.parse(JSON.stringify(data));
-    //     this.categories = result;
-    //     console.log(this.categories);
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
+     
   }
 
   

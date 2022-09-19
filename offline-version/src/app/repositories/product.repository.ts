@@ -41,14 +41,14 @@ export class ProductRepository {
   }
 
 
-  async getProductsRelations(offset,category?: string,search?: string): Promise<Product[]> {
+  async getProductsRelations(offset,category?: string,search?: string,limit?: number): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(
       async (db: SQLiteDBConnection) => {
         const searchq = search ? `where name like '%${search}' or description like '%${search}'` : ''
         const tmpq = category ? `where category_id = ${category} ` : ``;
-        console.log(`select * from products ${tmpq} ${searchq} order by id desc limit 20 offset ${offset}`)
+        console.log(`select * from products ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
         var products: DBSQLiteValues = await db
-          .query(`select * from products ${tmpq} ${searchq} order by id desc limit 20 offset ${offset}`)
+          .query(`select * from products ${tmpq} ${searchq} order by id desc limit ${limit ? limit : 20} offset ${offset}`)
           .then((res) => res);
 
         const tmp = new Array<Product>();

@@ -91,8 +91,26 @@ export class SigninPage implements OnInit {
         if (res.name) {
           this.setter(res.id).then(() => {
             // this.router.navigate(['splash'], { replaceUrl: true });
-
-            this.router.navigate(["owners-panel"], { replaceUrl: true });
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              backdrop: false,
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Log in as admin'
+              
+              
+            }).then((result) => {
+              if (result.isConfirmed) {
+                 this.router.navigate(["owners-panel"], { replaceUrl: true });
+              }
+              else{
+                this.router.navigate(['home'], { replaceUrl: true });
+              }
+            })
+           
           });
         }
       });
