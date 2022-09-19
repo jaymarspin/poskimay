@@ -13,6 +13,7 @@ export interface Product {
   stocks?: ProductStocks;
   price?: ProductPrice;
   createdAt?: string;
+  quantity?: number;
 }
 
 export interface ProductImage {

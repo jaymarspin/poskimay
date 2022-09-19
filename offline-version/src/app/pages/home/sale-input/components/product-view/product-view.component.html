@@ -1,9 +1,13 @@
-
-
 <div class="wrapper">
-  <img (click)="viewimg(http.server + item.image.name100)" [src]="http.server + item.image.name50" />
-  <h2>{{item.product_name}}</h2>
+  <img (click)="viewimg(item.productImage.blobdata)" [src]="item.productImage.blobdata" />
+  <h2>{{item.name}}</h2>
   <h3>&#8369; {{item.price.price}}</h3>
-  <p>{{item.description}}</p>
-  <button class="btn" (click)="addProduct()">Add</button>
+  <p>sample description sample description sample description sample descriptionsample descriptionsample
+    descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample
+    descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample
+    descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample
+    descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample descriptionsample
+    descriptionsample descriptionsample descriptionsample description</p>
+
 </div>
+<button class="btn" (click)="addProduct()">Add</button>

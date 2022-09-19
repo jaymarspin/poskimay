@@ -46,6 +46,7 @@ export class ProductViewComponent implements OnInit {
       }
     });
     if (!duplicateCheck.includes(true)) {
+      this.item.quantity = 1
       await this.global.sales.push({
         data: this.item,
       });

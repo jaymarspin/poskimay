@@ -77,6 +77,7 @@ export class ProductRepository {
             productImage: productsimage,
             stocks: productStocks,
             price: productPrice,
+            id: value.id
           };
           tmp.push(productTmp);
         });

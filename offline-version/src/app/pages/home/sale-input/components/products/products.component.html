@@ -34,8 +34,8 @@
       <ion-col *ngIf="products" size="12" style="height: auto;overflow: hidden;width: 30%;" class="ion-no-padding">
         <div class="wrapper">
           <div class="product" (click)="presentPopover($event,item)" *ngFor="let item of products">
-            <!-- <img [defaultImage]="defaultImage" [lazyLoad]="http.server + item.image.name20"  [useSrcset]="true" /> -->
-            <ion-label class="product_name">{{item.product_name}}</ion-label>
+            <img [defaultImage]="defaultImage" [lazyLoad]="item.productImage.blobdata" [useSrcset]="true" />
+            <ion-label class="product_name">{{item.name}}</ion-label>
             <ion-label color='danger'>{{item.price.price}}</ion-label>
           </div>
         </div>
