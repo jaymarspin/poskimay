@@ -10,6 +10,7 @@ import { PopoverController } from '@ionic/angular';
 import { SaleNoteComponent } from './sale-note/sale-note.component';
 import {wholesoldRepository} from 'src/app/repositories/whole_sold/whole_sold.repository'
 import { wholesold } from 'src/app/models/sold';
+import { soldRepository } from 'src/app/repositories/sold/sold.repository';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -26,7 +27,8 @@ export class SaleInputPage implements OnInit {
     private popoverController: PopoverController,
     public http: HttpService,
     private ref: ChangeDetectorRef,
-    private sold: wholesoldRepository
+    private wholesold: wholesoldRepository,
+    private sold: soldRepository
   ) {
     this.total = 0;
     this.buyaction = false;
@@ -148,8 +150,10 @@ export class SaleInputPage implements OnInit {
           },
         };
         console.log(data);
-        this.sold.create(data).then(res =>{
-          console.log(res)
+        this.wholesold.create(data).then(res =>{
+          _.forEach(this.global.sales,value => {
+            console.log(value)
+          });
         })
         // this.http.postData(`add-sold.php`, data).subscribe({
         //   next: (res) => {
