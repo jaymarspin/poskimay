@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   declarations: [HeaderComponent],
   imports: [
@@ -12,6 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     IonicModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    NgxPaginationModule
   ],
   exports: [HeaderComponent],
 })

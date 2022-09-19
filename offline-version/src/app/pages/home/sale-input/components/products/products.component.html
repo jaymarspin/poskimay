@@ -7,6 +7,7 @@
         <nav class="nav-horizontal">
           <div class="mask">
             <ul class="list">
+              <li><a>All</a></li>
               <li *ngFor="let item of categories" (click)="choosenCategory(item.id)"><a>{{item.category}}</a></li>
 
             </ul>

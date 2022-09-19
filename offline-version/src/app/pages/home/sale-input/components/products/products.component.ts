@@ -60,7 +60,7 @@ export class ProductsComponent implements OnInit {
 
   choosenCategory(id) {
     this.category = id;
-    this.searchVal = '';
+    this.searchVal = null;
     this.loadData();
   }
 
@@ -119,7 +119,7 @@ export class ProductsComponent implements OnInit {
  
       this.global.loading = true;
       this.products = await this.productRepository
-        .getProductsRelations(((20 * (this.p - 1))) - 1,this.category,this.searchVal, 50)
+        .getProductsRelations(((50 * (this.p - 1))) - 1,this.category,this.searchVal, 50)
         .then((res) => {
            this.productsPersist = res
            console.log(res)
@@ -136,13 +136,13 @@ export class ProductsComponent implements OnInit {
   }
   
   refresh() {
-    this.searchVal = '';
-    this.page = 1;
-    this.category = 0;
+    this.searchVal = null;
+    this.p = 1;
+    this.category = null;
     this.loadData();
   }
   search() {
-    this.page = 1;
+    this.p = 1;
     this.category = 0;
     this.loadData();
   }
