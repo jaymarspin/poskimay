@@ -19,15 +19,7 @@ export class ProductViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.item);
-    // this.http.getData(`get-product.php?id=${this.id}`).subscribe({
-    //   next: data =>{
-    //     console.log(data);
-    //   },
-    //   error: err =>{
-    //     console.log(err);
-    //   }
-    // });
+ 
   }
   viewimg(src) {
     const img = Array({
