@@ -1,6 +1,6 @@
 
 
- @media (min-width: 1025px){
+ 
     #barcode-input{
         background-color: #fff;
         padding: 15px;
@@ -104,27 +104,7 @@
         font-size: 18px;
     }
     
-}
-
-@media (min-width: 768px) and (max-width: 1204px) {
-    
-}
-super-tabs-toolbar {
-    &:after {
-      background: transparent;
-    }
-  }
-
-  .enter-cash{
-    text-align: right;
-    padding-right: 50px;
-}
-
-:host {  
-    --super-tabs-toolbar-background: #fff;
-
-    --st-indicator-color: rgb(206, 206, 57);
-  }
+ 
 //   :root {
 //     --st-base-color-inactive: rgba(255, 255, 255, 0.6);
 //     --st-base-color-active: rgba(255, 255, 255, 0.99);

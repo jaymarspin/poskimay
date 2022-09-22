@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SoldActionsComponent } from 'src/app/pages/owners-panel/sold-actions/sold-actions.component';
 import { GlobalService } from '../../../../services/global.service';
 import { HttpService } from '../../../../services/http.service';
-import Swal from 'sweetalert2';
+ 
 import { FormGroup, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-todays-transaction',

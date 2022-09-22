@@ -8,30 +8,31 @@
   <ion-grid>
     <ion-row>
       <ion-col size="8" class="ion-no-padding">
-        <ion-tabs class="ion-no-padding" >
+        <ion-tabs class="ion-no-padding">
           <ion-tab-bar slot="top" color='dark'>
             <ion-tab-button tab="product">
               <ion-icon name="calendar"></ion-icon>
               <ion-label>Products</ion-label>
               <ion-badge color="warning">6</ion-badge>
             </ion-tab-button>
-        
-           
-        
+
+
+
             <ion-tab-button tab="transactions">
               <ion-icon name="map"></ion-icon>
               <ion-label>Today's Transactions</ion-label>
             </ion-tab-button>
-        
-            
+
+
           </ion-tab-bar>
         </ion-tabs>
       </ion-col>
-  
+
       <ion-col size="4">
         <ion-row>
-          <ion-col size="12" class="ion-no-padding" style="display: block;z-index: 99;position: relative;" >
-            <ion-input id="barcode-input" [(ngModel)]="barcode" (keyup.enter)="codeinputchange()" placeholder="Barcode scanner">
+          <ion-col size="12" class="ion-no-padding" style="display: block;z-index: 99;position: relative;">
+            <ion-input id="barcode-input" [(ngModel)]="barcode" (keyup.enter)="codeinputchange()"
+              placeholder="Barcode scanner">
 
             </ion-input>
             <ion-icon class="search-icon" name="search-outline"></ion-icon>
@@ -40,7 +41,7 @@
         <ion-row class="table-head-wrapper">
           <ion-col class="ion-no-padding" size="4" class="table-head">
             <ion-label color="medium">Product</ion-label>
-          </ion-col >
+          </ion-col>
           <ion-col class="ion-no-padding" size="2" class="table-head">
             <ion-label color="medium">Price</ion-label>
           </ion-col>
@@ -56,50 +57,55 @@
             <ion-list>
               <!-- Sliding item with text options on both sides -->
               <ion-item-sliding *ngFor="let item of global.sales;index as i;">
-                
-            
+
+
                 <ion-item lines="full" class="ion-no-padding">
                   <ion-grid>
                     <ion-row>
                       <ion-col size="4" class="ion-no-padding">
-                        <ion-label color="dark" style="text-align: left;padding-left: 2px;">{{item.data.product_name}}</ion-label>
+                        <ion-label color="dark" style="text-align: left;padding-left: 2px;">{{item.data.product_name}}
+                        </ion-label>
                       </ion-col>
-                      <ion-col size="2" class="ion-no-padding" >
-                        <ion-label  color="dark">{{item.data.price.price}}</ion-label>
+                      <ion-col size="2" class="ion-no-padding">
+                        <ion-label color="dark">{{item.data.price.price}}</ion-label>
                       </ion-col>
                       <ion-col size="3" class="ion-no-padding">
-                        <ion-input #quantity step="0.1" type="number" [(ngModel)]='item.data.quantity' (keyup)="quantity.value = checkInput(quantity.value)" (change)="quantity.value = inputChange(quantity.value)" style="text-align: center;top: -5px;position: relative;"></ion-input>
+                        <ion-input #quantity step="0.1" type="number" [(ngModel)]='item.data.quantity'
+                          (keyup)="quantity.value = checkInput(quantity.value)"
+                          (change)="quantity.value = inputChange(quantity.value)"
+                          style="text-align: center;top: -5px;position: relative;"></ion-input>
                       </ion-col>
-                      <ion-col size="3" class="ion-no-padding" >
+                      <ion-col size="3" class="ion-no-padding">
                         <ion-label color="dark">{{quantityCalc(item.data.price.price, quantity.value)}}</ion-label>
                       </ion-col>
                     </ion-row>
-                    
+
                   </ion-grid>
                 </ion-item>
-                
+
                 <ion-item-options side="start">
-                  <ion-item-option color="primary" (click)="presentPopover($event,item.data)">View Product</ion-item-option>
+                  <ion-item-option color="primary" (click)="presentPopover($event,item.data)">View Product
+                  </ion-item-option>
                 </ion-item-options>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="delete(i)">Delete</ion-item-option>
                 </ion-item-options>
               </ion-item-sliding>
-               
-                    
+
+
             </ion-list>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="12" class="ion-no-padding">
             <ion-list>
-              
-              
+
+
               <ion-item lines="full" class="ion-no-padding">
                 <ion-grid>
                   <ion-row>
                     <ion-col size="2" class="ion-no-padding">
-                      
+
                       <ion-label color="medium" class="ion-text-wrap">
                         TAX
                       </ion-label>
@@ -111,8 +117,8 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                
-                
+
+
               </ion-item>
 
               <ion-item lines="full" class="ion-no-padding">
@@ -130,8 +136,8 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                
-                
+
+
               </ion-item>
               <ion-item lines="full" class="ion-no-padding">
                 <ion-grid>
@@ -142,12 +148,13 @@
                       </ion-label>
                     </ion-col>
                     <ion-col size="9" class="ion-no-padding">
-                      <ion-input #cash [(ngModel)]="customercash" type='number' [disabled]="totalcalculator() !== 0 ? false : true" class="enter-cash"></ion-input>
+                      <ion-input #cash [(ngModel)]="customercash" type='number'
+                        [disabled]="totalcalculator() !== 0 ? false : true" class="enter-cash"></ion-input>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                
-                
+
+
               </ion-item>
               <ion-item lines="full" class="ion-no-padding">
                 <ion-grid>
@@ -158,59 +165,63 @@
                       </ion-label>
                     </ion-col>
                     <ion-col size="9" class="ion-no-padding">
-                      <ion-input type='number' *ngIf="cash.value" [value]="changeCalc(cash.value)" disabled class="enter-cash"></ion-input>
+                      <ion-input type='number' *ngIf="cash.value" [value]="changeCalc(cash.value)" disabled
+                        class="enter-cash"></ion-input>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                
-                
+
+
               </ion-item>
               <ion-item lines="full" class="ion-no-padding">
                 <ion-grid>
                   <ion-row>
-                    <ion-col size="3" class="ion-no-padding" (click)="addNote($event)" *ngIf="!notes;else changenote" >
-                      <ion-label  color="primary" style="text-decoration: underline;cursor: pointer;" class="ion-text-wrap">
+                    <ion-col size="3" class="ion-no-padding" (click)="addNote($event)" *ngIf="!notes;else changenote">
+                      <ion-label color="primary" style="text-decoration: underline;cursor: pointer;"
+                        class="ion-text-wrap">
                         Add note
                       </ion-label>
                     </ion-col>
                     <ion-col size="3">
-                    <ng-template #changenote>
-                      <ion-label (click)="addNote($event)" color="primary" style="text-decoration: underline;cursor: pointer;">
-                      Change note
-                    </ion-label>
-                    <ion-label  color="danger" (click)="clearNote()" style="text-decoration: underline;cursor: pointer;" >
-                      Clear note
-                    </ion-label>
-                    </ng-template>
-                  </ion-col>
+                      <ng-template #changenote>
+                        <ion-label (click)="addNote($event)" color="primary"
+                          style="text-decoration: underline;cursor: pointer;">
+                          Change note
+                        </ion-label>
+                        <ion-label color="danger" (click)="clearNote()"
+                          style="text-decoration: underline;cursor: pointer;">
+                          Clear note
+                        </ion-label>
+                      </ng-template>
+                    </ion-col>
                     <ion-col size="9" class="ion-no-padding">
                       <ion-label>{{notes}}</ion-label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-item>
-            
+
             </ion-list>
           </ion-col>
         </ion-row>
-        
+
         <ion-row>
-          <ion-col  size="6" class="ion-no-padding" (click)="cancel()">
+          <ion-col size="6" class="ion-no-padding" (click)="cancel()">
             <div class="ion-activatable btn btn-cancel">
               <span>Cancel</span>
               <ion-ripple-effect></ion-ripple-effect>
             </div>
           </ion-col>
-          <ion-col  size="6" class="ion-no-padding">
+          <ion-col size="6" class="ion-no-padding">
             <div class='back-drop' *ngIf="buyaction === true"></div>
             <div class="ion-activatable btn btn-success" (click)="buynow()">
-              <span>Pay</span>
+              <span>Pay</span>adwd
               <ion-ripple-effect></ion-ripple-effect>
             </div>
           </ion-col>
         </ion-row>
       </ion-col>
-      
+
     </ion-row>
   </ion-grid>
-</ion-content>  
+</ion-content>

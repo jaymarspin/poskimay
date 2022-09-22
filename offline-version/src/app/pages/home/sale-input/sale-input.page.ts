@@ -11,6 +11,7 @@ import { SaleNoteComponent } from './sale-note/sale-note.component';
 import {wholesoldRepository} from 'src/app/repositories/whole_sold/whole_sold.repository'
 import { wholesold } from 'src/app/models/sold';
 import { soldRepository } from 'src/app/repositories/sold/sold.repository';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -28,8 +29,10 @@ export class SaleInputPage implements OnInit {
     public http: HttpService,
     private ref: ChangeDetectorRef,
     private wholesold: wholesoldRepository,
-    private sold: soldRepository
+    private sold: soldRepository,
+    public deviceDetector: DeviceDetectorService
   ) {
+    // alert(this.deviceDetector.deviceType)
     this.total = 0;
     this.buyaction = false;
     this.notes = '';

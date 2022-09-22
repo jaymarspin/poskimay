@@ -62,7 +62,6 @@ export class SigninPage implements OnInit {
       this.loading = true;
       this.http.postData('signin.php', data).subscribe({
         next: (datas) => {
-          console.log(datas.body);
           this.loading = false;
           if (datas.body.message === 'success') {
             Swal.fire('Good job!', 'You clicked the button!', 'success').then(

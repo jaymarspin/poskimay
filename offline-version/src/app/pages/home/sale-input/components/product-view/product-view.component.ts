@@ -39,9 +39,21 @@ export class ProductViewComponent implements OnInit {
     });
     if (!duplicateCheck.includes(true)) {
       this.item.quantity = 1
-      await this.global.sales.push({
-        data: this.item,
-      });
+      console.log(this.item.price.price)
+      if(this.item.price.price){
+        this.global.sales.push({
+          data: this.item,
+        });
+      }else{
+        Swal.fire({
+          backdrop: false,
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Product has no price',
+          footer: '',
+        });
+      }
+       
     } else {
       Swal.fire({
         backdrop: false,
