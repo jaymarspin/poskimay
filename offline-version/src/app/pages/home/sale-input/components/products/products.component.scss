@@ -5,6 +5,9 @@ ion-grid{
   display: block;
   width: 100%;
 }
+ion-content{
+  overflow: hidden;
+}
      ion-row{
          position: relative;
          margin-bottom: 10px;
