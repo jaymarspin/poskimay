@@ -1,13 +1,12 @@
-
-
  
+    
     #barcode-input{
         background-color: #fff;
         padding: 15px;
         font-size: 20px;
         width: 100%;
         height: 4.7vh;
-        color: #333;
+        color: #333; 
     }
     .search-icon{
         position: absolute;
@@ -16,12 +15,13 @@
         right: 10px;
         font-size: 20px;
         color: #888;
-        margin-top: -8px;
+        margin-top: -8px; 
  
     }
     .table-head-wrapper{
         position: relative;
         margin-top: 0px;
+        height: 33px;
         .table-head{
             
             ion-label{
@@ -33,7 +33,7 @@
         }
     }.sale-wrapper{
         background-color: #fff;
-        height: calc(64vh - 12.7vh);
+        height: calc(64vh - 23.4vh);
         position: relative;
         width: 100%;  
         overflow: scroll;
@@ -109,3 +109,9 @@
 //     --st-base-color-inactive: rgba(255, 255, 255, 0.6);
 //     --st-base-color-active: rgba(255, 255, 255, 0.99);
 //   }
+
+
+
+.tablet{
+
+}

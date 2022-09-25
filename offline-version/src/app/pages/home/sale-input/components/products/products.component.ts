@@ -8,6 +8,7 @@ import { Product } from 'src/app/models/Product';
 import { ProductRepository } from 'src/app/repositories/product.repository';
 import { productImageRepository } from 'src/app/repositories/product_images/product_images.repository';
 import { categoryRepository } from "src/app/repositories/category/category.repository";
+import * as $ from 'jquery'
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -52,6 +53,7 @@ export class ProductsComponent implements OnInit {
   async ngOnInit() {
     await this.loadData();
     await this.getCategory();
+     
   }
   async getCategory() {
     this.categories = await this.categoryRepository.get().then((res) => res);

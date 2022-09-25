@@ -23,6 +23,7 @@ export class SaleInputPage implements OnInit {
   buyaction: any;
   customercash: any;
   notes: any;
+  class = ''
   constructor(
     public global: GlobalService,
     private popoverController: PopoverController,
@@ -32,7 +33,10 @@ export class SaleInputPage implements OnInit {
     private sold: soldRepository,
     public deviceDetector: DeviceDetectorService
   ) {
-    // alert(this.deviceDetector.deviceType)
+ 
+    if(this.deviceDetector.deviceType === 'tablet'){
+      this.class ='tablet'
+    }
     this.total = 0;
     this.buyaction = false;
     this.notes = '';
@@ -158,27 +162,7 @@ export class SaleInputPage implements OnInit {
             console.log(value)
           });
         })
-        // this.http.postData(`add-sold.php`, data).subscribe({
-        //   next: (res) => {
-        //     console.log(res);
-        //     if (res.body.message === 'success') {
-        //       Swal.fire({
-        //         title: 'Good Job',
-        //         icon: 'success',
-        //         text: 'Transaction Recorded!',
-        //         backdrop: false,
-        //       });
-        //     }
-        //     this.global.sales = new Array();
-        //     delete this.customercash;
-        //     this.notes = '';
-        //     this.buypause();
-        //   },
-        //   error: (err) => {
-        //     console.log(err);
-        //     this.buypause();
-        //   },
-        // });
+        
       } else {
         Swal.fire({
           backdrop: false,
