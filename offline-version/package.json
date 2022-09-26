@@ -52,6 +52,7 @@
     "apexcharts": "^3.35.5",
     "base64-blob": "^1.4.1",
     "cordova-plugin-statusbar": "^3.0.0",
+    "fast-sort": "^3.2.0",
     "fuse.js": "^6.6.2",
     "jquery": "^3.6.1",
     "ng-lazyload-image": "^9.1.3",

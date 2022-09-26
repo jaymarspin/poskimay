@@ -4,12 +4,16 @@ import {
   } from "@capacitor-community/sqlite";
   import { Injectable } from "@angular/core";
   import { DatabaseService } from "../../services/database.service"; 
-import { wholesold } from "src/app/models/sold";
-  
+import { sold, wholesold } from "src/app/models/sold";
+import { ProductRepository } from "../product.repository";
+import { soldRepository } from "../sold/sold.repository";
+import { response } from "src/app/models/common";
+import { productPriceRepository } from "../product_prices/product_prices.repositories";
+import { sort } from 'fast-sort';
   @Injectable()
   export class wholesoldRepository {
     table = "whole_sold";
-    constructor(private _databaseService: DatabaseService) {}
+    constructor(private _databaseService: DatabaseService,private product: ProductRepository,private sold: soldRepository,private price: productPriceRepository) {}
   
     async get(): Promise<wholesold[]> {
       return this._databaseService.executeQuery<any>(
@@ -17,18 +21,55 @@ import { wholesold } from "src/app/models/sold";
           var products: DBSQLiteValues = await db.query(
             `select * from ${this.table}`
           );
-          return products.values as wholesold[];
+          return await products.values as wholesold[];
         }
       );
+
     }
 
     async getWithRelations(offset?: number,limit?: number): Promise<wholesold[]> {
         return this._databaseService.executeQuery<any>(
           async (db: SQLiteDBConnection) => {
-            var products: DBSQLiteValues = await db.query(
-              `select * from ${this.table}`
+            var wholesolds: DBSQLiteValues = await db.query(
+              `select * from ${this.table} order by id desc`
             );
-            return products.values as wholesold[];
+  
+            const tmp = new Array<wholesold>();
+            
+            wholesolds.values.map(async (value: wholesold, i) =>{
+              const sold = await this.sold.getByWholesoldId(value.id).then(res => res)
+              const tmpsold = new Array<sold>();
+              sold.forEach(async (value,i) =>{
+                const product = await this.product.getProductById(value.product_id ).then(res => res)
+                const price = await this.price.getByProductId(value.product_id ).then(res => res)
+                tmpsold.push({
+                  whole_sold_id: value.whole_sold_id,
+                  product_id: value.product_id,
+                  quantity: value.quantity,
+                  price_id: value.price_id,
+                  product: product,
+                  price: price
+                })
+                
+              })
+              
+              const soldTmp: wholesold = {
+                cash: value.cash,
+                id: value.id,
+                sold: tmpsold,
+                extras: value.extras,
+                createdAt: value.createdAt
+  
+              };
+
+              // const product = await this.product.getProductById( )
+              
+              tmp.push(soldTmp)
+  
+          })
+
+         
+            return tmp as wholesold[];
           }
         );
       }
@@ -45,14 +86,16 @@ import { wholesold } from "src/app/models/sold";
           }
         );
       }
-    async create(data: wholesold) {
+    async create(data: wholesold) : Promise<response> {
       return this._databaseService.executeQuery<any>(
         async (db: SQLiteDBConnection) => {
           let sqlcmd: string = `insert into ${this.table} (cash,extras) values (?, ?)`;
           let values: Array<any> = [data.cash,JSON.stringify(data.extras)];
           let ret: any = await db.run(sqlcmd, values);
           if (ret.changes.lastId > 0) {
-            return ret.changes as wholesold;
+
+            
+            return ret.changes as response;
           } else {
             return [];
           }

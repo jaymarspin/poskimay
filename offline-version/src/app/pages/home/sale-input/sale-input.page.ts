@@ -12,6 +12,8 @@ import {wholesoldRepository} from 'src/app/repositories/whole_sold/whole_sold.re
 import { wholesold } from 'src/app/models/sold';
 import { soldRepository } from 'src/app/repositories/sold/sold.repository';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { SQLiteService } from 'src/app/services/sqlite.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-sale-input',
   templateUrl: './sale-input.page.html',
@@ -31,7 +33,8 @@ export class SaleInputPage implements OnInit {
     private ref: ChangeDetectorRef,
     private wholesold: wholesoldRepository,
     private sold: soldRepository,
-    public deviceDetector: DeviceDetectorService
+    public deviceDetector: DeviceDetectorService,
+    private sqliteService: SQLiteService,
   ) {
  
     if(this.deviceDetector.deviceType === 'tablet'){
@@ -156,11 +159,24 @@ export class SaleInputPage implements OnInit {
             notes: this.notes
           },
         };
-        console.log(data);
-        this.wholesold.create(data).then(res =>{
-          _.forEach(this.global.sales,value => {
-            console.log(value)
-          });
+       
+        this.wholesold.create(data).then(async res =>{
+        
+
+          for (let index = 0; index < data.sold.length; index++) {
+            let tmp = await this.addSold(res.lastId,data.sold[index].data)
+            console.log(tmp)
+            
+          }
+            // data.sold.forEach(async value => {
+              
+              
+            //    await this.addSold(res.lastId,value.data)
+            //    console.log('yeah')
+              
+            // });
+          
+         
         })
         
       } else {
@@ -173,6 +189,16 @@ export class SaleInputPage implements OnInit {
         });
       }
     }
+  }
+
+  addSold(id,data):Promise<any>{
+    return new Promise(async (resolve,reject) =>{
+
+      let tmp = await this.sold.create(id,data).then(res => res)
+      resolve(tmp)
+
+  
+    })
   }
   buypause() {
     setTimeout(() => {

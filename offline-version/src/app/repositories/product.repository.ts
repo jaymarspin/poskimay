@@ -149,6 +149,7 @@ export class ProductRepository {
       }
     );
   }
+ 
 
   async getProductsByCategory(category: string): Promise<Product[]> {
     return this._databaseService.executeQuery<any>(

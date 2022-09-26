@@ -16,6 +16,9 @@
    
 }ion-grid{ 
     width: 100%;
+    // border: 1px solid #000;
+    height: 70vh;
+    overflow: auto;
     text-align: center;
 }.badge-wrapper{
     position: relative;

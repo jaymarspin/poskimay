@@ -6,6 +6,10 @@ import { GlobalService } from '../../../../services/global.service';
 import { HttpService } from '../../../../services/http.service';
  
 import { FormGroup, FormControl } from '@angular/forms';
+import { wholesoldRepository } from 'src/app/repositories/whole_sold/whole_sold.repository';
+import { Product } from 'src/app/models/Product';
+import { sort } from 'fast-sort';
+import { wholesold } from 'src/app/models/sold';
 @Component({
   selector: 'app-todays-transaction',
   templateUrl: './todays-transaction.component.html',
@@ -16,16 +20,17 @@ export class TodaysTransactionComponent implements OnInit {
   limit: number;
   pagebtntmp: any;
   pagebtn: any;
-  sold: any;
+  sold = new Array<wholesold>();
   soldcount: any;
   campaignOne: FormGroup;
   constructor(
     public global: GlobalService,
     public http: HttpService,
     private router: Router,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private wholesold: wholesoldRepository
   ) {
-    this.sold = new Array();
+    this.sold = new Array<wholesold>();
     this.pagebtn = new Array();
 
     this.page = 1;
@@ -42,41 +47,51 @@ export class TodaysTransactionComponent implements OnInit {
 
   ngOnInit() {}
 
-  async loadData(dates) {
-    this.global.loading = true;
-    await this.http
-      .getData(
-        `get-bulk-sold.php?
-      limit=${this.limit}
-      &page=${this.page}
-      &start=${this.global.formattedDate(dates.start)},
-          &end=${this.global.formattedDate(dates.end)}`
-      )
-      .subscribe({
-        next: (data) => {
-          this.sold = new Array();
+  async loadData() {
 
-          const result = JSON.parse(JSON.stringify(data));
-          console.log(result);
-          this.soldcount = result.sold_count;
-          const length = result.sold.length;
+     const tmp = await this.wholesold.getWithRelations(((20 * (this.page - 1))) - 1).then(res => res)
+     console.log(this.sold)
 
-          this.pagebtntmp = this.soldcount / this.limit;
-          this.pagebtn = Array();
-          for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
-            this.pagebtn.push(ii);
-          }
-          for (let i = 0; i < length; i++) {
-            this.sold.push(result.sold[i]);
-            console.log(this.sold);
-          }
 
-          this.global.loading = false;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+     const sorted = sort(tmp).desc([
+      u => u.id, 
+    ]);
+    this.sold = sorted
+     
+    // this.global.loading = true;
+    // await this.http
+    //   .getData(
+    //     `get-bulk-sold.php?
+    //   limit=${this.limit}
+    //   &page=${this.page}
+    //   &start=${this.global.formattedDate(dates.start)},
+    //       &end=${this.global.formattedDate(dates.end)}`
+    //   )
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.sold = new Array();
+
+    //       const result = JSON.parse(JSON.stringify(data));
+    //       console.log(result);
+    //       this.soldcount = result.sold_count;
+    //       const length = result.sold.length;
+
+    //       this.pagebtntmp = this.soldcount / this.limit;
+    //       this.pagebtn = Array();
+    //       for (let ii = 1; ii < this.pagebtntmp + 1; ii++) {
+    //         this.pagebtn.push(ii);
+    //       }
+    //       for (let i = 0; i < length; i++) {
+    //         this.sold.push(result.sold[i]);
+    //         console.log(this.sold);
+    //       }
+
+    //       this.global.loading = false;
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //     },
+    //   });
   }
   async getInitialDate() {
     return this.campaignOne.value;
@@ -84,14 +99,15 @@ export class TodaysTransactionComponent implements OnInit {
   pager(page) {
     this.page = page;
     this.getInitialDate().then((data) => {
-      this.loadData(data);
+      this.loadData();
     });
   }
-  getPaid(products) {
+  getPaid(products: Product[]) {
+    // console.log(products)
     let tmp: any = 0;
     for (const iterator of products) {
       tmp += this.global.round2Fixed(
-        iterator.quantity * iterator.product.price.price
+        iterator.quantity * iterator.price.price
       );
     }
     return tmp;
@@ -110,13 +126,21 @@ export class TodaysTransactionComponent implements OnInit {
   refresh() {
     this.page = 1;
     this.getInitialDate().then((data) => {
-      this.loadData(data);
+      this.loadData();
     });
   }
 
   ionViewDidEnter() {
     this.getInitialDate().then((data) => {
-      this.loadData(data);
+      this.loadData();
     });
+  }
+
+  pageChange(e: any){
+  
+    this.page = e
+      
+    
+     this.loadData()
   }
 }

@@ -12,7 +12,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { TodaysTransactionComponent } from './components/todays-transaction/todays-transaction.component';
 import { DiscountsComponent } from './components/discounts/discounts.component';
-import { SaleNoteComponent } from './sale-note/sale-note.component';
+import { SaleNoteComponent } from './sale-note/sale-note.component'; 
+import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,8 @@ import { SaleNoteComponent } from './sale-note/sale-note.component';
     IonicModule.forRoot(),
     SaleInputPageRoutingModule,
     SuperTabsModule,
-    LazyLoadImageModule,
+    LazyLoadImageModule,NgxPaginationModule
+    
   ],
   declarations: [
     SaleInputPage,

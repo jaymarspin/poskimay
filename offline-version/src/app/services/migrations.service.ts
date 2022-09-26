@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS users (
 
       CREATE TABLE IF NOT EXISTS product_price
       (id INTEGER PRIMARY KEY NOT NULL,
-        product_id INTEGER NOT NULL,
+        product_id NUMERIC NOT NULL,
         price NUMERIC NOT NULL, 
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
         );
