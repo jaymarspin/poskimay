@@ -13,6 +13,7 @@ import { NgxPaginationModule } from "ngx-pagination";
     MatProgressSpinnerModule,
     MatProgressBarModule,
     NgxPaginationModule
+    
   ],
   exports: [HeaderComponent],
 })
