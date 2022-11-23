@@ -183,10 +183,9 @@ export class AddProductsComponent implements OnInit {
       const stocksvar = await this.productStocks.get().then((res) => res);
 
       const price = await this.productPrice.get().then((res) => res);
-      console.log(images);
-      console.log(products);
-      console.log(stocksvar);
-      console.log(price);
+
+
+      Swal.fire({ title: "product succesfully added", showConfirmButton: true })
       // await this.http.postData(link, data).subscribe({
       //   next: (datas) => {
       //     this.global.loading = false;
