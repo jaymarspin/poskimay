@@ -6,15 +6,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { ReportsPageRoutingModule } from './reports-routing.module';
 
-import { ReportsPage } from './reports.page';
-import { NgxPrintModule } from 'ngx-print';
+import { ReportsPage } from './reports.page'; 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReportsPageRoutingModule,
-    NgxPrintModule,
+    ReportsPageRoutingModule, 
   ],
   declarations: [ReportsPage],
 })
